@@ -1,0 +1,22 @@
+{
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "root": true,
+  "rules": {
+    // Prevent default react imports like import React from "react"
+    // but still allows other named react imports.
+    "no-restricted-imports": [
+      "warn",
+      {
+        "paths": [
+          {
+            "name": "react",
+            "importNames": ["default"],
+            "message": "React default is automatically imported by webpack."
+          }
+        ]
+      }
+    ]
+  }
+}
