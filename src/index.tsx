@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client';
-import { App } from './App';
+import { App } from './app';
 
 const rootNode = document.getElementById('app');
 if(rootNode){
