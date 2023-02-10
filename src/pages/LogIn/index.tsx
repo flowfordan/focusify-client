@@ -1,4 +1,4 @@
-const Login = () => {
+export const LogIn = () => {
   //header
   //form
   return(

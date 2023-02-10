@@ -1,4 +1,4 @@
-const SignUp = () => {
+export const SignUp = () => {
   //header
   //form
   return(

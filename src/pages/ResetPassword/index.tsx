@@ -1,4 +1,4 @@
-const ResetPassword = () => {
+export const ResetPassword = () => {
   //header
   //form
   return(

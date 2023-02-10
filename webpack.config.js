@@ -10,6 +10,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 
+//resolve paths as in tsconfig
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+
 const path = require('path');
 const webpack = require('webpack');
 const prod = process.env.NODE_ENV === 'production';
@@ -69,6 +72,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js'],
+    plugins: [new TsconfigPathsPlugin()]
   },
   output: {
     path: path.resolve(__dirname, './dist'),

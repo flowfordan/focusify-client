@@ -1,4 +1,4 @@
-const Home = () => {
+export const Home = () => {
   //header
   //widget Sounds
   //widget Timer

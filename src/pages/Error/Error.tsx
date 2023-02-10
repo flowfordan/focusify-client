@@ -1,4 +1,4 @@
-const Error = () => {
+export const Error = () => {
   //header
   //error
   return(

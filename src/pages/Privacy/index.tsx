@@ -1,4 +1,4 @@
-const Privacy = () => {
+export const Privacy = () => {
   //header
   //form
   return(
