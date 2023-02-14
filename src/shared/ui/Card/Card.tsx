@@ -7,7 +7,9 @@ export const Card = forwardRef(function Card(
     { color='white', children, className, ...props }: CardProps, ref: ForwardedRef<HTMLDivElement>){
 
     return (
-        <div className='card'
+        <div className={cn('card', {
+          ['card--blue']: color === 'blue'
+        })}
         {...props}
         ref={ref}
         >
@@ -16,3 +18,10 @@ export const Card = forwardRef(function Card(
     );
     
 });
+
+
+
+
+//            className={cn(styles.input, {
+//   [styles.error]: error
+// })} 
