@@ -2,14 +2,7 @@ import React from "react"
 import ReactDOM from "react-dom"
 import { makeAutoObservable } from "mobx"
 import { observer } from "mobx-react-lite"
-
-interface ITask {
-  id: string;
-  title: string;
-  description: string;
-  isCompleted: boolean;
-  isInFocus: boolean;
-}
+import { ITask } from "shared/model"
 
 const tempInitTasks: Array<ITask> = [
   {
@@ -56,7 +49,10 @@ class TaskModel {
       if(taskIdx > -1) {
         const task = this.tasks[taskIdx];
         task.isCompleted = !task.isCompleted;
+
+        console.log('model Task. TOGGLE:', task.id, task.isCompleted)
       }
+      
     }
     
 }
