@@ -1,2 +1,2 @@
-export{ TaskItemList } from "./ui/TaskItemList";
+export{ TaskItem } from "./ui/TaskItem";
 export { taskModel } from "./model";

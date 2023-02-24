@@ -1,5 +1,5 @@
 import { taskModel } from "entities/Task";
-import { TaskItemList } from "entities/Task";
+import { TaskItem } from "entities/Task";
 import { ToggleTask } from "features/Task";
 import { observer } from "mobx-react-lite"
 
@@ -10,7 +10,7 @@ export const Tasks = observer(() => {
       <div>Tasks List</div>
       <div>{tasks.map(item => {
         return (
-          <TaskItemList taskData={item}  key={item.id} toggle={<ToggleTask taskId={item.id}/>}/>)
+          <TaskItem taskData={item}  key={item.id} toggle={<ToggleTask taskId={item.id}/>}/>)
       })}</div>
     </div>
   )
