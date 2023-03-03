@@ -8,7 +8,7 @@ export const Tasks = observer(() => {
     <div>
       <div>Tasks List</div>
       <div>{tasks.map(item => {
-        if(item.isExpanded) return <TaskItemExt taskData={item}  key={item.id} toggle={<ToggleTask taskId={item.id}/>} onClick={() => expandTask(item.id)}/>
+        if(item.isExpanded) return <TaskItem isExpanded taskData={item}  key={item.id} toggle={<ToggleTask taskId={item.id}/>} onClick={() => expandTask(item.id)}/>
         return (
           <TaskItem taskData={item}  key={item.id} toggle={<ToggleTask taskId={item.id}/>} onClick={() => expandTask(item.id)}/>)
       })}</div>

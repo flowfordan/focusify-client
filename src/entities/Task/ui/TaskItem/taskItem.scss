@@ -7,3 +7,13 @@
   display: flex;
   flex-direction: column;
 }
+
+.taskItem--expanded {
+  background-color: rgb(87, 171, 255);
+
+  border-radius: 5px;
+  border: 2px solid rgb(99, 99, 99);
+
+  display: flex;
+  flex-direction: column;
+}
