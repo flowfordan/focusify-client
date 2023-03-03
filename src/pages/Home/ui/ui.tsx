@@ -1,4 +1,6 @@
-import { Tasks } from "widgets/Tasks"
+import { Tasks } from "widgets/Tasks";
+import { Sounds } from "widgets/Sounds";
+import './ui.scss';
 
 export const Home = () => {
   //header
@@ -7,8 +9,8 @@ export const Home = () => {
   //widget Tasks
   //widget Footer
   return(
-    <div>
-      HomePage!
+    <div className='homePage'>
+      <Sounds />
       <Tasks />
     </div>
   )

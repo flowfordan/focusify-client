@@ -6,6 +6,7 @@ import {
   Route,
   Link,
 } from "react-router-dom";
+import './index.scss';
 
 const App: React.FC = () => {
   return(
