@@ -10,21 +10,33 @@ const tempInitTasks: Array<ITask> = [
     title: 'Add tasks',
     description: 'description',
     isCompleted: false,
-    isInFocus: false
+    isFocused: false,
+    isExpanded: false,
+    timeAll: 0,
+    timeSpent: 0,
+    timeRemain: 0,
   },
   {
     id: '21212',
     title: 'Do stuff',
     description: 'description some bla',
     isCompleted: false,
-    isInFocus: false
+    isFocused: false,
+    isExpanded: true,
+    timeAll: 0,
+    timeSpent: 0,
+    timeRemain: 0,
   },
   {
     id: '64545',
     title: 'Write letter',
     description: 'aboba',
     isCompleted: false,
-    isInFocus: false
+    isFocused: false,
+    isExpanded: false,
+    timeAll: 0,
+    timeSpent: 0,
+    timeRemain: 0,
   },
 ]
 
@@ -52,7 +64,20 @@ class TaskModel {
 
         console.log('model Task. TOGGLE:', task.id, task.isCompleted)
       }
-      
+    }
+
+    expandTask = (taskId: ITask['id']) => {
+      const taskIdx = this.tasks.findIndex((t: ITask) => t.id === taskId);
+      if(taskIdx > -1) {
+        //expand new task
+        const task = this.tasks[taskIdx];
+        task.isExpanded = !task.isExpanded;
+
+        //close prev expanded task
+        if(!task.isExpanded) return;
+        const prevExpandedTask = this.tasks.find(t => t.isExpanded && t.id !== task.id);
+        if(prevExpandedTask) prevExpandedTask.isExpanded = false;
+      }
     }
     
 }

@@ -1,6 +1,5 @@
-import { taskModel } from "entities/Task";
-import { TaskItem } from "entities/Task";
-import { ToggleTask } from "features/Task";
+import { taskModel, TaskItem, TaskItemExt } from "entities/Task";
+import { expandTask, ToggleTask } from "features/Task";
 import { observer } from "mobx-react-lite"
 
 export const Tasks = observer(() => {
@@ -9,8 +8,9 @@ export const Tasks = observer(() => {
     <div>
       <div>Tasks List</div>
       <div>{tasks.map(item => {
+        if(item.isExpanded) return <TaskItemExt taskData={item}  key={item.id} toggle={<ToggleTask taskId={item.id}/>} onClick={() => expandTask(item.id)}/>
         return (
-          <TaskItem taskData={item}  key={item.id} toggle={<ToggleTask taskId={item.id}/>}/>)
+          <TaskItem taskData={item}  key={item.id} toggle={<ToggleTask taskId={item.id}/>} onClick={() => expandTask(item.id)}/>)
       })}</div>
     </div>
   )
