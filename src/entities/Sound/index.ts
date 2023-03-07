@@ -1,2 +1,2 @@
-export * from './ui/Sound';
-export * from './model/soundsModel';
+export * from "./ui/Sound";
+export * from "./model/soundsModel";

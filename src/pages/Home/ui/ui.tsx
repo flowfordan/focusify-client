@@ -1,6 +1,6 @@
 import { Tasks } from "widgets/Tasks";
 import { Sounds } from "widgets/Sounds";
-import './ui.scss';
+import "./ui.scss";
 
 export const Home = () => {
   //header
@@ -8,10 +8,10 @@ export const Home = () => {
   //widget Timer
   //widget Tasks
   //widget Footer
-  return(
-    <div className='homePage'>
+  return (
+    <div className="homePage">
       <Sounds />
       <Tasks />
     </div>
-  )
-}
+  );
+};

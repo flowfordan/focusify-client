@@ -1,6 +1,4 @@
 export const Timer = () => {
   //
-  return(
-    <div>Timer Widget</div>
-  )
-}
+  return <div>Timer Widget</div>;
+};

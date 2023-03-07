@@ -5,4 +5,5 @@ export interface ISound {
   isPlaying: boolean;
   curVolume: number;
   tag: string;
+  audio: HTMLAudioElement | null;
 }

@@ -1,7 +1,5 @@
 export const SignUp = () => {
   //header
   //form
-  return(
-    <div>SignUp Page</div>
-  )
-}
+  return <div>SignUp Page</div>;
+};

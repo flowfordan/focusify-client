@@ -6,12 +6,10 @@ import {
   Route,
   Link,
 } from "react-router-dom";
-import './index.scss';
+import "./index.scss";
 
 const App: React.FC = () => {
-  return(
-    <RouterProvider router={router} />
-  )
-}
+  return <RouterProvider router={router} />;
+};
 
-export {App}
+export { App };
