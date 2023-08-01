@@ -33,6 +33,8 @@ class SoundsModel {
       sound.audio = new Audio(
         `https://cdn.noises.online/NoisesOnline/Audio/${soundId}.ogg`
       );
+
+      // apiClient.getSound(soundId);
     }
 
     if (!sound.isPlaying) {

@@ -8,7 +8,11 @@ class ApiClient {
 
   getSound = (soundId: string) => {
     testNoisesInstance
-      .get(`${soundId}.ogg`, { responseType: "blob" })
+      .get(`${soundId}.ogg`, {
+        responseType: "blob",
+        withCredentials: true,
+        headers: {},
+      })
       .then((result) => {
         console.log("BLOB DOWNLOADED");
         console.log(result);
