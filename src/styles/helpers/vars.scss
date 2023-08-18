@@ -1,12 +1,24 @@
-$main_color: #fd1ded;
+//media
+@mixin d {
+  @media only screen and (max-width: "1024px") {
+    @content;
+  }
+}
 
+@mixin t {
+  @media only screen and (max-width: "768px") {
+    @content;
+  }
+}
 
-$primary-main: #fd1ded;
-$secondary-main: #fd1ded;
-$primary-main-d: #fd1ded;
-$secondary-main-d: #fd1ded;
+@mixin m {
+  @media only screen and (max-width: "480px") {
+    @content;
+  }
+}
 
-$accent-main: #251c25;
-$bg-main: #c9c9c9;
-$accent-main-d: #ffd3fc;
-$bg-main-d: #463d45;
+@mixin m_sm {
+  @media only screen and (max-width: "320px") {
+    @content;
+  }
+}
