@@ -28,6 +28,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  //toggle theme
   return (
     <html lang="en" data-theme="light">
       <body className={inter.className}>{children}</body>

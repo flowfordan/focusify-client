@@ -1,11 +1,14 @@
 import Image from "next/image";
-import styles from "./page.module.css";
+import styles from "./page.module.scss";
 import { PageHome } from "pages_units";
+import { LayoutMain } from "shared";
 
 export default function Home() {
+  //layout
+  //page component
   return (
-    <main className={styles.main}>
+    <LayoutMain>
       <PageHome />
-    </main>
+    </LayoutMain>
   );
 }
