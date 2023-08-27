@@ -1,7 +1,39 @@
-.layout {}
+@use 'styles/helpers' as *;
 
-.header {}
+.layout {
+  height: 100%;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--color-bg);
+}
 
-.main {}
+.header {
+  height: 60px;
+  background-color: rgba(#757575, 0.4);
+}
 
-.footer {}
+.main {
+  @include container-max-1;
+  margin: 0 auto;
+
+  @include d_max {
+    @include container-max-2;
+  }
+  @include d {
+    @include container-d;
+  }
+  @include t {
+    @include container-t;
+  }
+  @include m {
+    @include container-m;
+  }
+  @include m_sm {
+    @include container-m;
+  }
+}
+
+.footer {
+  height: 60px;
+  background-color: rgba(#2e2e2e, 0.4);
+}

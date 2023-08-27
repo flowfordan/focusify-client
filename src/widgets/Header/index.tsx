@@ -5,5 +5,5 @@ interface HeaderProps {
 }
 
 export const Header = ({}: HeaderProps) => {
-  return <header>Header widget</header>;
+  return <div>Header widget</div>;
 };
