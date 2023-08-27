@@ -1,3 +1,4 @@
+'use client';
 import "./sound.scss";
 import { Btn } from "shared/ui";
 import { SoundProps } from "./Sound.props";

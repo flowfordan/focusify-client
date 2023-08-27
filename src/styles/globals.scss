@@ -1,4 +1,4 @@
-@use './helpers';
+@import './helpers';
 
 html[data-theme="light"] {
   --color-txt: #{$accent-main};

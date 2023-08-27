@@ -1,3 +1,4 @@
+'use client';
 import { taskModel, TaskItem, TaskItemExt } from "entities/Task";
 import { expandTask, ToggleTask } from "features/Task";
 import { observer } from "mobx-react-lite";
