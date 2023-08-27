@@ -1,2 +1,2 @@
-export * from "./Privacy";
-export * from "./PageHome";
+export * from './Privacy';
+export * from './PageHome';

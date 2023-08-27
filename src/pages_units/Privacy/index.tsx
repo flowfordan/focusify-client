@@ -1,4 +1,4 @@
-import styles from "./PrivacyPage.module.scss";
+import styles from './PrivacyPage.module.scss';
 
 export const PrivacyPage = () => {
   //header

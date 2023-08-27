@@ -1,6 +1,6 @@
-import { Tasks } from "widgets/Tasks";
-import { Sounds } from "widgets/Sounds";
-import "./ui.scss";
+import { Tasks } from 'widgets/Tasks';
+import { Sounds } from 'widgets/Sounds';
+import './ui.scss';
 
 export const PageHome = () => {
   //header

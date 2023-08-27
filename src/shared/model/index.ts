@@ -1,1 +1,1 @@
-export { ITask } from "./types/task";
+export { ITask } from './types/task';

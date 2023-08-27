@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 import styles from './layoutMain.module.scss';
 
 interface LayoutMainProps {
@@ -8,10 +8,12 @@ interface LayoutMainProps {
 }
 
 //get header, footer and content
-export const LayoutMain = ({header, footer, children}: LayoutMainProps) => {
-  return (<div className={styles.layout}>
-    {header && <header className={styles.header}>{header}</header>}
-    <main className={styles.main}>{children}</main>
-    {footer && <footer className={styles.footer}>{footer}</footer>}
-  </div>);
-}
+export const LayoutMain = ({ header, footer, children }: LayoutMainProps) => {
+  return (
+    <div className={styles.layout}>
+      {header && <header className={styles.header}>{header}</header>}
+      <main className={styles.main}>{children}</main>
+      {footer && <footer className={styles.footer}>{footer}</footer>}
+    </div>
+  );
+};

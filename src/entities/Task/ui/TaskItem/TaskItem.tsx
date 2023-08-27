@@ -1,7 +1,7 @@
-import { observer } from "mobx-react-lite";
-import { Input } from "shared/ui";
-import { TaskItemProps } from "./TaskItem.props";
-import "./taskItem.scss";
+import { observer } from 'mobx-react-lite';
+import { Input } from 'shared/ui';
+import { TaskItemProps } from './TaskItem.props';
+import './taskItem.scss';
 
 export const TaskItem = observer(
   ({ taskData, toggle, isExpanded = false, ...props }: TaskItemProps) => {

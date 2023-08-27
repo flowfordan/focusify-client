@@ -1,6 +1,6 @@
-import { taskModel } from "entities/Task";
-import { ToggleTaskProps } from "./ToggleTask.props";
-import { observer } from "mobx-react-lite";
+import { taskModel } from 'entities/Task';
+import { ToggleTaskProps } from './ToggleTask.props';
+import { observer } from 'mobx-react-lite';
 
 export const ToggleTask = observer(({ taskId }: ToggleTaskProps) => {
   const task = taskModel.getTask(taskId);
