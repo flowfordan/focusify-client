@@ -1,0 +1,42 @@
+.container {
+  position: relative;
+  padding: 20px;
+  min-height: 500px;
+  height: 100vh;
+  background-color: rgba(#000000, 0.3);
+
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: 'timer sounds' 'tasks sounds';
+  transition: 300ms;
+
+  &.soundless {
+    transition: 300ms;
+    grid-template-columns: 2fr 0fr;
+  }
+}
+
+.timerWrap {
+  margin: 10px;
+  grid-area: timer;
+}
+
+.soundsWrap {
+  margin: 10px;
+  grid-area: sounds;
+  &.hidden {
+    display: none;
+  }
+}
+
+.tasksWrap {
+  margin: 10px;
+  grid-area: tasks;
+}
+
+.tempBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
