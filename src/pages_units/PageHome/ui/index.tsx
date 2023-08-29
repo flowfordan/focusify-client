@@ -7,23 +7,42 @@ import { useState } from 'react';
 import cn from 'classnames';
 
 export const PageHome = () => {
-  const [isSounds, setIsSounds] = useState(false);
+  const [isSounds, setIsSounds] = useState(true);
+  const [isTimer, setIsTimer] = useState(true);
+  const [isTasks, setIsTasks] = useState(true);
   return (
     <div
       className={cn(styles.container, {
-        [styles.soundless]: !isSounds,
+        [styles.timer_tasks]: !isSounds && isTimer && isTasks,
+        [styles.timer_sounds]: isSounds && isTimer && !isTasks,
+        [styles.tasks_sounds]: isSounds && !isTimer && isTasks,
+        [styles.one]:
+          (isSounds && !isTimer && !isTasks) ||
+          (isTimer && !isSounds && !isTasks) ||
+          (isTasks && !isTimer && !isSounds),
+        [styles.empty]: !isSounds && !isTasks && !isTimer,
       })}
     >
       <div className={styles.tempBtn}>
         <button onClick={() => setIsSounds(!isSounds)}>Sounds toggle</button>
+        <button onClick={() => setIsTasks(!isTasks)}>Tasks toggle</button>
+        <button onClick={() => setIsTimer(!isTimer)}>Timer toggle</button>
       </div>
       <Sounds
         className={cn(styles.soundsWrap, {
           [styles.hidden]: !isSounds,
         })}
       />
-      <Tasks className={styles.tasksWrap} />
-      <Timer className={styles.timerWrap} />
+      <Tasks
+        className={cn(styles.tasksWrap, {
+          [styles.hidden]: !isTasks,
+        })}
+      />
+      <Timer
+        className={cn(styles.timerWrap, {
+          [styles.hidden]: !isTimer,
+        })}
+      />
     </div>
   );
 };

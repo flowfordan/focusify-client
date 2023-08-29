@@ -14,9 +14,10 @@ export const Sounds = ({ className }: ISoundsWidgetProps) => {
   console.log('ITEMS:', toJS(items));
   return (
     <div className={cn(className, styles.wrapper)}>
-      {items.map((i) => (
+      Sounds widget
+      {/* {items.map((i) => (
         <Sound key={i.name} soundData={i} />
-      ))}
+      ))} */}
     </div>
   );
 };

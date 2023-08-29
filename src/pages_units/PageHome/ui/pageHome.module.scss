@@ -2,27 +2,59 @@
   position: relative;
   padding: 20px;
   min-height: 500px;
-  height: 100vh;
+  height: calc(100vh - 80px);
   background-color: rgba(#000000, 0.3);
 
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-template-rows: 1fr 1fr;
   grid-template-areas: 'timer sounds' 'tasks sounds';
-  transition: 300ms;
+  transition: 0.4s;
 
-  &.soundless {
-    transition: 300ms;
-    grid-template-columns: 2fr 0fr;
+  &.timer_tasks{
+    transition: 0.4s;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr 0fr;
+    grid-template-areas: 'timer tasks';
+  }
+
+  &.timer_sounds {
+    transition: 0.4s;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr 0fr;
+    grid-template-areas: 'timer sounds';
+  }
+
+  &.tasks_sounds {
+    transition: 0.4s;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 0fr;
+    grid-template-areas: 'tasks sounds';
+  }
+
+  &.one {
+    transition: 0.4s;
+    display: flex;
+  }
+
+  &.empty {
+    transition: 0.4s;
+    grid-template-columns: 1fr 0fr;
+    grid-template-rows: 1fr 0fr;
+    grid-template-areas: none;
   }
 }
 
 .timerWrap {
   margin: 10px;
   grid-area: timer;
+  &.hidden {
+    display: none;
+  }
 }
 
 .soundsWrap {
+  transition: all 0.4s;
   margin: 10px;
   grid-area: sounds;
   &.hidden {
@@ -33,6 +65,9 @@
 .tasksWrap {
   margin: 10px;
   grid-area: tasks;
+  &.hidden {
+    display: none;
+  }
 }
 
 .tempBtn {
