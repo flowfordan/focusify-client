@@ -1,0 +1,18 @@
+@import './helpers';
+
+html[data-theme="light"] {
+  --color-txt: #{$accent-main};
+  --color-bg: #{$bg-main};
+}
+
+html[data-theme="dark"] {
+  --color-txt: #{$accent-main-d};
+  --color-bg: #{$bg-main-d};
+
+}
+
+*, html {
+  box-sizing: border-box;
+}
+
+//H h1 - h6

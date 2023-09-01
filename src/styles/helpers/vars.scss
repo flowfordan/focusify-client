@@ -1,0 +1,47 @@
+//media
+@mixin d_max {
+  @media only screen and (max-width: "1600px") {
+    @content;
+  }
+}
+
+@mixin d {
+  @media only screen and (max-width: "1024px") {
+    @content;
+  }
+}
+
+@mixin t {
+  @media only screen and (max-width: "768px") {
+    @content;
+  }
+}
+
+@mixin m {
+  @media only screen and (max-width: "480px") {
+    @content;
+  }
+}
+
+@mixin m_sm {
+  @media only screen and (max-width: "320px") {
+    @content;
+  }
+}
+
+//container of main content
+@mixin container-max-1 {
+  width: 1400px;
+}
+@mixin container-max-2 {
+  width: 1024px;
+}
+@mixin container-d {
+  width: 760px;
+}
+@mixin container-t {
+  width: 100%;
+}
+@mixin container-m {
+  width: 100%;
+}

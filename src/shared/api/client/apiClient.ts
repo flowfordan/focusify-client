@@ -1,4 +1,4 @@
-import { testNoisesInstance } from "../config/config";
+import { testNoisesInstance } from '../config/config';
 
 //one of axios clients
 class ApiClient {
@@ -9,12 +9,12 @@ class ApiClient {
   getSound = (soundId: string) => {
     testNoisesInstance
       .get(`${soundId}.ogg`, {
-        responseType: "blob",
+        responseType: 'blob',
         withCredentials: true,
         headers: {},
       })
       .then((result) => {
-        console.log("BLOB DOWNLOADED");
+        console.log('BLOB DOWNLOADED');
         console.log(result);
       })
       .catch((er) => {

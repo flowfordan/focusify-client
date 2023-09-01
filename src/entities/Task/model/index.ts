@@ -1,14 +1,14 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { makeAutoObservable } from "mobx";
-import { observer } from "mobx-react-lite";
-import { ITask } from "shared/model";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { makeAutoObservable } from 'mobx';
+import { observer } from 'mobx-react-lite';
+import { ITask } from 'shared/model';
 
 const tempInitTasks: Array<ITask> = [
   {
-    id: "0",
-    title: "Add tasks",
-    description: "description",
+    id: '0',
+    title: 'Add tasks',
+    description: 'description',
     isCompleted: false,
     isFocused: false,
     isExpanded: false,
@@ -17,9 +17,9 @@ const tempInitTasks: Array<ITask> = [
     timeRemain: 0,
   },
   {
-    id: "21212",
-    title: "Do stuff",
-    description: "description some bla",
+    id: '21212',
+    title: 'Do stuff',
+    description: 'description some bla',
     isCompleted: false,
     isFocused: false,
     isExpanded: true,
@@ -28,9 +28,9 @@ const tempInitTasks: Array<ITask> = [
     timeRemain: 0,
   },
   {
-    id: "64545",
-    title: "Write letter",
-    description: "aboba",
+    id: '64545',
+    title: 'Write letter',
+    description: 'aboba',
     isCompleted: false,
     isFocused: false,
     isExpanded: false,
@@ -48,7 +48,7 @@ class TaskModel {
     makeAutoObservable(this);
   }
 
-  getTask = (taskId: ITask["id"]) => {
+  getTask = (taskId: ITask['id']) => {
     const taskIdx = this.tasks.findIndex((t: ITask) => t.id === taskId);
     if (taskIdx > -1) {
       const task = this.tasks[taskIdx];
@@ -56,17 +56,17 @@ class TaskModel {
     }
   };
 
-  toggleTask = (taskId: ITask["id"]) => {
+  toggleTask = (taskId: ITask['id']) => {
     const taskIdx = this.tasks.findIndex((t: ITask) => t.id === taskId);
     if (taskIdx > -1) {
       const task = this.tasks[taskIdx];
       task.isCompleted = !task.isCompleted;
 
-      console.log("model Task. TOGGLE:", task.id, task.isCompleted);
+      console.log('model Task. TOGGLE:', task.id, task.isCompleted);
     }
   };
 
-  expandTask = (taskId: ITask["id"]) => {
+  expandTask = (taskId: ITask['id']) => {
     const taskIdx = this.tasks.findIndex((t: ITask) => t.id === taskId);
     if (taskIdx > -1) {
       //expand new task

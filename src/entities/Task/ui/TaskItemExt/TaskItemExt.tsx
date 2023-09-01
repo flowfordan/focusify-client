@@ -1,6 +1,6 @@
-import { observer } from "mobx-react-lite";
-import { TaskItemExtProps } from "./TaskItemExt.props";
-import "./taskItemExt.scss";
+import { observer } from 'mobx-react-lite';
+import { TaskItemExtProps } from './TaskItemExt.props';
+import './taskItemExt.scss';
 
 export const TaskItemExt = observer(
   ({ taskData, toggle, ...props }: TaskItemExtProps) => {

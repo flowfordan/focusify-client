@@ -1,7 +1,7 @@
-import { makeAutoObservable } from "mobx";
-import { apiClient } from "shared";
-import { DefSounds } from "../config/sounds";
-import { ISound } from "../config/types";
+import { makeAutoObservable } from 'mobx';
+import { apiClient } from 'shared';
+import { DefSounds } from '../config/sounds';
+import { ISound } from '../config/types';
 
 class SoundsModel {
   sounds: Array<ISound>;
@@ -28,8 +28,8 @@ class SoundsModel {
 
     //if not - download
     if (!sound.audio) {
-      console.log("no audio:", soundId);
-      const url = "";
+      console.log('no audio:', soundId);
+      const url = '';
       sound.audio = new Audio(
         `https://cdn.noises.online/NoisesOnline/Audio/${soundId}.ogg`
       );

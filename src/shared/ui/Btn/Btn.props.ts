@@ -1,4 +1,4 @@
-import { HTMLAttributes, DetailedHTMLProps, ReactNode } from "react";
+import { HTMLAttributes, DetailedHTMLProps, ReactNode } from 'react';
 
 export interface BtnProps
   extends DetailedHTMLProps<
@@ -6,5 +6,5 @@ export interface BtnProps
     HTMLButtonElement
   > {
   children: ReactNode;
-  color?: "white" | "blue";
+  color?: 'white' | 'blue';
 }
