@@ -16,17 +16,40 @@ export const PageHome = () => {
         [styles.timer_tasks]: !isSounds && isTimer && isTasks,
         [styles.timer_sounds]: isSounds && isTimer && !isTasks,
         [styles.tasks_sounds]: isSounds && !isTimer && isTasks,
-        [styles.one]:
-          (isSounds && !isTimer && !isTasks) ||
-          (isTimer && !isSounds && !isTasks) ||
-          (isTasks && !isTimer && !isSounds),
+        [styles.one__tasks]: isTasks && !isTimer && !isSounds,
+        [styles.one__sounds]: isSounds && !isTimer && !isTasks,
+        [styles.one__timer]: isTimer && !isSounds && !isTasks,
         [styles.empty]: !isSounds && !isTasks && !isTimer,
       })}
     >
       <div className={styles.tempBtn}>
-        <button onClick={() => setIsSounds(!isSounds)}>Sounds toggle</button>
+        <label>
+          <input
+            type="checkbox"
+            checked={isSounds}
+            onChange={() => setIsSounds(!isSounds)}
+          />
+          Sounds
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={isTasks}
+            onChange={() => setIsTasks(!isTasks)}
+          />
+          Tasks
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={isTimer}
+            onChange={() => setIsTimer(!isTimer)}
+          />
+          Timer
+        </label>
+        {/* <button onClick={() => setIsSounds(!isSounds)}>Sounds toggle</button>
         <button onClick={() => setIsTasks(!isTasks)}>Tasks toggle</button>
-        <button onClick={() => setIsTimer(!isTimer)}>Timer toggle</button>
+        <button onClick={() => setIsTimer(!isTimer)}>Timer toggle</button> */}
       </div>
       <Sounds
         className={cn(styles.soundsWrap, {

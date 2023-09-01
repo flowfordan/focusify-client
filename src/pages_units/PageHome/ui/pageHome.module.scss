@@ -9,36 +9,58 @@
   grid-template-columns: 2fr 1fr;
   grid-template-rows: 1fr 1fr;
   grid-template-areas: 'timer sounds' 'tasks sounds';
-  transition: 0.4s;
+  transition: 0.5s ease-out;
 
   &.timer_tasks{
-    transition: 0.4s;
+    // transition: 0.4s;
     grid-template-columns: 1fr 2fr;
     grid-template-rows: 1fr 0fr;
     grid-template-areas: 'timer tasks';
   }
 
   &.timer_sounds {
-    transition: 0.4s;
+    // transition: 0.4s;
     grid-template-columns: 1fr 2fr;
     grid-template-rows: 1fr 0fr;
     grid-template-areas: 'timer sounds';
   }
 
   &.tasks_sounds {
-    transition: 0.4s;
+    // transition: 0.4s;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 1fr 0fr;
     grid-template-areas: 'tasks sounds';
   }
 
   &.one {
-    transition: 0.4s;
-    display: flex;
+    &__tasks {
+      // transition: 0.4s;
+    grid-template-columns: 1fr 0fr;
+    grid-template-rows: 1fr 0fr;
+      grid-template-areas:
+      "tasks"
+      "tasks";
+    }
+    &__sounds {
+      // transition: 0.4s;
+    grid-template-columns: 1fr 0fr;
+    grid-template-rows: 1fr 0fr;
+      grid-template-areas:
+      "sounds"
+      "sounds";
+    }
+    &__timer {
+      // transition: 0.4s;
+      grid-template-columns: 1fr 0fr;
+      grid-template-rows: 1fr 0fr;
+      grid-template-areas:
+      "timer"
+      "timer";
+    }
   }
 
   &.empty {
-    transition: 0.4s;
+    // transition: 0.4s;
     grid-template-columns: 1fr 0fr;
     grid-template-rows: 1fr 0fr;
     grid-template-areas: none;
