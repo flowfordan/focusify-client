@@ -23,7 +23,6 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
                 taskData={item}
                 key={item.id}
                 toggle={<ToggleTask taskId={item.id} />}
-                onClick={() => expandTask(item.id)}
               />
             );
           return (
@@ -31,7 +30,6 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
               taskData={item}
               key={item.id}
               toggle={<ToggleTask taskId={item.id} />}
-              onClick={() => expandTask(item.id)}
             />
           );
         })}

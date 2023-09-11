@@ -22,7 +22,7 @@ const tempInitTasks: Array<ITask> = [
     description: 'description some bla',
     isCompleted: false,
     isFocused: false,
-    isExpanded: true,
+    isExpanded: false,
     timeAll: 0,
     timeSpent: 0,
     timeRemain: 0,
@@ -64,6 +64,21 @@ class TaskModel {
 
       console.log('model Task. TOGGLE:', task.id, task.isCompleted);
     }
+  };
+
+  createTask = () => {
+    const newTask: ITask = {
+      id: Date.now().toString(),
+      title: '',
+      description: '',
+      isCompleted: false,
+      isFocused: false,
+      isExpanded: true,
+      timeAll: 0,
+      timeSpent: 0,
+      timeRemain: 0,
+    };
+    this.tasks.push(newTask);
   };
 
   expandTask = (taskId: ITask['id']) => {

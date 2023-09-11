@@ -3,7 +3,7 @@ import { Tasks } from 'widgets/Tasks';
 import { Sounds } from 'widgets/Sounds';
 import styles from './pageHome.module.scss';
 import { Timer } from 'widgets/Timer';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import cn from 'classnames';
 
 type ScreenName = 'sounds' | 'tasks' | 'timer';
@@ -16,7 +16,7 @@ interface IScreen {
 const screens: Array<IScreen> = [
   {
     name: 'timer',
-    isActive: true,
+    isActive: false,
     isEnabled: true,
   },
   {
@@ -35,7 +35,73 @@ export const PageHome = () => {
   const [isSounds, setIsSounds] = useState(true);
   const [isTimer, setIsTimer] = useState(true);
   const [isTasks, setIsTasks] = useState(true);
+  const [mobCurrentIdx, setMobCurrentIdx] = useState(0);
   const [curScreens, setCurScreens] = useState<Array<IScreen>>(screens);
+
+  const toggleWidgetEnable = (screen: ScreenName) => {
+    setCurScreens((prev) => {
+      const updatedScreens = [...prev];
+      const idx = updatedScreens.findIndex((s) => s.name === screen);
+      updatedScreens[idx].isEnabled = !updatedScreens[idx].isEnabled;
+      return updatedScreens;
+    });
+  };
+
+  const onScreenChange = (isNext?: boolean) => {
+    // setMobCurrentIdx();
+    if (isNext) {
+      if (mobCurrentIdx > 2) return;
+      //find next available screen idx
+      for (let i = mobCurrentIdx + 1; i < screens.length; i++) {
+        //find next enabled screen
+        if (screens[i].isEnabled) {
+          setMobCurrentIdx(i);
+          break;
+        }
+      }
+    } else {
+      if (mobCurrentIdx < 1) return;
+      //find previous available screen idx
+      for (let i = mobCurrentIdx - 1; i > -1; i--) {
+        //find next enabled screen
+        if (screens[i].isEnabled) {
+          setMobCurrentIdx(i);
+          break;
+        }
+      }
+      // setMobCurrentIdx((prev) => prev - 1);
+    }
+  };
+
+  useEffect(() => {
+    //upd concrete lables
+    for (let i = 0; i < curScreens.length; i++) {
+      if (curScreens[i].name === 'sounds') {
+        setIsSounds(curScreens[i].isEnabled);
+      }
+      if (curScreens[i].name === 'tasks') {
+        setIsTasks(curScreens[i].isEnabled);
+      }
+      if (curScreens[i].name === 'timer') {
+        setIsTimer(curScreens[i].isEnabled);
+      }
+    }
+  }, [curScreens]);
+
+  useEffect(() => {
+    console.log('change current idx');
+    for (let i = 0; i < screens.length; i++) {
+      //find next enabled screen
+      if (screens[i].isEnabled) {
+        setCurScreens((prev) => {
+          const updatedScreens = [...prev];
+          updatedScreens[i].isActive = i === mobCurrentIdx ? true : false;
+          return updatedScreens;
+        });
+      }
+    }
+  }, [mobCurrentIdx]);
+
   const handleScreenSwap = (isNext?: boolean) => {
     //find active screen
     const activeIdx = screens.findIndex((s) => s.isActive);
@@ -88,7 +154,7 @@ export const PageHome = () => {
           <input
             type="checkbox"
             checked={isSounds}
-            onChange={() => setIsSounds(!isSounds)}
+            onChange={() => toggleWidgetEnable('sounds')}
           />
           Sounds
         </label>
@@ -96,7 +162,7 @@ export const PageHome = () => {
           <input
             type="checkbox"
             checked={isTasks}
-            onChange={() => setIsTasks(!isTasks)}
+            onChange={() => toggleWidgetEnable('tasks')}
           />
           Tasks
         </label>
@@ -104,13 +170,20 @@ export const PageHome = () => {
           <input
             type="checkbox"
             checked={isTimer}
-            onChange={() => setIsTimer(!isTimer)}
+            onChange={() => toggleWidgetEnable('timer')}
           />
           Timer
         </label>
         <div>
-          <button onClick={() => handleScreenSwap()}>{'<'}</button>
-          <button onClick={() => handleScreenSwap(true)}>{'>'}</button>
+          <button disabled={mobCurrentIdx < 1} onClick={() => onScreenChange()}>
+            {'<'}
+          </button>
+          <button
+            disabled={mobCurrentIdx > 1}
+            onClick={() => onScreenChange(true)}
+          >
+            {'>'}
+          </button>
         </div>
       </div>
       <Sounds
