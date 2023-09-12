@@ -39,10 +39,7 @@
   }
 
   &.empty {
-    // transition: 0.4s;
-    grid-template-columns: 1fr 0fr;
-    grid-template-rows: 1fr 0fr;
-    grid-template-areas: none;
+    display: flex;
   }
 
   @include t {

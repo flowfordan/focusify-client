@@ -7,13 +7,18 @@ import cn from 'classnames';
 import { homeModel } from '../model/homeModel';
 import { observer } from 'mobx-react-lite';
 import { ModuleName } from '../config';
+import { useCallback, useEffect, useState } from 'react';
+import { useIsMobile } from 'shared/lib';
 
 export const PageHome = observer(() => {
+  const isMobile = useIsMobile();
   const isSounds = homeModel.isModuleEnabled('sounds');
   const isTimer = homeModel.isModuleEnabled('timer');
   const isTasks = homeModel.isModuleEnabled('tasks');
   const modules = homeModel.modules;
   const enabledModulesCount = homeModel.enabledModulesCount;
+
+  console.log('is mobile', isMobile);
 
   const toggleWidgetEnable = (screen: ModuleName) => {
     homeModel.toggleWidgetEnabled(screen);
