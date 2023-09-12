@@ -35,30 +35,7 @@
   }
 
   &.one {
-    &__tasks {
-      // transition: 0.4s;
-    grid-template-columns: 1fr 0fr;
-    grid-template-rows: 1fr 0fr;
-      grid-template-areas:
-      "tasks"
-      "tasks";
-    }
-    &__sounds {
-      // transition: 0.4s;
-    grid-template-columns: 1fr 0fr;
-    grid-template-rows: 1fr 0fr;
-      grid-template-areas:
-      "sounds"
-      "sounds";
-    }
-    &__timer {
-      // transition: 0.4s;
-      grid-template-columns: 1fr 0fr;
-      grid-template-rows: 1fr 0fr;
-      grid-template-areas:
-      "timer"
-      "timer";
-    }
+    display: flex;
   }
 
   &.empty {
@@ -79,44 +56,29 @@
 
 }
 
-.timerWrap {
-  margin: 10px;
-  grid-area: timer;
+.timerWrap, .soundsWrap, .tasksWrap {
   &.hidden {
     display: none;
   }
-  // @include t {
-  //   &.mobHidden {
-  //     display: none;
-  //   }
-  // }
+  &.one {
+    flex-grow: 1;
+  }
+}
+
+.timerWrap {
+  margin: 10px;
+  grid-area: timer;
 }
 
 .soundsWrap {
   transition: all 0.4s;
   margin: 10px;
   grid-area: sounds;
-  &.hidden {
-    display: none;
-  }
-  // @include t {
-  //   &.mobHidden {
-  //     display: none;
-  //   }
-  // }
 }
 
 .tasksWrap {
   margin: 10px;
   grid-area: tasks;
-  &.hidden {
-    display: none;
-  }
-  // @include t {
-  //   &.mobHidden {
-  //     display: none;
-  //   }
-  // }
 }
 
 .tempBtn {

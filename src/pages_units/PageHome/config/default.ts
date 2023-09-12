@@ -1,16 +1,16 @@
-import { IWidget } from './types';
+import { IModule, ModulesData } from './types';
 
-export const widgetsDefault: Array<IWidget> = [
-  {
-    name: 'timer',
-    isEnabled: true,
-  },
-  {
-    name: 'tasks',
-    isEnabled: true,
-  },
-  {
+export const modulesDefaultData: ModulesData = {
+  sounds: {
     name: 'sounds',
     isEnabled: true,
   },
-];
+  tasks: {
+    name: 'tasks',
+    isEnabled: true,
+  },
+  timer: {
+    name: 'timer',
+    isEnabled: true,
+  },
+};

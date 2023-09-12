@@ -1,7 +1,11 @@
 export const widgets = ['sounds', 'tasks', 'timer'] as const;
-type WidgetName = (typeof widgets)[number];
+export type ModuleName = (typeof widgets)[number];
 
-export interface IWidget {
-  name: WidgetName;
+export interface IModule<T extends ModuleName> {
+  name: T;
   isEnabled: boolean;
 }
+
+export type ModulesData = {
+  [key in ModuleName]: IModule<key>;
+};
