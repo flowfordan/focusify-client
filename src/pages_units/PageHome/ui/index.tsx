@@ -47,32 +47,6 @@ export const PageHome = () => {
     });
   };
 
-  const onScreenChange = (isNext?: boolean) => {
-    // setMobCurrentIdx();
-    if (isNext) {
-      if (mobCurrentIdx > 2) return;
-      //find next available screen idx
-      for (let i = mobCurrentIdx + 1; i < screens.length; i++) {
-        //find next enabled screen
-        if (screens[i].isEnabled) {
-          setMobCurrentIdx(i);
-          break;
-        }
-      }
-    } else {
-      if (mobCurrentIdx < 1) return;
-      //find previous available screen idx
-      for (let i = mobCurrentIdx - 1; i > -1; i--) {
-        //find next enabled screen
-        if (screens[i].isEnabled) {
-          setMobCurrentIdx(i);
-          break;
-        }
-      }
-      // setMobCurrentIdx((prev) => prev - 1);
-    }
-  };
-
   useEffect(() => {
     //upd concrete lables
     for (let i = 0; i < curScreens.length; i++) {
@@ -102,41 +76,6 @@ export const PageHome = () => {
     }
   }, [mobCurrentIdx]);
 
-  const handleScreenSwap = (isNext?: boolean) => {
-    //find active screen
-    const activeIdx = screens.findIndex((s) => s.isActive);
-    //if non - do nothing
-    if (activeIdx < 0) return;
-    if (isNext) {
-      if (activeIdx === screens.length - 1) return;
-      for (let i = activeIdx + 1; i < screens.length; i++) {
-        //find next enabled screen
-        if (screens[i].isEnabled) {
-          setCurScreens((prev) => {
-            const updatedScreens = [...prev];
-            updatedScreens[activeIdx].isActive = false;
-            updatedScreens[i].isActive = true;
-            return updatedScreens;
-          });
-          break;
-        }
-      }
-    } else {
-      if (activeIdx === 0) return;
-      for (let i = activeIdx - 1; i > -1; i--) {
-        //find next enabled screen
-        if (screens[i].isEnabled) {
-          setCurScreens((prev) => {
-            const updatedScreens = [...prev];
-            updatedScreens[activeIdx].isActive = false;
-            updatedScreens[i].isActive = true;
-            return updatedScreens;
-          });
-          break;
-        }
-      }
-    }
-  };
   return (
     <div
       className={cn(styles.container, {
@@ -174,17 +113,6 @@ export const PageHome = () => {
           />
           Timer
         </label>
-        <div>
-          <button disabled={mobCurrentIdx < 1} onClick={() => onScreenChange()}>
-            {'<'}
-          </button>
-          <button
-            disabled={mobCurrentIdx > 1}
-            onClick={() => onScreenChange(true)}
-          >
-            {'>'}
-          </button>
-        </div>
       </div>
       <Sounds
         className={cn(styles.soundsWrap, {

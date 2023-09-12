@@ -9,21 +9,12 @@ interface ITasksWidgetProps {
   className?: string;
 }
 
-export const Tasks = observer(({ className }: ITasksWidgetProps) => {
+export const TasksCompact = observer(({ className }: ITasksWidgetProps) => {
   const tasks = taskModel.tasks;
   return (
     <div className={cn(className, styles.wrapper)}>
-      <div>Tasks List</div>
-      <div>
-        {tasks.map((item) => (
-          <TaskItem
-            isExpanded={item.isExpanded}
-            taskData={item}
-            key={item.id}
-            toggle={<ToggleTask taskId={item.id} />}
-          />
-        ))}
-      </div>
+      <div>Tasks List Compact</div>
+      <div>Stuff</div>
     </div>
   );
 });
