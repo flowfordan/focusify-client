@@ -1,5 +1,4 @@
-import Image from 'next/image';
-import styles from './page.module.scss';
+'use client';
 import { PageHome } from 'pages_units';
 import { LayoutMain } from 'shared';
 import { Header } from 'widgets/Header';

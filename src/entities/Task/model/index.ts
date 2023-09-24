@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import { ITask } from 'shared/model';
+import { IRootModel, ITask, ITasksModel } from 'shared/model';
 
 const tempInitTasks: Array<ITask> = [
   {
@@ -40,10 +40,10 @@ const tempInitTasks: Array<ITask> = [
   },
 ];
 
-class TaskModel {
+export class TasksModel implements ITasksModel {
   tasks: Array<ITask>;
 
-  constructor() {
+  constructor(private appModel: IRootModel) {
     this.tasks = tempInitTasks;
     makeAutoObservable(this);
   }
@@ -97,5 +97,3 @@ class TaskModel {
     }
   };
 }
-
-export const taskModel = new TaskModel();

@@ -1,4 +1,4 @@
-import { ISound } from './types';
+import { ISound } from 'shared/model';
 
 export const DefSounds: Array<ISound> = [
   {

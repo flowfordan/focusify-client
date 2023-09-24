@@ -9,3 +9,7 @@ export interface ITask {
   timeSpent: number;
   timeRemain: number;
 }
+
+export interface ITasksModel {
+  tasks: Array<ITask>;
+}

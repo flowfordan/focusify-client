@@ -1,11 +1,12 @@
+import { appModel } from './../../../app/model/index';
 import { makeAutoObservable } from 'mobx';
 import { apiClient } from 'shared';
 import { DefSounds } from '../config/sounds';
-import { ISound } from '../config/types';
+import { IRootModel, ISound, ISoundsModel } from 'shared/model';
 
-class SoundsModel {
+export class SoundsModel implements ISoundsModel {
   sounds: Array<ISound>;
-  constructor() {
+  constructor(private appModel: IRootModel) {
     //init sounds default
     this.sounds = DefSounds;
 
@@ -44,5 +45,3 @@ class SoundsModel {
     }
   };
 }
-
-export const soundsModel = new SoundsModel();

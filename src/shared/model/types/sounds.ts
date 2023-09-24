@@ -7,3 +7,9 @@ export interface ISound {
   tag: string;
   audio: HTMLAudioElement | null;
 }
+
+export interface ISoundsModel {
+  sounds: Array<ISound>;
+  _getSound: (soundId: string) => void;
+  toggleSound: (soundId: string) => void;
+}

@@ -1,6 +1,9 @@
+'use client';
 import '../styles/index.scss';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { StoreContext } from 'shared';
+import { appModel } from './model';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,6 +26,12 @@ export const metadata: Metadata = {
   referrer: 'origin',
 };
 
+export function RootStoreProvider({ children }: { children: React.ReactNode }) {
+  return (
+    <StoreContext.Provider value={appModel}>{children}</StoreContext.Provider>
+  );
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -31,7 +40,9 @@ export default function RootLayout({
   //toggle theme
   return (
     <html lang="en" data-theme="light">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <RootStoreProvider>{children}</RootStoreProvider>
+      </body>
     </html>
   );
 }
