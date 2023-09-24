@@ -12,4 +12,6 @@ export interface ITask {
 
 export interface ITasksModel {
   tasks: Array<ITask>;
+  getTask: (taskId: ITask['id']) => ITask | undefined;
+  toggleTask: (taskId: ITask['id']) => void;
 }

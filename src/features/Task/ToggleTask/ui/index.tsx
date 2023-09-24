@@ -1,8 +1,10 @@
-import { taskModel } from 'entities/Task';
+// import { taskModel } from 'entities/Task';
+import { useTasksModel } from 'shared';
 import { ToggleTaskProps } from './ToggleTask.props';
 import { observer } from 'mobx-react-lite';
 
 export const ToggleTask = observer(({ taskId }: ToggleTaskProps) => {
+  const taskModel = useTasksModel();
   const task = taskModel.getTask(taskId);
   if (!task) return null;
 

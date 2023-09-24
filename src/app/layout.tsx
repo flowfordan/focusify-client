@@ -1,9 +1,9 @@
-'use client';
 import '../styles/index.scss';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { StoreContext } from 'shared';
 import { appModel } from './model';
+import { RootStoreProvider } from './provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -25,12 +25,6 @@ export const metadata: Metadata = {
   ],
   referrer: 'origin',
 };
-
-export function RootStoreProvider({ children }: { children: React.ReactNode }) {
-  return (
-    <StoreContext.Provider value={appModel}>{children}</StoreContext.Provider>
-  );
-}
 
 export default function RootLayout({
   children,

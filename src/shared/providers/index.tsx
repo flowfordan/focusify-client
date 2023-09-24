@@ -17,3 +17,8 @@ export function useSoundsModel() {
   const { sounds } = useRootStore();
   return sounds;
 }
+
+export function useTasksModel() {
+  const { tasks } = useRootStore();
+  return tasks;
+}
