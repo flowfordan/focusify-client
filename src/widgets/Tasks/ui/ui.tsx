@@ -1,6 +1,6 @@
 'use client';
 import { TaskItem, TaskItemExt } from 'entities/Task';
-import { expandTask, ToggleTask } from 'features/Task';
+import { ToggleTask } from 'features/Task';
 import { observer } from 'mobx-react-lite';
 import styles from './ui.module.scss';
 import cn from 'classnames';
@@ -16,6 +16,8 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
   return (
     <div className={cn(className, styles.wrapper)}>
       <div>Tasks List</div>
+      <div>Close widget</div>
+      <div>Widget header</div>
       <div>
         {tasks.map((item) => (
           <TaskItem
@@ -26,6 +28,7 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
           />
         ))}
       </div>
+      <div>New</div>
     </div>
   );
 });

@@ -1,5 +1,5 @@
 'use client';
-import { taskModel, TaskItem, TaskItemExt } from 'entities/Task';
+// import { taskModel, TaskItem, TaskItemExt } from 'entities/Task';
 import { expandTask, ToggleTask } from 'features/Task';
 import { observer } from 'mobx-react-lite';
 import styles from './ui.module.scss';
@@ -10,7 +10,7 @@ interface ITasksWidgetProps {
 }
 
 export const TasksCompact = observer(({ className }: ITasksWidgetProps) => {
-  const tasks = taskModel.tasks;
+  // const tasks = taskModel.tasks;
   return (
     <div className={cn(className, styles.wrapper)}>
       <div>Tasks List Compact</div>
