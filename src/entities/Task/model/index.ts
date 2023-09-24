@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { IRootModel, ITask, ITasksModel } from 'shared/model';
 
@@ -97,6 +97,7 @@ const tempInitTasks: Array<ITask> = [
 
 export class TasksModel implements ITasksModel {
   tasks: Array<ITask>;
+  taskInCreation: string | null = null;
 
   constructor(private appModel: IRootModel) {
     this.tasks = tempInitTasks;
@@ -122,18 +123,28 @@ export class TasksModel implements ITasksModel {
   };
 
   createTask = () => {
+    //check if already creating one
+    if (this.taskInCreation) {
+      //remove
+      this.tasks = this.tasks.filter((t) => t.id !== this.taskInCreation);
+    }
     const newTask: ITask = {
       id: Date.now().toString(),
       title: '',
       description: '',
       isCompleted: false,
       isFocused: false,
-      isExpanded: true,
+      isExpanded: false,
       timeAll: 0,
       timeSpent: 0,
       timeRemain: 0,
     };
+    runInAction(() => {
+      this.taskInCreation = newTask.id;
+    });
     this.tasks.push(newTask);
+    //expand
+    this.expandTask(newTask.id);
   };
 
   expandTask = (taskId: ITask['id']) => {

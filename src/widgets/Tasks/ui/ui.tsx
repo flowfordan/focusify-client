@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { IconButton } from '@chakra-ui/react';
 import { PhoneIcon, AddIcon, WarningIcon } from '@chakra-ui/icons';
+import { useEffect, useRef } from 'react';
 
 interface ITasksWidgetProps {
   className?: string;
@@ -22,8 +23,20 @@ interface ITasksWidgetProps {
 export const Tasks = observer(({ className }: ITasksWidgetProps) => {
   const tasksModel = useTasksModel();
   const tasks = tasksModel.tasks;
+  const taskInCreation = tasksModel.taskInCreation;
+  //scroll to new element
+  const createdTaskRef = useRef<HTMLDivElement>(null);
 
-  const onNewTask = () => {};
+  const onNewTask = () => {
+    tasksModel.createTask();
+  };
+
+  useEffect(() => {
+    console.log('new task', createdTaskRef.current);
+    if (createdTaskRef.current) {
+      createdTaskRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [taskInCreation]);
 
   return (
     <Card className={cn(className, styles.wrapper)}>
@@ -39,6 +52,7 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
             taskData={item}
             key={item.id}
             toggle={<ToggleTask taskId={item.id} />}
+            ref={item.id === taskInCreation ? createdTaskRef : undefined}
           />
         ))}
       </div>
