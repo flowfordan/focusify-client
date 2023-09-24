@@ -3,7 +3,8 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { StoreContext } from 'shared';
 import { appModel } from './model';
-import { RootStoreProvider } from './provider';
+import { RootStoreProvider } from './config/storeProvider';
+import { UIProviders } from './config/uiProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -35,7 +36,9 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="light">
       <body className={inter.className}>
-        <RootStoreProvider>{children}</RootStoreProvider>
+        <RootStoreProvider>
+          <UIProviders>{children}</UIProviders>
+        </RootStoreProvider>
       </body>
     </html>
   );
