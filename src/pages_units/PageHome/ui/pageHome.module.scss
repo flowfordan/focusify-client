@@ -65,17 +65,21 @@
 .timerWrap {
   margin: 10px;
   grid-area: timer;
+  min-height: 50%;
+  min-height: 300px;
 }
 
 .soundsWrap {
   transition: all 0.4s;
   margin: 10px;
   grid-area: sounds;
+  min-height: 300px;
 }
 
 .tasksWrap {
   margin: 10px;
   grid-area: tasks;
+  min-height: 300px;
 }
 
 .tempBtn {

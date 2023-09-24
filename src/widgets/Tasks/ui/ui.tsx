@@ -31,18 +31,17 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
         <Heading size={'md'}>Tasks List</Heading>
       </CardHeader>
       <div>Close widget</div>
-      <CardBody>
-        <div>
-          {tasks.map((item) => (
-            <TaskItem
-              isExpanded={item.isExpanded}
-              taskData={item}
-              key={item.id}
-              toggle={<ToggleTask taskId={item.id} />}
-            />
-          ))}
-        </div>
-      </CardBody>
+
+      <div className={styles.list}>
+        {tasks.map((item) => (
+          <TaskItem
+            isExpanded={item.isExpanded}
+            taskData={item}
+            key={item.id}
+            toggle={<ToggleTask taskId={item.id} />}
+          />
+        ))}
+      </div>
 
       <IconButton
         aria-label="New Task"
