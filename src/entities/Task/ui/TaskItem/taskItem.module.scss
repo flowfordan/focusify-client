@@ -1,4 +1,5 @@
 .taskItem {
+  position: relative;
   background-color: rgb(185, 197, 209);
 
   border-radius: 5px;
@@ -9,6 +10,12 @@
 
   height: 100px;
 
+  padding: 15px;
+
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  column-gap: 20px;
+
   &.expanded {
     background-color: rgb(87, 171, 255);
   
@@ -18,5 +25,30 @@
     display: flex;
     flex-direction: column;
   }
+
+  &:hover {
+    .removeWrap {
+      visibility: visible;
+      opacity: 1;
+      transition: opacity 0.2s;
+    }
+  }
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: min-content 1fr;
+  row-gap: 12px;
+}
+
+.removeWrap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 2px;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s;
 }
 
