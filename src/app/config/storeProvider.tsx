@@ -1,9 +1,9 @@
 'use client';
 import { StoreContext } from 'shared';
-import { appModel } from '../model';
+import { rootStore } from 'shared/model';
 
 export function RootStoreProvider({ children }: { children: React.ReactNode }) {
   return (
-    <StoreContext.Provider value={appModel}>{children}</StoreContext.Provider>
+    <StoreContext.Provider value={rootStore}>{children}</StoreContext.Provider>
   );
 }

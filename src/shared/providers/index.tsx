@@ -1,7 +1,7 @@
 import { ReactNode, createContext, useContext } from 'react';
-import { IRootModel } from 'shared/model';
+import { IRootModel, RootStore } from 'shared/model';
 
-export const StoreContext = createContext<IRootModel | undefined>(undefined);
+export const StoreContext = createContext<RootStore | undefined>(undefined);
 StoreContext.displayName = 'StoreContext';
 
 export function useRootStore() {

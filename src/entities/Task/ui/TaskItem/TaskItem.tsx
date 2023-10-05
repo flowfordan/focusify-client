@@ -32,7 +32,6 @@ export const TaskItem = observer(
             isRound={true}
             variant="solid"
             size={'xs'}
-            colorScheme="teal"
             aria-label="Done"
             fontSize="20px"
             icon={<CloseIcon boxSize={2} />}
