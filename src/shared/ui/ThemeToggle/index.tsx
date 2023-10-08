@@ -11,6 +11,15 @@ interface ThemeToggleProps {
   options: Array<Record<string, string>>;
 }
 
+const valueTemplate = (option) => {
+  return (
+    <div className="flex align-items-center">
+      <span className={option.icon}></span>
+      {/* <div>{option.value}</div> */}
+    </div>
+  );
+};
+
 export const ThemeToggle = ({ onChange, options, value }: ThemeToggleProps) => {
   console.log('value', value);
   return (
@@ -26,9 +35,11 @@ export const ThemeToggle = ({ onChange, options, value }: ThemeToggleProps) => {
       /> */}
       <Dropdown
         value={value}
+        valueTemplate={valueTemplate}
         onChange={(e) => onChange(e.value)}
         options={options}
-        optionLabel="value"
+        itemTemplate={valueTemplate}
+        optionLabel="icon"
         placeholder="Select a City"
       />
     </div>
