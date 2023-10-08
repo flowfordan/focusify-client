@@ -1,9 +1,15 @@
 'use client';
+import { PrimeReactContext, PrimeReactProvider } from 'primereact/api';
 
-export function UIProviders({ children }: { children: React.ReactNode }) {
+export const UIProvider = ({ children }: { children: React.ReactNode }) => {
   return (
-    <>
-      <>{children}</>
-    </>
+    <PrimeReactProvider>
+      <PrimeReactContext.Consumer>
+        {(primeReact) => {
+          primeReact.ripple = true;
+          return children;
+        }}
+      </PrimeReactContext.Consumer>
+    </PrimeReactProvider>
   );
-}
+};

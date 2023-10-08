@@ -1,12 +1,23 @@
-import '../styles/index.scss';
+import 'styles/index.scss';
+//prime ui
+import 'primereact/resources/primereact.min.css';
+import 'primeflex/primeflex.css';
+//theme
+import 'primereact/resources/themes/viva-light/theme.css';
+import 'primereact/resources/themes/viva-dark/theme.css';
+import 'primeicons/primeicons.css';
+//
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Poppins } from 'next/font/google';
 import { StoreContext } from 'shared';
 import { appModel } from './model';
 import { RootStoreProvider } from './config/storeProvider';
-import { UIProviders } from './config/uiProvider';
+import { UIProvider } from './config/uiProvider';
 
-const inter = Inter({ subsets: ['latin'] });
+const poppins = Poppins({
+  weight: ['300', '400', '500', '600', '700'],
+  subsets: ['latin'],
+});
 
 export const metadata: Metadata = {
   title: 'Focusify',
@@ -34,10 +45,17 @@ export default function RootLayout({
 }) {
   //toggle theme
   return (
-    <html lang="en" data-theme="light">
-      <body className={inter.className}>
+    <html lang="en">
+      <head>
+        <link
+          rel="stylesheet"
+          id="theme-link"
+          href={`/themes/light_default.css`}
+        />
+      </head>
+      <body className={poppins.className}>
         <RootStoreProvider>
-          <UIProviders>{children}</UIProviders>
+          <UIProvider>{children}</UIProvider>
         </RootStoreProvider>
       </body>
     </html>
