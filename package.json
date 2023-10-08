@@ -28,18 +28,12 @@
     "tsconfig-paths-webpack-plugin": "^4.0.0"
   },
   "dependencies": {
-    "@chakra-ui/icons": "^2.1.1",
-    "@chakra-ui/next-js": "^2.1.5",
-    "@chakra-ui/react": "^2.8.1",
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
     "@types/node": "20.4.5",
     "@types/react": "18.2.18",
     "@types/react-dom": "18.2.7",
     "classnames": "^2.3.2",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.12",
-    "framer-motion": "^10.16.4",
     "mobx": "^6.8.0",
     "mobx-react-lite": "^3.4.0",
     "next": "13.4.12",

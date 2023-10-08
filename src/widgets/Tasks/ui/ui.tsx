@@ -5,15 +5,6 @@ import { observer } from 'mobx-react-lite';
 import styles from './ui.module.scss';
 import cn from 'classnames';
 import { useTasksModel } from 'shared/providers';
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Heading,
-} from '@chakra-ui/react';
-import { IconButton } from '@chakra-ui/react';
-import { PhoneIcon, AddIcon, WarningIcon } from '@chakra-ui/icons';
 import { useEffect, useRef } from 'react';
 
 interface ITasksWidgetProps {
@@ -22,31 +13,31 @@ interface ITasksWidgetProps {
 
 export const Tasks = observer(({ className }: ITasksWidgetProps) => {
   const tasksModel = useTasksModel();
-  const tasks = tasksModel.tasks;
-  const taskInCreation = tasksModel.taskInCreation;
+  // const tasks = tasksModel.tasks;
+  // const taskInCreation = tasksModel.taskInCreation;
   //scroll to new element
   const createdTaskRef = useRef<HTMLDivElement>(null);
 
   const onNewTask = () => {
-    tasksModel.createTask();
+    // tasksModel.createTask();
   };
 
-  useEffect(() => {
-    console.log('new task', createdTaskRef.current);
-    if (createdTaskRef.current) {
-      createdTaskRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [taskInCreation]);
+  // useEffect(() => {
+  //   console.log('new task', createdTaskRef.current);
+  //   if (createdTaskRef.current) {
+  //     createdTaskRef.current.scrollIntoView({ behavior: 'smooth' });
+  //   }
+  // }, [taskInCreation]);
 
   return (
-    <Card className={cn(className, styles.wrapper)}>
-      <CardHeader>
+    <div className={cn(className, styles.wrapper)}>
+      {/* <CardHeader>
         <Heading size={'md'}>Tasks List</Heading>
-      </CardHeader>
+      </CardHeader> */}
       <div>Close widget</div>
 
       <div className={styles.list}>
-        {tasks.map((item) => (
+        {/* {tasks.map((item) => (
           <TaskItem
             isExpanded={item.isExpanded}
             taskData={item}
@@ -54,14 +45,14 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
             toggle={<ToggleTask taskId={item.id} />}
             ref={item.id === taskInCreation ? createdTaskRef : undefined}
           />
-        ))}
+        ))} */}
       </div>
 
-      <IconButton
+      {/* <IconButton
         aria-label="New Task"
         icon={<AddIcon />}
         onClick={() => onNewTask()}
-      ></IconButton>
-    </Card>
+      ></IconButton> */}
+    </div>
   );
 });
