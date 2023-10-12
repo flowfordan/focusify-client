@@ -22,7 +22,6 @@ export const Header = observer(({}: HeaderProps) => {
   const uiStore = useUIStore();
   const curTheme = uiStore.theme;
   const onThemeChange = (value: string) => {
-    console.log('change theme');
     uiStore.setTheme(value as Theme);
   };
   return (

@@ -41,8 +41,8 @@ export const ThemeProvider = observer(
       LOGGER.debug('misc', `, change to: ${curTheme}, prev: ${loadedTheme}`);
       primeContext.changeTheme &&
         primeContext?.changeTheme?.(
-          `lara-${loadedTheme}-blue`,
-          `lara-${curTheme}-blue`,
+          `${loadedTheme}`,
+          `${curTheme}`,
           'theme-link',
           () => {
             setThemeLocally(curTheme);

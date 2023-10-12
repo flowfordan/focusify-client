@@ -9,8 +9,8 @@ export const getDefaultTheme = () => {
   const browserTheme =
     typeof window !== 'undefined' &&
     window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'dark'
-      : 'light';
+      ? 'dark_default'
+      : 'light_default';
 
   return browserTheme as Theme;
 };
@@ -22,8 +22,10 @@ export const getCurrentLoadedTheme = (id: string, fallback: Theme) => {
   const href = link.getAttribute('href');
   if (!href) return fallback;
   //ok when there are 2 themes available
-  if (href.includes('light')) return 'light' as Theme;
-  else return 'dark' as Theme;
+  if (href.includes('light')) return 'light_default' as Theme;
+  if (href.includes('mystic')) return 'mystic_stillness' as Theme;
+  if (href.includes('twilight')) return 'twilight' as Theme;
+  else return 'dark_default' as Theme;
 };
 
 export const setThemeLocally = (theme: Theme) => {

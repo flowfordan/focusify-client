@@ -12,7 +12,6 @@ interface ThemeToggleProps {
 }
 
 const valueTemplate = (value: Record<string, string>) => {
-  console.log('template', value);
   return (
     <div className="flex align-items-center">
       <span className={value ? value['icon'] : ''}></span>
@@ -31,7 +30,6 @@ const optionTemplate = (value: Record<string, string>) => {
 };
 
 export const ThemeToggle = ({ onChange, options, value }: ThemeToggleProps) => {
-  console.log('value', value, options);
   return (
     <div>
       <Dropdown
