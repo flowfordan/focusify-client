@@ -7,40 +7,41 @@ const template = (option: Record<string, string>) => {
 
 interface ThemeToggleProps {
   onChange: (value: string) => void;
-  value: string;
+  value: Record<string, string>;
   options: Array<Record<string, string>>;
 }
 
-const valueTemplate = (option) => {
+const valueTemplate = (value: Record<string, string>) => {
+  console.log('template', value);
   return (
     <div className="flex align-items-center">
-      <span className={option.icon}></span>
+      <span className={value ? value['icon'] : ''}></span>
+      {/* <div>{option.value}</div> */}
+    </div>
+  );
+};
+
+const optionTemplate = (value: Record<string, string>) => {
+  return (
+    <div className="flex align-items-center">
+      <span className={value ? value['icon'] : ''}></span>
       {/* <div>{option.value}</div> */}
     </div>
   );
 };
 
 export const ThemeToggle = ({ onChange, options, value }: ThemeToggleProps) => {
-  console.log('value', value);
+  console.log('value', value, options);
   return (
     <div>
-      {/* <SelectButton
-        value={value}
-        onChange={(e) => {
-          onChange(e.value);
-        }}
-        itemTemplate={template}
-        optionLabel="value"
-        options={options}
-      /> */}
       <Dropdown
-        value={value}
-        valueTemplate={valueTemplate}
+        value={value['value']}
+        valueTemplate={(o) => valueTemplate(o)}
         onChange={(e) => onChange(e.value)}
         options={options}
-        itemTemplate={valueTemplate}
+        itemTemplate={optionTemplate}
         optionLabel="icon"
-        placeholder="Select a City"
+        placeholder="Select theme"
       />
     </div>
   );

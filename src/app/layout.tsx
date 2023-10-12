@@ -9,7 +9,7 @@ import 'primeicons/primeicons.css';
 //
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
-import { StoreContext } from 'shared';
+import { StoreContext, ThemeProvider } from 'shared';
 import { appModel } from './model';
 import { RootStoreProvider } from './config/storeProvider';
 import { UIProvider } from './config/uiProvider';
@@ -55,7 +55,9 @@ export default function RootLayout({
       </head>
       <body className={poppins.className}>
         <RootStoreProvider>
-          <UIProvider>{children}</UIProvider>
+          <UIProvider>
+            <ThemeProvider>{children}</ThemeProvider>
+          </UIProvider>
         </RootStoreProvider>
       </body>
     </html>

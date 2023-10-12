@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Theme } from 'shared/types';
 import { useUIStore } from 'shared/providers';
 import { SelectButton } from 'primereact/selectbutton';
+import { observer } from 'mobx-react-lite';
 
 interface HeaderProps {
   className?: string;
@@ -16,11 +17,12 @@ const options: Array<{ icon: string; value: Theme }> = [
   { icon: 'pi pi-star', value: 'twilight' },
 ];
 
-export const Header = ({}: HeaderProps) => {
+export const Header = observer(({}: HeaderProps) => {
   const [mounted, setMounted] = useState(false);
   const uiStore = useUIStore();
   const curTheme = uiStore.theme;
   const onThemeChange = (value: string) => {
+    console.log('change theme');
     uiStore.setTheme(value as Theme);
   };
   return (
@@ -28,9 +30,9 @@ export const Header = ({}: HeaderProps) => {
       <div>Header widget</div>
       <ThemeToggle
         onChange={(v) => onThemeChange(v)}
-        value={curTheme}
+        value={options.find((o) => o.value === curTheme) || options[0]}
         options={options}
       />
     </div>
   );
-};
+});
