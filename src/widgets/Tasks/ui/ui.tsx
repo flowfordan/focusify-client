@@ -6,6 +6,7 @@ import styles from './ui.module.scss';
 import cn from 'classnames';
 import { useTasksStore } from 'shared/providers';
 import { useEffect, useRef } from 'react';
+import { Card } from 'primereact/card';
 
 interface ITasksWidgetProps {
   className?: string;
@@ -30,7 +31,7 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
   // }, [taskInCreation]);
 
   return (
-    <div className={cn(className, styles.wrapper)}>
+    <Card className={cn(className, styles.wrapper)}>
       {/* <CardHeader>
         <Heading size={'md'}>Tasks List</Heading>
       </CardHeader> */}
@@ -53,6 +54,6 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
         icon={<AddIcon />}
         onClick={() => onNewTask()}
       ></IconButton> */}
-    </div>
+    </Card>
   );
 });

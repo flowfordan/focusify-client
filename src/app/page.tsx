@@ -4,6 +4,7 @@ import styles from './page.module.scss';
 import { PageHome } from 'pages_units';
 import { LayoutMain } from 'shared';
 import { Header } from 'widgets/Header';
+import { ModulesToggleWidget } from 'widgets/ModulesToggle';
 
 export default function Home() {
   //layout
@@ -11,6 +12,7 @@ export default function Home() {
   return (
     <LayoutMain header={<Header />}>
       <PageHome />
+      <ModulesToggleWidget />
     </LayoutMain>
   );
 }
