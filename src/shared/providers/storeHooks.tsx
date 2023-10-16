@@ -15,13 +15,18 @@ export function useRootStore() {
 }
 
 export function useSoundsModel() {
-  const { sounds } = useRootStore();
-  return sounds;
+  const { modules } = useRootStore();
+  return modules.sounds;
 }
 
 export function useTasksModel() {
-  const { tasks } = useRootStore();
-  return tasks;
+  const { modules } = useRootStore();
+  return modules.tasks;
+}
+
+export function useTimerModel() {
+  const { modules } = useRootStore();
+  return modules.timer;
 }
 
 export function useUIStore() {

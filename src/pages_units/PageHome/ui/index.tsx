@@ -9,13 +9,16 @@ import { observer } from 'mobx-react-lite';
 import { ModuleName } from '../config';
 import { useCallback, useEffect, useState } from 'react';
 import { useIsMobile } from 'shared/lib';
+import { useSoundsModel, useTasksModel, useTimerModel } from 'shared/providers';
 
 export const PageHome = observer(() => {
+  const tasksModule = useTasksModel();
+  const soundsModule = useSoundsModel();
+  const timerModule = useTimerModel();
   const isMobile = useIsMobile();
-  const isSounds = homeModel.isModuleEnabled('sounds');
-  const isTimer = homeModel.isModuleEnabled('timer');
-  const isTasks = homeModel.isModuleEnabled('tasks');
-  const modules = homeModel.modules;
+  const isSounds = soundsModule.isActive;
+  const isTimer = timerModule.isActive;
+  const isTasks = tasksModule.isActive;
   const enabledModulesCount = homeModel.enabledModulesCount;
 
   console.log('is mobile', isMobile);
