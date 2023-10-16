@@ -4,7 +4,7 @@ import { ToggleTask } from 'features/Task';
 import { observer } from 'mobx-react-lite';
 import styles from './ui.module.scss';
 import cn from 'classnames';
-import { useTasksModel } from 'shared/providers';
+import { useTasksStore } from 'shared/providers';
 import { useEffect, useRef } from 'react';
 
 interface ITasksWidgetProps {
@@ -12,7 +12,7 @@ interface ITasksWidgetProps {
 }
 
 export const Tasks = observer(({ className }: ITasksWidgetProps) => {
-  const tasksModel = useTasksModel();
+  const tasksModel = useTasksStore();
   // const tasks = tasksModel.tasks;
   // const taskInCreation = tasksModel.taskInCreation;
   //scroll to new element

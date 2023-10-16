@@ -14,17 +14,17 @@ export function useRootStore() {
   return context;
 }
 
-export function useSoundsModel() {
+export function useSoundsStore() {
   const { modules } = useRootStore();
   return modules.sounds;
 }
 
-export function useTasksModel() {
+export function useTasksStore() {
   const { modules } = useRootStore();
   return modules.tasks;
 }
 
-export function useTimerModel() {
+export function useTimerStore() {
   const { modules } = useRootStore();
   return modules.timer;
 }

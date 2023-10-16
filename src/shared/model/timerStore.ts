@@ -15,11 +15,11 @@ export class TimerStore implements ModuleStore {
   }
 
   set isActive(value: boolean) {
-    this.isActive = value;
+    this._isActive = value;
     this.root.countActiveModules();
   }
 
   get isActive() {
-    return this.isActive;
+    return this._isActive;
   }
 }
