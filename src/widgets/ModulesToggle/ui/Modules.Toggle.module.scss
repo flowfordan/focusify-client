@@ -28,3 +28,11 @@
   column-gap: 8px;
   text-align: end;
 }
+
+.btn {
+  transition: transform .6s ease-in-out !important;
+  transform: rotate(0deg);
+  &.open {
+    transform: rotate(135deg);
+  }
+}

@@ -1,0 +1,47 @@
+@mixin title1 {
+	font-size: 40px;
+	font-weight: 600;
+	line-height: 48px;
+}
+
+@mixin title2 {
+	font-size: 32px;
+	font-weight: 700;
+	line-height: 40px;
+}
+
+@mixin title3 {
+	font-size: 20px;
+	font-weight: 600;
+	line-height: 28px;
+}
+
+@mixin title4 {
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 24px;
+}
+
+@mixin regular1 {
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 24px;
+}
+
+@mixin regular2 {
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 28px;
+}
+
+@mixin descr1 {
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 16px;
+}
+
+@mixin descr2 {
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 16px;
+}

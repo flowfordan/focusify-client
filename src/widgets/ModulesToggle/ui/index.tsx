@@ -69,6 +69,9 @@ export const ModulesToggleWidget = observer(
           rounded
           aria-label="Modules"
           onClick={() => handleOpen()}
+          className={cn(styles.btn, {
+            [styles.open]: open,
+          })}
         />
       </div>
     );
