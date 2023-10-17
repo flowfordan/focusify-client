@@ -5,16 +5,25 @@ import { TasksStore } from './tasksStore';
 import { TimerStore } from './timerStore';
 import { UIStore } from './uiStore';
 import { UserStore } from './userStore';
+import { ModuleId } from 'shared/config';
+
+type Store<T> = T extends 'tasks'
+  ? TasksStore
+  : T extends 'timer'
+  ? TimerStore
+  : T extends 'sounds'
+  ? SoundsStore
+  : never;
+
+type Modules = {
+  [K in ModuleId]: Store<K>;
+};
 
 export class RootStore {
   user: UserStore;
   ui: UIStore;
   session: SessionStore;
-  modules: {
-    tasks: TasksStore;
-    timer: TimerStore;
-    sounds: SoundsStore;
-  };
+  modules: Modules;
   modulesStats: {
     activeCount: number;
   };
