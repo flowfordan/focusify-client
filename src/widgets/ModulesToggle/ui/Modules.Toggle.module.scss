@@ -15,3 +15,16 @@
     opacity: 1;
   }
 }
+
+.list {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 12px;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  column-gap: 8px;
+  text-align: end;
+}

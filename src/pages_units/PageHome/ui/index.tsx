@@ -27,12 +27,6 @@ export const PageHome = observer(() => {
   const isTasks = tasksModule.isActive;
   const enabledModulesCount = rootStore.modulesStats.activeCount;
 
-  console.log('is mobile', isMobile);
-
-  const toggleWidgetEnable = (screen: ModuleName) => {
-    homeModel.toggleWidgetEnabled(screen);
-  };
-
   return (
     <div
       className={cn(styles.container, {
@@ -43,33 +37,6 @@ export const PageHome = observer(() => {
         [styles.empty]: !isSounds && !isTasks && !isTimer,
       })}
     >
-      <div className={styles.tempBtn}>
-        <label>
-          <input
-            type="checkbox"
-            checked={isSounds}
-            onChange={() => toggleWidgetEnable('sounds')}
-          />
-          Sounds
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={isTasks}
-            onChange={() => toggleWidgetEnable('tasks')}
-          />
-          Tasks
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={isTimer}
-            onChange={() => toggleWidgetEnable('timer')}
-          />
-          Timer
-        </label>
-      </div>
-
       <Sounds
         className={cn(styles.soundsWrap, {
           [styles.hidden]: !isSounds,

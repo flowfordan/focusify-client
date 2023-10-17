@@ -22,4 +22,8 @@ export class SoundsStore implements ModuleStore {
   get isActive() {
     return this._isActive;
   }
+
+  toggleModuleActive() {
+    this.isActive = !this.isActive;
+  }
 }
