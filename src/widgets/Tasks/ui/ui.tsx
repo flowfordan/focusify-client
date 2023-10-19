@@ -32,7 +32,7 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
   // }, [taskInCreation]);
 
   return (
-    <Card className={cn(className, styles.wrapper)}>
+    <CardMain className={cn(className, styles.wrapper)}>
       {/* <CardHeader>
         <Heading size={'md'}>Tasks List</Heading>
       </CardHeader> */}
@@ -46,6 +46,7 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
           {'TaskItem 2'}
         </CardMain>
         <CardMain border>{'TaskItem 2'}</CardMain>
+        <CardMain border elevation>{'TaskItem 2'}</CardMain>
         {/* {tasks.map((item) => (
           <TaskItem
             isExpanded={item.isExpanded}
@@ -62,6 +63,6 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
         icon={<AddIcon />}
         onClick={() => onNewTask()}
       ></IconButton> */}
-    </Card>
+    </CardMain>
   );
 });

@@ -7,17 +7,23 @@ interface CardMainProps {
   children: React.ReactNode;
   hatch?: 'lines' | 'dots';
   /** Box-shadow intensity */
-  elevation?: 'low' | 'medium' | 'high';
+  elevation?: boolean;
   border?: boolean;
 }
 
-export const CardMain = ({ children, border, hatch }: CardMainProps) => {
+export const CardMain = ({
+  children,
+  border,
+  hatch,
+  elevation,
+}: CardMainProps) => {
   return (
     <div
       className={cn(styles.wrapper, {
         [styles.bordered]: border,
         [styles.hatchLine]: hatch === 'lines',
         [styles.hatchDots]: hatch === 'dots',
+        [styles.elevated]: elevation,
       })}
     >
       {children}
