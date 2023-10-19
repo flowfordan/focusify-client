@@ -16,6 +16,7 @@ import {
   useTimerStore,
 } from 'shared/providers';
 import { LayoutModule } from 'shared';
+import { ModuleId } from 'shared/config';
 
 export const PageHome = observer(() => {
   const rootStore = useRootStore();
@@ -27,6 +28,10 @@ export const PageHome = observer(() => {
   const isTimer = timerModule.isActive;
   const isTasks = tasksModule.isActive;
   const enabledModulesCount = rootStore.modulesStats.activeCount;
+
+  const onWidgetClose = (id: ModuleId) => {
+    rootStore.modules[id].toggleModuleActive();
+  };
 
   return (
     <div
@@ -43,8 +48,7 @@ export const PageHome = observer(() => {
           [styles.hidden]: !isSounds,
           [styles.one]: !isTimer && !isTasks && isSounds,
         })}
-        moduleId={''}
-        onClose={() => {}}
+        onClose={() => onWidgetClose('sounds')}
       >
         <Sounds />
       </LayoutModule>
@@ -54,8 +58,7 @@ export const PageHome = observer(() => {
           [styles.hidden]: !isTasks,
           [styles.one]: !isSounds && !isTimer && isTasks,
         })}
-        moduleId={''}
-        onClose={() => {}}
+        onClose={() => onWidgetClose('tasks')}
       >
         <Tasks />
       </LayoutModule>
@@ -65,8 +68,7 @@ export const PageHome = observer(() => {
           [styles.hidden]: !isTimer,
           [styles.one]: !isSounds && !isTasks && isTimer,
         })}
-        moduleId={''}
-        onClose={() => {}}
+        onClose={() => onWidgetClose('timer')}
       >
         <Timer />
       </LayoutModule>

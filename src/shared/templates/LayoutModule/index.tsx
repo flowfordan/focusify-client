@@ -6,15 +6,13 @@ import { Button } from 'primereact/button';
 interface LayoutModuleProps {
   className?: string;
   children?: React.ReactNode;
-  onClose: (id: string) => void;
-  moduleId: string;
+  onClose: () => void;
 }
 
 export const LayoutModule = ({
   className,
   children,
   onClose,
-  moduleId,
 }: LayoutModuleProps) => {
   return (
     <CardMain bgType="default" border className={cn(className, styles.wrapper)}>
@@ -26,7 +24,7 @@ export const LayoutModule = ({
           severity="secondary"
           aria-label="Filter"
           size="small"
-          onClick={() => onClose(moduleId)}
+          onClick={onClose}
         />
       </div>
       {children}
