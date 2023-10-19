@@ -10,9 +10,10 @@ export const Timer = ({ className }: ITimerWidgetProps) => {
   //
   return (
     <CardMain
+      border
       className={cn(className, styles.wrapper)}
       elevation
-      bgType="contrast"
+      bgType="default"
     >
       Timer Widget
     </CardMain>

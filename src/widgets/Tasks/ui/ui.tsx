@@ -33,7 +33,8 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
 
   return (
     <CardMain
-      bgType={'contrast'}
+      bgType="default"
+      border
       elevation
       className={cn(className, styles.wrapper)}
     >

@@ -55,6 +55,7 @@
 }
 
 .timerWrap, .soundsWrap, .tasksWrap {
+  transition: all 0.4s;
   &.hidden {
     display: none;
   }
@@ -71,7 +72,6 @@
 }
 
 .soundsWrap {
-  transition: all 0.4s;
   margin: 10px;
   grid-area: sounds;
   min-height: 300px;

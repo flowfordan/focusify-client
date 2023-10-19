@@ -15,8 +15,9 @@ export const Sounds = ({ className }: ISoundsWidgetProps) => {
   //
   return (
     <CardMain
-      elevation
-      bgType="contrast"
+      border
+      // elevation
+      bgType="default"
       className={cn(className, styles.wrapper)}
     >
       Sounds widget
