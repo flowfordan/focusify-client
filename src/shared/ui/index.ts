@@ -1,4 +1,3 @@
-export * from './Card/Card';
+export * from './CardMain';
 export * from './Input/Input';
-export * from './Btn/Btn';
 export * from './ThemeToggle';

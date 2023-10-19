@@ -45,3 +45,6 @@
 @mixin container-m {
   width: 100%;
 }
+
+//other variables
+$border-radius: var(--border-radius);
