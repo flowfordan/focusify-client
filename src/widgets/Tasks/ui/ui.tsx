@@ -7,6 +7,7 @@ import cn from 'classnames';
 import { useTasksStore } from 'shared/providers';
 import { useEffect, useRef } from 'react';
 import { Card } from 'primereact/card';
+import { CardMain } from 'shared/ui';
 
 interface ITasksWidgetProps {
   className?: string;
@@ -38,6 +39,13 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
       <div>Close widget</div>
 
       <div className={styles.list}>
+        <CardMain border hatch={'lines'}>
+          {'TaskItem'}
+        </CardMain>
+        <CardMain border hatch={'dots'}>
+          {'TaskItem 2'}
+        </CardMain>
+        <CardMain border>{'TaskItem 2'}</CardMain>
         {/* {tasks.map((item) => (
           <TaskItem
             isExpanded={item.isExpanded}

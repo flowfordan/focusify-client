@@ -8,8 +8,19 @@ interface CardMainProps {
   hatch?: 'lines' | 'dots';
   /** Box-shadow intensity */
   elevation?: 'low' | 'medium' | 'high';
+  border?: boolean;
 }
 
-export const CardMain = ({ children }: CardMainProps) => {
-  return <div className={styles.wrapper}>{children}</div>;
+export const CardMain = ({ children, border, hatch }: CardMainProps) => {
+  return (
+    <div
+      className={cn(styles.wrapper, {
+        [styles.bordered]: border,
+        [styles.hatchLine]: hatch === 'lines',
+        [styles.hatchDots]: hatch === 'dots',
+      })}
+    >
+      {children}
+    </div>
+  );
 };
