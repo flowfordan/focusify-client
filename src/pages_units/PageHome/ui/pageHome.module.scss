@@ -5,7 +5,8 @@
   padding: 20px;
   min-height: 500px;
   height: calc(100vh - 80px);
-  background-color: rgba(#000000, 0.3);
+  border-right: 1px solid rgba(#000000, 0.1);
+  border-left: 1px solid rgba(#000000, 0.1);
 
   display: grid;
   grid-template-columns: 2fr 1fr;

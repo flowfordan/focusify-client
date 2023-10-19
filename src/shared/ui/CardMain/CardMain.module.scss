@@ -23,7 +23,7 @@ $vert-offset: 22px;
 }
 
 .wrapper {
-  width: 100%;
+  //width: 100%;
   border-radius: $border-radius;
   padding: 16px;
   background-color: $color-surface-card;
@@ -43,5 +43,13 @@ $vert-offset: 22px;
     box-shadow: 0px $vert-offset $blur-radius $spread-radius rgba(0,0,0,0.39);
     -webkit-box-shadow: 0px $vert-offset $blur-radius $spread-radius rgba(0,0,0,0.39);
     -moz-box-shadow: 0px $vert-offset $blur-radius $spread-radius rgba(0,0,0,0.39);
+  }
+
+  &.bgMedium {
+    background-color: $color-surface-ground;
+  }
+
+  &.bgContrast {
+    background-color: $color-surface-ground;
   }
 }

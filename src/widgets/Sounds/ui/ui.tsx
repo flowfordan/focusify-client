@@ -5,6 +5,7 @@ import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 import styles from './ui.module.scss';
 import { Card } from 'primereact/card';
+import { CardMain } from 'shared/ui';
 
 interface ISoundsWidgetProps {
   className?: string;
@@ -13,11 +14,15 @@ interface ISoundsWidgetProps {
 export const Sounds = ({ className }: ISoundsWidgetProps) => {
   //
   return (
-    <Card className={cn(className, styles.wrapper)}>
+    <CardMain
+      elevation
+      bgType="contrast"
+      className={cn(className, styles.wrapper)}
+    >
       Sounds widget
       {/* {items.map((i) => (
         <Sound key={i.name} soundData={i} />
       ))} */}
-    </Card>
+    </CardMain>
   );
 };

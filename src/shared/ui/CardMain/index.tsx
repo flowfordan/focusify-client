@@ -9,21 +9,26 @@ interface CardMainProps {
   /** Box-shadow intensity */
   elevation?: boolean;
   border?: boolean;
+  bgType?: 'default' | 'medium' | 'contrast';
 }
 
 export const CardMain = ({
+  className,
   children,
   border,
   hatch,
   elevation,
+  bgType = 'default',
 }: CardMainProps) => {
   return (
     <div
-      className={cn(styles.wrapper, {
+      className={cn(className, styles.wrapper, {
         [styles.bordered]: border,
         [styles.hatchLine]: hatch === 'lines',
         [styles.hatchDots]: hatch === 'dots',
         [styles.elevated]: elevation,
+        [styles.bgMedium]: bgType === 'medium',
+        [styles.bgContrast]: bgType === 'contrast',
       })}
     >
       {children}
