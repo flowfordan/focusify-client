@@ -1,8 +1,9 @@
 @import 'styles/helpers';
 
 .wrapper {
+  position: relative;
   // border-radius: 20px;
-  // padding: 20px;
+  padding: 30px 60px;
   // background-color: $temp_tasks_block;
 }
 
@@ -16,3 +17,4 @@
 
   padding-bottom: 40px;
 }
+

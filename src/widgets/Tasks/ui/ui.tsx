@@ -8,6 +8,7 @@ import { useTasksStore } from 'shared/providers';
 import { useEffect, useRef } from 'react';
 import { Card } from 'primereact/card';
 import { CardMain } from 'shared/ui';
+import { Button } from 'primereact/button';
 
 interface ITasksWidgetProps {
   className?: string;
@@ -32,17 +33,7 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
   // }, [taskInCreation]);
 
   return (
-    <CardMain
-      bgType="default"
-      border
-      elevation
-      className={cn(className, styles.wrapper)}
-    >
-      {/* <CardHeader>
-        <Heading size={'md'}>Tasks List</Heading>
-      </CardHeader> */}
-      <div>Close widget</div>
-
+    <div>
       <div className={styles.list}>
         <CardMain border hatch={'lines'}>
           {'TaskItem'}
@@ -70,6 +61,6 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
         icon={<AddIcon />}
         onClick={() => onNewTask()}
       ></IconButton> */}
-    </CardMain>
+    </div>
   );
 });

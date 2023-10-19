@@ -13,6 +13,7 @@ import {
   useTimerStore,
 } from 'shared';
 import { observer } from 'mobx-react-lite';
+import { CardMain } from 'shared/ui';
 interface ModulesToggleWidgetProps {
   className?: string;
 }
@@ -42,7 +43,7 @@ export const ModulesToggleWidget = observer(
             [styles.visible]: open,
           })}
         >
-          <Card>
+          <CardMain border elevation bgType="default">
             <div className={styles.list}>
               {modulesData.map((m) => {
                 return (
@@ -62,7 +63,7 @@ export const ModulesToggleWidget = observer(
                 );
               })}
             </div>
-          </Card>
+          </CardMain>
         </div>
         <Button
           icon="pi pi-plus"

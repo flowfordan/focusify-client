@@ -15,6 +15,7 @@ import {
   useTasksStore,
   useTimerStore,
 } from 'shared/providers';
+import { LayoutModule } from 'shared';
 
 export const PageHome = observer(() => {
   const rootStore = useRootStore();
@@ -37,26 +38,38 @@ export const PageHome = observer(() => {
         [styles.empty]: !isSounds && !isTasks && !isTimer,
       })}
     >
-      <Sounds
+      <LayoutModule
         className={cn(styles.soundsWrap, {
           [styles.hidden]: !isSounds,
           [styles.one]: !isTimer && !isTasks && isSounds,
         })}
-      />
+        moduleId={''}
+        onClose={() => {}}
+      >
+        <Sounds />
+      </LayoutModule>
 
-      <Tasks
+      <LayoutModule
         className={cn(styles.tasksWrap, {
           [styles.hidden]: !isTasks,
           [styles.one]: !isSounds && !isTimer && isTasks,
         })}
-      />
+        moduleId={''}
+        onClose={() => {}}
+      >
+        <Tasks />
+      </LayoutModule>
 
-      <Timer
+      <LayoutModule
         className={cn(styles.timerWrap, {
           [styles.hidden]: !isTimer,
           [styles.one]: !isSounds && !isTasks && isTimer,
         })}
-      />
+        moduleId={''}
+        onClose={() => {}}
+      >
+        <Timer />
+      </LayoutModule>
     </div>
   );
 });

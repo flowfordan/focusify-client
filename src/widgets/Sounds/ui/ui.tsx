@@ -14,16 +14,11 @@ interface ISoundsWidgetProps {
 export const Sounds = ({ className }: ISoundsWidgetProps) => {
   //
   return (
-    <CardMain
-      border
-      // elevation
-      bgType="default"
-      className={cn(className, styles.wrapper)}
-    >
+    <div>
       Sounds widget
       {/* {items.map((i) => (
         <Sound key={i.name} soundData={i} />
       ))} */}
-    </CardMain>
+    </div>
   );
 };

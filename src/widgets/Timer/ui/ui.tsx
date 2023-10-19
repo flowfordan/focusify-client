@@ -8,14 +8,5 @@ interface ITimerWidgetProps {
 
 export const Timer = ({ className }: ITimerWidgetProps) => {
   //
-  return (
-    <CardMain
-      border
-      className={cn(className, styles.wrapper)}
-      elevation
-      bgType="default"
-    >
-      Timer Widget
-    </CardMain>
-  );
+  return <div>Timer Widget</div>;
 };
