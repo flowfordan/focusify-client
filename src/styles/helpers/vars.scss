@@ -48,3 +48,8 @@
 
 //other variables
 $border-radius: var(--border-radius);
+
+//transitions
+@mixin trans-opacity {
+  transition: opacity 0.4s ease-in-out;
+}

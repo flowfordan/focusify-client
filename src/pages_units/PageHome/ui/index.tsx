@@ -49,6 +49,7 @@ export const PageHome = observer(() => {
           [styles.one]: !isTimer && !isTasks && isSounds,
         })}
         onClose={() => onWidgetClose('sounds')}
+        title={'sounds'}
       >
         <Sounds />
       </LayoutModule>
@@ -59,6 +60,7 @@ export const PageHome = observer(() => {
           [styles.one]: !isSounds && !isTimer && isTasks,
         })}
         onClose={() => onWidgetClose('tasks')}
+        title={'to-do'}
       >
         <Tasks />
       </LayoutModule>
@@ -69,6 +71,7 @@ export const PageHome = observer(() => {
           [styles.one]: !isSounds && !isTasks && isTimer,
         })}
         onClose={() => onWidgetClose('timer')}
+        title={'pomodoro'}
       >
         <Timer />
       </LayoutModule>

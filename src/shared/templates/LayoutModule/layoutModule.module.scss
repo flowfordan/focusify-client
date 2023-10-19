@@ -1,11 +1,26 @@
+@use 'styles/helpers' as *;
+
 .wrapper {
+  @include trans-opacity;
   position: relative;
   // border-radius: 20px;
-  padding: 30px 60px;
+  padding: 30px 60px 30px 30px;
+
+  &:hover {
+    .title {
+      opacity: 1;
+    }
+  }
 }
 
 .close {
   position: absolute;
   right: 8px;
   top: 8px;
+}
+
+.title {
+  @include regular2;
+  color: var(--text-color-secondary);
+  opacity: 0.5;
 }
