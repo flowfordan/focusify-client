@@ -5,6 +5,9 @@
   position: relative;
   // border-radius: 20px;
   padding: 30px 60px 30px 30px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
 
   &:hover {
     .title {

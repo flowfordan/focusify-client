@@ -16,8 +16,8 @@ interface ITasksWidgetProps {
 
 export const Tasks = observer(({ className }: ITasksWidgetProps) => {
   const tasksModel = useTasksStore();
-  // const tasks = tasksModel.tasks;
-  // const taskInCreation = tasksModel.taskInCreation;
+  const tasks = tasksModel.tasks;
+  const taskBeingEdited = tasksModel.taskIdBeingEdited;
   //scroll to new element
   const createdTaskRef = useRef<HTMLDivElement>(null);
 
@@ -33,27 +33,35 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
   // }, [taskInCreation]);
 
   return (
-    <div>
-      <div className={styles.list}>
-        <CardMain border hatch={'lines'}>
-          {'TaskItem'}
-        </CardMain>
-        <CardMain border hatch={'dots'}>
-          {'TaskItem 2'}
-        </CardMain>
-        <CardMain border>{'TaskItem 2'}</CardMain>
-        <CardMain border elevation>
-          {'TaskItem 2'}
-        </CardMain>
-        {/* {tasks.map((item) => (
-          <TaskItem
-            isExpanded={item.isExpanded}
-            taskData={item}
-            key={item.id}
-            toggle={<ToggleTask taskId={item.id} />}
-            ref={item.id === taskInCreation ? createdTaskRef : undefined}
+    <div className={styles.content}>
+      <div className={styles.header}>
+        <span>Sort</span>
+        <span>Progress</span>
+        <span>CleanUp</span>
+      </div>
+      <div className={styles.listWrap}>
+        {' '}
+        <div className={styles.list}>
+          {tasks.map((item) => (
+            <TaskItem
+              isExpanded={item.isExpanded}
+              taskData={item}
+              key={item.id}
+              toggle={<ToggleTask taskId={item.id} />}
+              ref={item.id === taskBeingEdited ? createdTaskRef : undefined}
+            />
+          ))}
+        </div>{' '}
+        <div className={styles.btn}>
+          <Button
+            icon="pi pi-plus"
+            rounded
+            severity="secondary"
+            aria-label="New Task"
+            size="small"
+            onClick={() => {}}
           />
-        ))} */}
+        </div>
       </div>
 
       {/* <IconButton

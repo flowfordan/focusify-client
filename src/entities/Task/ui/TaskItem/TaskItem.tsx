@@ -1,8 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import { TaskItemProps } from './TaskItem.props';
 import cn from 'classnames';
-import styles from './TaskItem.module.scss';
+import styles from './taskItem.module.scss';
 import { ForwardedRef, forwardRef } from 'react';
+import { CardMain } from 'shared/ui';
 
 export const TaskItem = observer(
   forwardRef(function Task(
@@ -10,7 +11,8 @@ export const TaskItem = observer(
     ref: ForwardedRef<HTMLDivElement>
   ) {
     return (
-      <div
+      <CardMain
+        border
         className={cn(styles.taskItem, {
           [styles.expanded]: isExpanded,
         })}
@@ -40,7 +42,7 @@ export const TaskItem = observer(
         {/* <span>
           <Input />
         </span> */}
-      </div>
+      </CardMain>
     );
   })
 );
