@@ -12,24 +12,24 @@
   grid-template-columns: 2fr 1fr;
   grid-template-rows: 1fr 1fr;
   grid-template-areas: 'timer sounds' 'tasks sounds';
-  transition: 0.5s ease-out;
+  transition: all 0.5s ease-out;
 
   &.timer_tasks{
-    // transition: 0.4s;
+    //transition: all 0.5s ease-out;
     grid-template-columns: 1fr 2fr;
     grid-template-rows: 1fr 0fr;
     grid-template-areas: 'timer tasks';
   }
 
   &.timer_sounds {
-    // transition: 0.4s;
+    //transition: all 0.5s ease-out;
     grid-template-columns: 1fr 2fr;
     grid-template-rows: 1fr 0fr;
     grid-template-areas: 'timer sounds';
   }
 
   &.tasks_sounds {
-    // transition: 0.4s;
+    //transition: all 0.5s ease-out;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 1fr 0fr;
     grid-template-areas: 'tasks sounds';

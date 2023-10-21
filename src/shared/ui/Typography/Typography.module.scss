@@ -1,0 +1,45 @@
+@use 'styles/helpers' as *;
+
+.wrapper {
+  color: inherit;
+
+  &.secondary {
+    color: $color-txt-secondary;
+  }
+}
+
+.t1 {
+	@include title1;
+}
+
+.t2 {
+	@include title2;
+}
+
+.t3 {
+	@include title3;
+}
+
+.t4 {
+	@include title4;
+}
+
+.r1 {
+	@include regular1;
+}
+
+.r2 {
+	@include regular2;
+}
+
+.d1 {
+	@include descr1;
+}
+
+.d2 {
+	@include descr2;
+}
+
+.centered {
+	text-align: center;
+}
