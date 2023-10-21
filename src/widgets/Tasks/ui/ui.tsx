@@ -9,6 +9,7 @@ import { useEffect, useRef } from 'react';
 import { Card } from 'primereact/card';
 import { CardMain } from 'shared/ui';
 import { Button } from 'primereact/button';
+import { ScrollPanel } from 'primereact/scrollpanel';
 
 interface ITasksWidgetProps {
   className?: string;
@@ -40,7 +41,6 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
         <span>CleanUp</span>
       </div>
       <div className={styles.listWrap}>
-        {' '}
         <div className={styles.list}>
           {tasks.map((item) => (
             <TaskItem
@@ -51,10 +51,11 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
               ref={item.id === taskBeingEdited ? createdTaskRef : undefined}
             />
           ))}
-        </div>{' '}
+        </div>
         <div className={styles.btn}>
           <Button
             icon="pi pi-plus"
+            raised
             rounded
             severity="secondary"
             aria-label="New Task"
@@ -63,12 +64,6 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
           />
         </div>
       </div>
-
-      {/* <IconButton
-        aria-label="New Task"
-        icon={<AddIcon />}
-        onClick={() => onNewTask()}
-      ></IconButton> */}
     </div>
   );
 });

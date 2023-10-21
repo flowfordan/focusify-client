@@ -1,3 +1,4 @@
+@use './colors.scss';
 //media
 @mixin d_max {
   @media only screen and (max-width: "1600px") {
@@ -52,4 +53,28 @@ $border-radius: var(--border-radius);
 //transitions
 @mixin trans-opacity {
   transition: opacity 0.4s ease-in-out;
+}
+
+@mixin custom-scroll {
+  &::-webkit-scrollbar {
+    width: 5px; 
+    height: 7px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: $color-surface-border;
+    // outline: 1px solid #1e202a;
+    border-radius: 50px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 4px rgba(0,0,0,0.1);
+  }
+
+  @-moz-document url-prefix() {
+    .scroller {
+      scrollbar-width: thin;
+      scrollbar-color: $color-surface-border;
+    }
+  }
 }

@@ -1,5 +1,7 @@
+@use 'styles/helpers' as *;
 .taskItem {
   position: relative;
+  background-color: $color-surface-hover;
 
   display: flex;
   flex-direction: column;
