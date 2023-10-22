@@ -3,24 +3,38 @@ import { TaskItemProps } from './TaskItem.props';
 import cn from 'classnames';
 import styles from './taskItem.module.scss';
 import { ForwardedRef, forwardRef } from 'react';
-import { CardMain, Typography } from 'shared/ui';
+import { Btn, CardMain, Typography } from 'shared/ui';
 import { Checkbox } from 'primereact/checkbox';
 
 export const TaskItem = observer(
   forwardRef(function Task(
-    { taskData, toggle, isExpanded = false, ...props }: TaskItemProps,
+    {
+      taskData,
+      toggle,
+      isFocused,
+      isExpanded = false,
+      ...props
+    }: TaskItemProps,
     ref: ForwardedRef<HTMLDivElement>
   ) {
     return (
       <CardMain
         border
+        hatch={isFocused ? 'dots' : undefined}
         className={cn(styles.taskItem, {
           [styles.expanded]: isExpanded,
+          [styles.focused]: isFocused,
         })}
         ref={ref}
         {...props}
       >
-        <div>F</div>
+        <div
+          className={cn(styles.label, {
+            [styles.focused]: isFocused,
+          })}
+        >
+          <i className="pi pi-bolt"></i>
+        </div>
         <div className={styles.main}>
           <div className={styles.checkWrap}>
             <div className={styles.checkbox}>
@@ -42,14 +56,7 @@ export const TaskItem = observer(
           </div>
         </div>
         <div className={styles.removeWrap}>
-          {/* <IconButton
-            isRound={true}
-            variant="solid"
-            size={'xs'}
-            aria-label="Done"
-            fontSize="20px"
-            icon={<CloseIcon boxSize={2} />} */}
-          {/* /> */}
+          <Btn iconPrime={'pi-times'} />
         </div>
       </CardMain>
     );

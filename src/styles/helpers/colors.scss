@@ -27,13 +27,19 @@ $surface_600: var(--surface-600);
 $surface_700: var(--surface-700);
 $surface_800: var(--surface-800);
 $surface_900: var(--surface-900);
-//
+//colors
+$color-primary: var(--primary-color);
+$color-primary-txt: var(--primary-color-text);
+$color-highlight-bg: var(--highlight-bg);
+//colors ground
 $color-surface-ground: var(--surface-ground);
 $color-surface-section: var(--surface-section);
 $color-surface-card: var(--surface-card);
 $color-surface-overlay: var(--surface-overlay);
 $color-surface-border: var(--surface-border);
 $color-surface-hover: var(--surface-hover);
+//
+$color-surface-c: var(--surface-c);
 //txt colors
 $color-txt-primary: var(--text-color);
 $color-txt-secondary: var(--text-color-secondary);

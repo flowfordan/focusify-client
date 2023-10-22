@@ -17,7 +17,7 @@ export const _mockTasks: Array<ITask> = [
     title: 'Do stuff',
     description: 'description some bla',
     isCompleted: false,
-    isFocused: false,
+    isFocused: true,
     isExpanded: false,
     timeAll: 0,
     timeSpent: 0,
