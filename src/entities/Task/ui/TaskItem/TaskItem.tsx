@@ -3,7 +3,8 @@ import { TaskItemProps } from './TaskItem.props';
 import cn from 'classnames';
 import styles from './taskItem.module.scss';
 import { ForwardedRef, forwardRef } from 'react';
-import { CardMain } from 'shared/ui';
+import { CardMain, Typography } from 'shared/ui';
+import { Checkbox } from 'primereact/checkbox';
 
 export const TaskItem = observer(
   forwardRef(function Task(
@@ -19,10 +20,26 @@ export const TaskItem = observer(
         ref={ref}
         {...props}
       >
-        <div>{/* <Checkbox size="lg" defaultChecked /> */}</div>
+        <div>F</div>
         <div className={styles.main}>
-          <div>{taskData.title}</div>
-          <div>{taskData.description}</div>
+          <div className={styles.checkWrap}>
+            <div className={styles.checkbox}>
+              <Checkbox
+                inputId={''}
+                name="module"
+                value={''}
+                onChange={() => {}}
+                checked={true}
+                disabled={false}
+              />
+            </div>
+          </div>
+          <div className={styles.info}>
+            <Typography Tag="h3" type="t2">
+              Title
+            </Typography>
+            <div>Description</div>
+          </div>
         </div>
         <div className={styles.removeWrap}>
           {/* <IconButton
@@ -34,14 +51,6 @@ export const TaskItem = observer(
             icon={<CloseIcon boxSize={2} />} */}
           {/* /> */}
         </div>
-        {/* <span>{taskData.title}</span>
-        <span>{taskData.description}</span>
-        <span>{isExpanded ? 'expanded' : ''}</span>
-        <span>Progress</span> */}
-        {/* <Btn>Expand</Btn> */}
-        {/* <span>
-          <Input />
-        </span> */}
       </CardMain>
     );
   })

@@ -3,25 +3,14 @@
   position: relative;
   background-color: $color-surface-hover;
 
-  display: flex;
-  flex-direction: column;
-
   height: 100px;
 
-  padding: 15px;
-
   display: grid;
-  grid-template-columns: min-content 1fr;
-  column-gap: 20px;
+  grid-template-columns: 20px 1fr;
+  padding: 0;
 
   &.expanded {
     background-color: rgb(87, 171, 255);
-  
-    border-radius: 5px;
-    border: 2px solid rgb(99, 99, 99);
-  
-    display: flex;
-    flex-direction: column;
   }
 
   &:hover {
@@ -33,11 +22,34 @@
   }
 }
 
+.label {
+
+}
+
 .main {
   display: grid;
+  grid-template-columns: 50px 1fr;
+  grid-template-rows: 1fr;
+  padding: 15px 40px 15px 0;
+}
+
+.checkWrap, .info {
+  display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: min-content 1fr;
-  row-gap: 12px;
+  grid-template-rows: 40px min-content;
+  row-gap: 8px;
+}
+
+.checkWrap {
+  .checkbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.info {
+
 }
 
 .removeWrap {
