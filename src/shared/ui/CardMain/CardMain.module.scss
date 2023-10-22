@@ -1,7 +1,7 @@
 @use 'styles/helpers' as *;
 
 $transparent-color: rgba(255, 255, 255, 0);
-$hatch-color: $surface_500;
+$hatch-color: $surface_400;
 //
 $spread-radius: -23px;
 $blur-radius: 20px;
@@ -28,7 +28,8 @@ $vert-offset: 22px;
   padding: 16px;
   background-color: $color-surface-card;
   &.bordered {
-    border: 1px solid $color-surface-border;
+    border: 1px solid black;
+    border-color: $color-surface-border;
   }
 
   &.hatchLine {

@@ -2,6 +2,8 @@
 .taskItem {
   position: relative;
   background-color: $color-surface-hover;
+  border: 1px solid black;
+  border-color: $surface_200;
 
   height: 100px;
 
@@ -20,6 +22,11 @@
       visibility: visible;
       opacity: 1;
     }
+  }
+
+  &.completed {
+    border: 1px solid black;
+    border-color: $color-surface-border;
   }
 
   &:hover {

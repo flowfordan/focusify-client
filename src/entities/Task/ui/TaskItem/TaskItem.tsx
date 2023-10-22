@@ -12,6 +12,7 @@ export const TaskItem = observer(
       taskData,
       toggle,
       isFocused,
+      isCompleted,
       isExpanded = false,
       ...props
     }: TaskItemProps,
@@ -19,11 +20,11 @@ export const TaskItem = observer(
   ) {
     return (
       <CardMain
-        border
-        hatch={isFocused ? 'dots' : undefined}
+        hatch={isFocused ? 'dots' : isCompleted ? 'lines' : undefined}
         className={cn(styles.taskItem, {
           [styles.expanded]: isExpanded,
           [styles.focused]: isFocused,
+          [styles.completed]: isCompleted,
         })}
         ref={ref}
         {...props}
@@ -43,7 +44,7 @@ export const TaskItem = observer(
                 name="module"
                 value={''}
                 onChange={() => {}}
-                checked={true}
+                checked={isCompleted ?? false}
                 disabled={false}
               />
             </div>

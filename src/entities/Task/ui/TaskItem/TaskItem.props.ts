@@ -7,4 +7,5 @@ export interface TaskItemProps
   toggle: ReactNode;
   isExpanded?: boolean;
   isFocused?: boolean;
+  isCompleted?: boolean;
 }

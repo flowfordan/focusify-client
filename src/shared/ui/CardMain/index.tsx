@@ -9,6 +9,7 @@ interface CardMainProps {
   /** Box-shadow intensity */
   elevation?: boolean;
   border?: boolean;
+  borderColorType?: 'default' | 'contrast';
   bgType?: 'default' | 'medium' | 'contrast';
 }
 

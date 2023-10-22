@@ -46,6 +46,7 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
             <TaskItem
               isExpanded={item.isExpanded}
               isFocused={item.isFocused}
+              isCompleted={item.isCompleted}
               taskData={item}
               key={item.id}
               toggle={<ToggleTask taskId={item.id} />}
