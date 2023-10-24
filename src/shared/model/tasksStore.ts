@@ -31,4 +31,14 @@ export class TasksStore implements ModuleStore {
   toggleModuleActive() {
     this.isActive = !this.isActive;
   }
+
+  setItemFocused(itemId: string, isFocused?: boolean) {
+    const item = this.tasks.find((t) => t.id === itemId);
+    if (!item) return;
+    if (isFocused !== undefined) {
+      item.isFocused = isFocused;
+    } else {
+      item.isFocused = !item.isFocused;
+    }
+  }
 }

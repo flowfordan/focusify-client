@@ -2,9 +2,15 @@ import { observer } from 'mobx-react-lite';
 import { TaskItemProps } from './TaskItem.props';
 import cn from 'classnames';
 import styles from './taskItem.module.scss';
-import { ForwardedRef, forwardRef } from 'react';
+import {
+  ButtonHTMLAttributes,
+  DetailedHTMLProps,
+  ForwardedRef,
+  forwardRef,
+} from 'react';
 import { Btn, CardMain, Typography } from 'shared/ui';
 import { Checkbox } from 'primereact/checkbox';
+import { taskModel } from 'entities/Task';
 
 export const TaskItem = observer(
   forwardRef(function Task(
@@ -18,6 +24,9 @@ export const TaskItem = observer(
     }: TaskItemProps,
     ref: ForwardedRef<HTMLDivElement>
   ) {
+    const onToggleFocused = (id: string) => {
+      taskModel.setItemFocused(id);
+    };
     return (
       <CardMain
         hatch={isFocused ? 'dots' : isCompleted ? 'lines' : undefined}
@@ -36,6 +45,7 @@ export const TaskItem = observer(
             className={styles.focusBtnWrap}
             isFocused={isFocused}
             unavailable={isCompleted}
+            onClick={() => onToggleFocused(taskData.id)}
           />
         )}
         <div className={styles.main}>
@@ -66,13 +76,22 @@ export const TaskItem = observer(
   })
 );
 
-interface FocusBtnProps {
+interface FocusBtnProps
+  extends DetailedHTMLProps<
+    ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+  > {
   className?: string;
   isFocused?: boolean;
   unavailable?: boolean;
 }
 
-const FocusBtn = ({ className, isFocused, unavailable }: FocusBtnProps) => {
+const FocusBtn = ({
+  className,
+  isFocused,
+  unavailable,
+  ...props
+}: FocusBtnProps) => {
   return (
     <button
       className={cn(className, styles.focusBtn, {
@@ -80,6 +99,7 @@ const FocusBtn = ({ className, isFocused, unavailable }: FocusBtnProps) => {
         [styles.unavailable]: unavailable,
       })}
       disabled={unavailable}
+      {...props}
     >
       <i className="pi pi-bolt"></i>
     </button>
