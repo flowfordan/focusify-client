@@ -15,14 +15,14 @@
     background-color: rgb(87, 171, 255);
   }
 
-  &.focused {
-    border: 1px solid $color-primary;
-    background-color: $color-surface-c;
-    .label {
-      visibility: visible;
-      opacity: 1;
-    }
-  }
+  // &.focused {
+  //   border: 1px solid $color-primary;
+  //   background-color: $color-surface-c;
+  //   .label {
+  //     visibility: visible;
+  //     opacity: 1;
+  //   }
+  // }
 
   &.completed {
     border: 1px solid black;
@@ -30,37 +30,27 @@
   }
 
   &:hover {
-    .removeWrap {
+    // .removeWrap {
+    //   visibility: visible;
+    //   opacity: 1;
+    //   transition: opacity 0.2s;
+    // }
+
+    // .label {
+    //   visibility: visible;
+    //   opacity: 0.5;
+    // }
+
+    // &.completed {
+    //   .label {
+    //     visibility: hidden;
+    //     opacity: 0;
+    //   }
+    // }
+    .focusBtnWrap {
       visibility: visible;
       opacity: 1;
-      transition: opacity 0.2s;
     }
-
-    .label {
-      visibility: visible;
-      opacity: 1;
-    }
-  }
-}
-
-.label {
-  cursor: pointer;
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.2s;
-  //appereance
-  border-top-left-radius: $border-radius;
-  border-bottom-left-radius: $border-radius;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: $color-primary-txt;
-  background-color: $color-primary;
-
-  &.focused {
-    visibility: visible;
-    opacity: 1;
-    background-color: $color-primary;
   }
 }
 
@@ -98,5 +88,39 @@
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.2s;
+}
+
+.focusBtnWrap {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.focusBtn {
+  cursor: pointer;
+  // visibility: visible;
+  // opacity: 1;
+  transition: opacity 0.2s;
+  //appereance
+  border-top-left-radius: $border-radius;
+  border-bottom-left-radius: $border-radius;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $color-primary-txt;
+  background-color: $surface_400;
+
+  &:hover {
+    background-color: $surface_500;
+  }
+
+  &.active {
+    visibility: visible;
+    opacity: 1;
+    background-color: $color-primary;
+  }
+
+  &.unavailable {
+    display: none;
+  }
 }
 
