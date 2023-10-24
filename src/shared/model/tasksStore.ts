@@ -4,6 +4,9 @@ import { RootStore } from './rootStore';
 import { ITask } from './types/task';
 import { _mockTasks } from 'shared/config';
 
+//TODO method to work with local storage
+//on init: get data from LS
+//on change: set data to LS (bind upd to some methods)
 export class TasksStore implements ModuleStore {
   private _isActive: boolean;
   isAvailable: boolean;
