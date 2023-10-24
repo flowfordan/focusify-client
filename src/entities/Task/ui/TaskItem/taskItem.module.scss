@@ -15,14 +15,10 @@
     background-color: rgb(87, 171, 255);
   }
 
-  // &.focused {
-  //   border: 1px solid $color-primary;
-  //   background-color: $color-surface-c;
-  //   .label {
-  //     visibility: visible;
-  //     opacity: 1;
-  //   }
-  // }
+  &.focused {
+    border: 1px solid $color-primary;
+    background-color: $color-surface-c;
+  }
 
   &.completed {
     border: 1px solid black;
@@ -30,11 +26,11 @@
   }
 
   &:hover {
-    // .removeWrap {
-    //   visibility: visible;
-    //   opacity: 1;
-    //   transition: opacity 0.2s;
-    // }
+    .removeWrap {
+      visibility: visible;
+      opacity: 1;
+      transition: opacity 0.2s;
+    }
 
     // .label {
     //   visibility: visible;
@@ -120,7 +116,13 @@
   }
 
   &.unavailable {
-    display: none;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  &:disabled {
+    opacity: 0;
+    visibility: hidden;
   }
 }
 

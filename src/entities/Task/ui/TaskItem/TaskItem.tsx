@@ -29,11 +29,15 @@ export const TaskItem = observer(
         ref={ref}
         {...props}
       >
-        <FocusBtn
-          className={styles.focusBtnWrap}
-          isFocused={isFocused}
-          unavailable={isCompleted}
-        />
+        {isCompleted ? (
+          <div></div>
+        ) : (
+          <FocusBtn
+            className={styles.focusBtnWrap}
+            isFocused={isFocused}
+            unavailable={isCompleted}
+          />
+        )}
         <div className={styles.main}>
           <div className={styles.checkWrap}>
             <div className={styles.checkbox}>
@@ -49,7 +53,7 @@ export const TaskItem = observer(
           </div>
           <div className={styles.info}>
             <Typography Tag="h3" type="t2">
-              Title
+              {taskData.title}
             </Typography>
             <div>Description</div>
           </div>
@@ -71,14 +75,11 @@ interface FocusBtnProps {
 const FocusBtn = ({ className, isFocused, unavailable }: FocusBtnProps) => {
   return (
     <button
-      className={cn(
-        styles.focusBtn,
-        {
-          [styles.active]: isFocused,
-          [styles.unavailable]: unavailable,
-        },
-        className
-      )}
+      className={cn(className, styles.focusBtn, {
+        [styles.active]: isFocused,
+        [styles.unavailable]: unavailable,
+      })}
+      disabled={unavailable}
     >
       <i className="pi pi-bolt"></i>
     </button>
