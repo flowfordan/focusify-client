@@ -1,13 +1,9 @@
 import styles from './Btn.module.scss';
+import { BtnProps } from './Btn.props';
 
-interface BtnProps {
-  className?: boolean;
-  iconPrime: string;
-}
-
-export const Btn = ({ className, iconPrime }: BtnProps) => {
+export const Btn = ({ className, iconPrime, ...props }: BtnProps) => {
   return (
-    <button className={styles.btn}>
+    <button className={styles.btn} {...props}>
       <i className={`pi ${iconPrime}`}></i>
     </button>
   );

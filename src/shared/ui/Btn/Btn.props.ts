@@ -5,6 +5,7 @@ export interface BtnProps
     HTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
-  children: ReactNode;
+  children?: ReactNode;
   color?: 'white' | 'blue';
+  iconPrime: string;
 }

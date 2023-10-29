@@ -23,6 +23,10 @@ class TaskModel {
   toggleItemCompleted(id: string) {
     this.store.toggleItemCompleted(id);
   }
+
+  removeItem(id: string) {
+    this.store.removeItem(id);
+  }
 }
 
 export const taskModel = new TaskModel(rootStore.modules.tasks);

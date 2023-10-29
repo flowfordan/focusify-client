@@ -31,12 +31,16 @@ export class TasksStore implements ModuleStore {
     return this._isActive;
   }
 
+  private getItemById(id: string) {
+    return this.tasks.find((t) => t.id === id);
+  }
+
   toggleModuleActive() {
     this.isActive = !this.isActive;
   }
 
   setItemFocused(itemId: string, isFocused?: boolean) {
-    const item = this.tasks.find((t) => t.id === itemId);
+    const item = this.getItemById(itemId);
     if (!item) return;
     if (isFocused !== undefined) {
       item.isFocused = isFocused;
@@ -46,13 +50,20 @@ export class TasksStore implements ModuleStore {
   }
 
   toggleItemCompleted(itemId: string) {
-    const item = this.tasks.find((t) => t.id === itemId);
+    const item = this.getItemById(itemId);
     if (!item) return;
     item.isCompleted = !item.isCompleted;
     if (item.isCompleted) {
       runInAction(() => {
         item.isFocused = false;
       });
+    }
+  }
+
+  removeItem(itemId: string) {
+    const index = this.tasks.findIndex((t) => t.id === itemId);
+    if (index > -1) {
+      this.tasks.splice(index, 1);
     }
   }
 }

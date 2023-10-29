@@ -30,6 +30,9 @@ export const TaskItem = observer(
     const onToggleCompleted = (id: string) => {
       taskModel.toggleItemCompleted(id);
     };
+    const onItemRemove = (id: string) => {
+      taskModel.removeItem(id);
+    };
     return (
       <CardMain
         hatch={isFocused ? 'dots' : isCompleted ? 'lines' : undefined}
@@ -72,7 +75,10 @@ export const TaskItem = observer(
           </div>
         </div>
         <div className={styles.removeWrap}>
-          <Btn iconPrime={'pi-times'} />
+          <Btn
+            iconPrime={'pi-times'}
+            onClick={() => onItemRemove(taskData.id)}
+          />
         </div>
       </CardMain>
     );
