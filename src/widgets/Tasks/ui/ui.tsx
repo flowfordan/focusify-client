@@ -10,6 +10,7 @@ import { Card } from 'primereact/card';
 import { CardMain } from 'shared/ui';
 import { Button } from 'primereact/button';
 import { ScrollPanel } from 'primereact/scrollpanel';
+import { tasksWidgetModel } from '../model/tasksWidgetModel';
 
 interface ITasksWidgetProps {
   className?: string;
@@ -23,15 +24,8 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
   const createdTaskRef = useRef<HTMLDivElement>(null);
 
   const onNewTask = () => {
-    // tasksModel.createTask();
+    tasksWidgetModel.addNewTask();
   };
-
-  // useEffect(() => {
-  //   console.log('new task', createdTaskRef.current);
-  //   if (createdTaskRef.current) {
-  //     createdTaskRef.current.scrollIntoView({ behavior: 'smooth' });
-  //   }
-  // }, [taskInCreation]);
 
   return (
     <div className={styles.content}>
@@ -62,7 +56,7 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
             severity="secondary"
             aria-label="New Task"
             size="small"
-            onClick={() => {}}
+            onClick={() => onNewTask()}
           />
         </div>
       </div>

@@ -6,15 +6,19 @@ import { ITask } from './types/task';
 import { _mockTasks } from 'shared/config';
 import { STORAGE } from 'shared/lib';
 
-function _withLSRevalidation() {
-  return function (
-    target: any,
-    key: string,
-    descriptor: TypedPropertyDescriptor<any>
-  ) {
-    console.log('dsds');
+const getNullTask = (): ITask => {
+  return {
+    id: new Date().getTime().toString(),
+    title: 'New Task',
+    description: '',
+    isCompleted: false,
+    isFocused: false,
+    isExpanded: false,
+    timeAll: 0,
+    timeSpent: 0,
+    timeRemain: 0,
   };
-}
+};
 
 //TODO method to work with local storage
 //on init: get data from LS
@@ -99,6 +103,11 @@ export class TasksStore implements ModuleStore {
     if (index > -1) {
       this.tasks.splice(index, 1);
     }
+    this._updateStorage();
+  }
+
+  addNewItem() {
+    this.tasks.push(getNullTask());
     this._updateStorage();
   }
 
