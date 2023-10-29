@@ -27,6 +27,9 @@ export const TaskItem = observer(
     const onToggleFocused = (id: string) => {
       taskModel.setItemFocused(id);
     };
+    const onToggleCompleted = (id: string) => {
+      taskModel.toggleItemCompleted(id);
+    };
     return (
       <CardMain
         hatch={isFocused ? 'dots' : isCompleted ? 'lines' : undefined}
@@ -52,10 +55,10 @@ export const TaskItem = observer(
           <div className={styles.checkWrap}>
             <div className={styles.checkbox}>
               <Checkbox
-                inputId={''}
+                inputId={'Task Complition'}
                 name="module"
                 value={''}
-                onChange={() => {}}
+                onChange={() => onToggleCompleted(taskData.id)}
                 checked={isCompleted ?? false}
                 disabled={false}
               />

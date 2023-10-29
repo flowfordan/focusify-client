@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import { ModuleStore } from './_moduleStore';
 import { RootStore } from './rootStore';
 import { ITask } from './types/task';
@@ -42,6 +42,17 @@ export class TasksStore implements ModuleStore {
       item.isFocused = isFocused;
     } else {
       item.isFocused = !item.isFocused;
+    }
+  }
+
+  toggleItemCompleted(itemId: string) {
+    const item = this.tasks.find((t) => t.id === itemId);
+    if (!item) return;
+    item.isCompleted = !item.isCompleted;
+    if (item.isCompleted) {
+      runInAction(() => {
+        item.isFocused = false;
+      });
     }
   }
 }

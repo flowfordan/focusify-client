@@ -19,6 +19,10 @@ class TaskModel {
       this.store.setItemFocused(id);
     }
   }
+
+  toggleItemCompleted(id: string) {
+    this.store.toggleItemCompleted(id);
+  }
 }
 
 export const taskModel = new TaskModel(rootStore.modules.tasks);
