@@ -14,6 +14,10 @@ export class SoundsStore implements ModuleStore {
     makeAutoObservable(this);
   }
 
+  init() {
+    //
+  }
+
   set isActive(value: boolean) {
     this._isActive = value;
     this.root.countActiveModules();
@@ -25,5 +29,9 @@ export class SoundsStore implements ModuleStore {
 
   toggleModuleActive() {
     this.isActive = !this.isActive;
+  }
+
+  subscribeToChanges(): void {
+    //
   }
 }

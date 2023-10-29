@@ -1,8 +1,20 @@
-import { makeAutoObservable, runInAction } from 'mobx';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { makeAutoObservable, reaction, runInAction } from 'mobx';
 import { ModuleStore } from './_moduleStore';
 import { RootStore } from './rootStore';
 import { ITask } from './types/task';
 import { _mockTasks } from 'shared/config';
+import { STORAGE } from 'shared/lib';
+
+function _withLSRevalidation() {
+  return function (
+    target: any,
+    key: string,
+    descriptor: TypedPropertyDescriptor<any>
+  ) {
+    console.log('dsds');
+  };
+}
 
 //TODO method to work with local storage
 //on init: get data from LS
@@ -17,9 +29,20 @@ export class TasksStore implements ModuleStore {
     this.root = root;
     this._isActive = true;
     this.isAvailable = true;
-    this.tasks = _mockTasks;
+    this.tasks = [];
 
     makeAutoObservable(this);
+  }
+
+  //write decorator method that calls write to ls method
+  writeToLS() {
+    //
+  }
+
+  init() {
+    this.loadTasksFromStorage();
+    //temp
+    // this.tasks = _mockTasks;
   }
 
   set isActive(value: boolean) {
@@ -35,6 +58,15 @@ export class TasksStore implements ModuleStore {
     return this.tasks.find((t) => t.id === id);
   }
 
+  private _updateStorage() {
+    STORAGE.set('tasks', this.tasks);
+  }
+
+  private loadTasksFromStorage() {
+    const savedData = STORAGE.get('tasks');
+    this.tasks = savedData ? savedData : [];
+  }
+
   toggleModuleActive() {
     this.isActive = !this.isActive;
   }
@@ -47,6 +79,7 @@ export class TasksStore implements ModuleStore {
     } else {
       item.isFocused = !item.isFocused;
     }
+    this._updateStorage();
   }
 
   toggleItemCompleted(itemId: string) {
@@ -58,6 +91,7 @@ export class TasksStore implements ModuleStore {
         item.isFocused = false;
       });
     }
+    this._updateStorage();
   }
 
   removeItem(itemId: string) {
@@ -65,5 +99,20 @@ export class TasksStore implements ModuleStore {
     if (index > -1) {
       this.tasks.splice(index, 1);
     }
+    this._updateStorage();
+  }
+
+  subscribeToChanges() {
+    reaction(
+      () => {
+        return this.tasks.length;
+      },
+      () => {
+        console.log('CHANGES IN TASKS');
+      },
+      {
+        fireImmediately: false,
+      }
+    );
   }
 }

@@ -44,6 +44,12 @@ export class RootStore {
 
   init() {
     this.countActiveModules();
+    //load data from LS
+    // this.subscribeToChanges();
+    Object.keys(this.modules).forEach((key) => {
+      const module = this.modules[key as keyof typeof this.modules];
+      module.init();
+    });
   }
 
   countActiveModules() {
