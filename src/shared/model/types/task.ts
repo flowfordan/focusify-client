@@ -10,6 +10,15 @@ export interface ITask {
   timeRemain: number;
 }
 
+export interface ITaskEdited {
+  id: string;
+  title: string;
+  description: string;
+  timeAll: number;
+  timeSpent: number;
+  timeRemain: number;
+}
+
 export interface ITasksModel {
   tasks: Array<ITask>;
   taskInCreation: string | null;

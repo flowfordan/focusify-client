@@ -38,7 +38,7 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
         <div className={styles.list}>
           {tasks.map((item) => (
             <TaskItem
-              isExpanded={item.isExpanded}
+              isExpanded={item.isBeingEdited}
               isFocused={item.isFocused}
               isCompleted={item.isCompleted}
               taskData={item}

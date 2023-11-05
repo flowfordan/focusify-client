@@ -7,10 +7,13 @@ import {
   DetailedHTMLProps,
   ForwardedRef,
   forwardRef,
+  useState,
 } from 'react';
 import { Btn, CardMain, Typography } from 'shared/ui';
 import { Checkbox } from 'primereact/checkbox';
 import { taskModel } from 'entities/Task';
+import { InputText } from 'primereact/inputtext';
+import { InputTextarea } from 'primereact/inputtextarea';
 
 export const TaskItem = observer(
   forwardRef(function Task(
@@ -19,7 +22,7 @@ export const TaskItem = observer(
       toggle,
       isFocused,
       isCompleted,
-      isExpanded = false,
+      isExpanded,
       ...props
     }: TaskItemProps,
     ref: ForwardedRef<HTMLDivElement>
@@ -70,15 +73,24 @@ export const TaskItem = observer(
               />
             </div>
           </div>
-          <button
-            className={styles.info}
-            onClick={() => onItemBeingEdited(taskData.id)}
-          >
-            <Typography Tag="h3" type="t2">
-              {taskData.title}
-            </Typography>
-            <div>Description {}</div>
-          </button>
+          {isExpanded ? (
+            <div className={styles.infoEdit}>
+              <ItemEditSection
+                initDescr={taskData.description}
+                initTitle={taskData.title}
+              />
+            </div>
+          ) : (
+            <button
+              className={styles.info}
+              onClick={() => onItemBeingEdited(taskData.id)}
+            >
+              <Typography Tag="h3" type="t2">
+                {taskData.title}
+              </Typography>
+              <div>Description</div>
+            </button>
+          )}
         </div>
         <div className={styles.removeWrap}>
           <Btn
@@ -118,5 +130,27 @@ const FocusBtn = ({
     >
       <i className="pi pi-bolt"></i>
     </button>
+  );
+};
+
+interface ItemEditSectionProps {
+  initTitle: string;
+  initDescr: string;
+  initPomodoro?: number;
+}
+
+const ItemEditSection = ({ initDescr, initTitle }: ItemEditSectionProps) => {
+  const [title, setTitle] = useState(initTitle);
+  const [descr, setDescr] = useState(initDescr);
+  return (
+    <>
+      <div className={styles.titleEdit}>
+        <InputText autoFocus value={title} />
+      </div>
+      <div className={styles.descrEdit}>
+        <InputTextarea value={descr} style={{ resize: 'none' }} />
+      </div>
+      <div>Pomodoro</div>
+    </>
   );
 };

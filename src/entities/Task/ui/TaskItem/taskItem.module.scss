@@ -11,10 +11,6 @@
   grid-template-columns: 20px 1fr;
   padding: 0;
 
-  &.expanded {
-    background-color: rgb(87, 171, 255);
-  }
-
   &.focused {
     border: 1px solid $color-primary;
     background-color: $color-surface-c;
@@ -47,6 +43,10 @@
       visibility: visible;
       opacity: 1;
     }
+  }
+
+  &.expanded {
+    border: 2px solid $color-primary;
   }
 }
 
@@ -88,6 +88,32 @@
       visibility: visible;
     }
   }
+}
+
+
+//TASK IN EDIT MODE
+.infoEdit {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 40px 80px 20px;
+  row-gap: 8px;
+}
+
+.titleEdit {
+  input {
+    width: 100%;
+  }
+}
+
+.descrEdit {
+  textarea {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.titleEdit {
+  display: flex;
 }
 
 .info::before {

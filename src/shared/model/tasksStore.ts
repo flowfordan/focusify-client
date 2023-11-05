@@ -2,7 +2,7 @@
 import { makeAutoObservable, reaction, runInAction } from 'mobx';
 import { ModuleStore } from './_moduleStore';
 import { RootStore } from './rootStore';
-import { ITask } from './types/task';
+import { ITask, ITaskEdited } from './types/task';
 import { _mockTasks } from 'shared/config';
 import { STORAGE } from 'shared/lib';
 
@@ -28,7 +28,7 @@ export class TasksStore implements ModuleStore {
   isAvailable: boolean;
   root: RootStore;
   tasks: Array<ITask>;
-  taskIdBeingEdited: string | null = null;
+  taskBeingEdited: ITaskEdited | null = null;
   constructor(root: RootStore) {
     this.root = root;
     this._isActive = true;
@@ -98,21 +98,34 @@ export class TasksStore implements ModuleStore {
     this._updateStorage();
   }
 
-  setItemAsBeingEdited(itemId: string, isBeingEdited?: boolean) {
-    //if any of items are being edited - set them as not being edited
-    this.tasks.forEach((t) => {
-      if (t.isBeingEdited) {
-        t.isBeingEdited = false;
-      }
-    });
+  setItemAsBeingEdited(itemId: string) {
+    //previous item being edited
     //TODO: check if item is already being edited
     const item = this.getItemById(itemId);
     if (!item) return;
-    if (isBeingEdited !== undefined) {
-      item.isBeingEdited = isBeingEdited;
-    } else {
-      item.isBeingEdited = !item.isBeingEdited;
-    }
+    this.taskBeingEdited = {
+      id: item.id,
+      title: item.title,
+      description: item.description,
+      timeAll: item.timeAll,
+      timeSpent: item.timeSpent,
+      timeRemain: item.timeRemain,
+    };
+  }
+
+  stopItemBeingEdited() {
+    //save made changes
+    const currentEditedItem = this.taskBeingEdited;
+    if (!currentEditedItem) return;
+    const item = this.getItemById(currentEditedItem.id);
+    if (!item) return;
+    item.title =
+      currentEditedItem.title.length > 0 ? currentEditedItem.title : item.title; //if title is empty - return saved item
+    item.description = currentEditedItem.description;
+    item.timeAll = currentEditedItem.timeAll;
+    item.timeSpent = currentEditedItem.timeSpent;
+    item.timeRemain = currentEditedItem.timeRemain;
+    this.taskBeingEdited = null;
   }
 
   removeItem(itemId: string) {
