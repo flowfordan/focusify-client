@@ -89,7 +89,7 @@ export const TaskItem = observer(
               <Typography Tag="h3" type="t2">
                 {taskData.title}
               </Typography>
-              <div>Description</div>
+              <div className={styles.description}>{taskData.description}</div>
             </button>
           )}
         </div>
