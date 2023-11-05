@@ -27,6 +27,10 @@ class TaskModel {
   removeItem(id: string) {
     this.store.removeItem(id);
   }
+
+  setItemAsBeingEdited(id: string) {
+    this.store.setItemAsBeingEdited(id);
+  }
 }
 
 export const taskModel = new TaskModel(rootStore.modules.tasks);

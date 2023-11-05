@@ -13,7 +13,7 @@ const getNullTask = (): ITask => {
     description: '',
     isCompleted: false,
     isFocused: false,
-    isExpanded: false,
+    isBeingEdited: false,
     timeAll: 0,
     timeSpent: 0,
     timeRemain: 0,
@@ -96,6 +96,23 @@ export class TasksStore implements ModuleStore {
       });
     }
     this._updateStorage();
+  }
+
+  setItemAsBeingEdited(itemId: string, isBeingEdited?: boolean) {
+    //if any of items are being edited - set them as not being edited
+    this.tasks.forEach((t) => {
+      if (t.isBeingEdited) {
+        t.isBeingEdited = false;
+      }
+    });
+    //TODO: check if item is already being edited
+    const item = this.getItemById(itemId);
+    if (!item) return;
+    if (isBeingEdited !== undefined) {
+      item.isBeingEdited = isBeingEdited;
+    } else {
+      item.isBeingEdited = !item.isBeingEdited;
+    }
   }
 
   removeItem(itemId: string) {

@@ -33,6 +33,9 @@ export const TaskItem = observer(
     const onItemRemove = (id: string) => {
       taskModel.removeItem(id);
     };
+    const onItemBeingEdited = (id: string) => {
+      taskModel.setItemAsBeingEdited(id);
+    };
     return (
       <CardMain
         hatch={isFocused ? 'dots' : isCompleted ? 'lines' : undefined}
@@ -67,11 +70,14 @@ export const TaskItem = observer(
               />
             </div>
           </div>
-          <button className={styles.info}>
+          <button
+            className={styles.info}
+            onClick={() => onItemBeingEdited(taskData.id)}
+          >
             <Typography Tag="h3" type="t2">
               {taskData.title}
             </Typography>
-            <div>Description</div>
+            <div>Description {}</div>
           </button>
         </div>
         <div className={styles.removeWrap}>
