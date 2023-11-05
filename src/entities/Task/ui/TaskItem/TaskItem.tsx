@@ -67,12 +67,12 @@ export const TaskItem = observer(
               />
             </div>
           </div>
-          <div className={styles.info}>
+          <button className={styles.info}>
             <Typography Tag="h3" type="t2">
               {taskData.title}
             </Typography>
             <div>Description</div>
-          </div>
+          </button>
         </div>
         <div className={styles.removeWrap}>
           <Btn
