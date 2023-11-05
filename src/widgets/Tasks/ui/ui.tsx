@@ -7,7 +7,7 @@ import cn from 'classnames';
 import { useTasksStore } from 'shared/providers';
 import { useEffect, useRef } from 'react';
 import { Card } from 'primereact/card';
-import { CardMain } from 'shared/ui';
+import { CardMain, OutsideClickHandler } from 'shared/ui';
 import { Button } from 'primereact/button';
 import { ScrollPanel } from 'primereact/scrollpanel';
 import { tasksWidgetModel } from '../model/tasksWidgetModel';
@@ -21,10 +21,14 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
   const tasks = tasksModel.tasks;
   const taskBeingEdited = tasksModel.taskBeingEdited;
   //TODO scroll to new element
-  const createdTaskRef = useRef<HTMLDivElement>(null);
+  const editedRef = useRef<HTMLDivElement>(null);
 
   const onNewTask = () => {
     tasksWidgetModel.addNewTask();
+  };
+
+  const onOutsideClick = () => {
+    tasksModel.stopItemBeingEdited();
   };
 
   return (
@@ -36,20 +40,36 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
       </div>
       <div className={styles.listWrap}>
         <div className={styles.list}>
-          {tasks.map((item) => (
-            <TaskItem
-              editData={
-                taskBeingEdited && taskBeingEdited?.id === item.id
-                  ? taskBeingEdited
-                  : null
-              }
-              isFocused={item.isFocused}
-              isCompleted={item.isCompleted}
-              taskData={item}
-              key={item.id}
-              toggle={<ToggleTask taskId={item.id} />}
-            />
-          ))}
+          {tasks.map((item) => {
+            if (taskBeingEdited && taskBeingEdited?.id === item.id) {
+              return (
+                <OutsideClickHandler
+                  key={item.id}
+                  onOutsideClick={() => onOutsideClick()}
+                >
+                  <TaskItem
+                    editData={taskBeingEdited}
+                    isFocused={item.isFocused}
+                    isCompleted={item.isCompleted}
+                    taskData={item}
+                    key={item.id}
+                    toggle={<ToggleTask taskId={item.id} />}
+                    ref={editedRef}
+                  />
+                </OutsideClickHandler>
+              );
+            } else
+              return (
+                <TaskItem
+                  editData={null}
+                  isFocused={item.isFocused}
+                  isCompleted={item.isCompleted}
+                  taskData={item}
+                  key={item.id}
+                  toggle={<ToggleTask taskId={item.id} />}
+                />
+              );
+          })}
         </div>
         <div className={styles.btn}>
           <Button

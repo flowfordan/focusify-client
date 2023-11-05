@@ -155,18 +155,20 @@ const ItemEditSection = ({ data }: ItemEditSectionProps) => {
   };
 
   useEffect(() => {
-    timerRef.current = setTimeout(() => {
-      taskModel.setEditedItemData(title, descr);
-    }, 2000);
-    return () => {
-      timerRef.current && clearTimeout(timerRef.current);
-    };
+    taskModel.setEditedItemData(title, descr);
+    // timerRef.current = setTimeout(() => {
+    //   taskModel.setEditedItemData(title, descr);
+    // }, 2000);
+    // return () => {
+    //   timerRef.current && clearTimeout(timerRef.current);
+    // };
   }, [title, descr]);
 
   useEffect(() => {
     return () => {
+      console.log('unmount item edit');
       taskModel.setEditedItemData(title, descr);
-      timerRef.current && clearTimeout(timerRef.current);
+      // timerRef.current && clearTimeout(timerRef.current);
     };
   }, []);
 

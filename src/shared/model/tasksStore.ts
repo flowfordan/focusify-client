@@ -133,6 +133,7 @@ export class TasksStore implements ModuleStore {
     item.timeSpent = currentEditedItem.timeSpent;
     item.timeRemain = currentEditedItem.timeRemain;
     this.taskBeingEdited = null;
+    this._updateStorage();
   }
 
   removeItem(itemId: string) {
