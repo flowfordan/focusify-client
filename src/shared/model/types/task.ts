@@ -4,7 +4,6 @@ export interface ITask {
   description: string;
   isCompleted: boolean;
   isFocused: boolean;
-  isBeingEdited: boolean;
   timeAll: number;
   timeSpent: number;
   timeRemain: number;

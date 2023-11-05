@@ -1,11 +1,11 @@
 import { HTMLAttributes, DetailedHTMLProps, ReactNode } from 'react';
-import { ITask } from 'shared/model';
+import { ITask, ITaskEdited } from 'shared/model';
 
 export interface TaskItemProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   taskData: ITask;
   toggle: ReactNode;
-  isExpanded?: boolean;
+  editData: ITaskEdited | null;
   isFocused?: boolean;
   isCompleted?: boolean;
 }

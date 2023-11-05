@@ -13,7 +13,6 @@ const getNullTask = (): ITask => {
     description: '',
     isCompleted: false,
     isFocused: false,
-    isBeingEdited: false,
     timeAll: 0,
     timeSpent: 0,
     timeRemain: 0,
@@ -99,7 +98,9 @@ export class TasksStore implements ModuleStore {
   }
 
   setItemAsBeingEdited(itemId: string) {
+    if (this.taskBeingEdited?.id === itemId) return;
     //previous item being edited
+    this.stopItemBeingEdited();
     //TODO: check if item is already being edited
     const item = this.getItemById(itemId);
     if (!item) return;
@@ -112,6 +113,12 @@ export class TasksStore implements ModuleStore {
       timeRemain: item.timeRemain,
     };
   }
+
+  // setEditedItemData(title: string, description: string) {
+  //   if (!this.taskBeingEdited) return;
+  //   this.taskBeingEdited.title = title;
+  //   this.taskBeingEdited.description = description;
+  // }
 
   stopItemBeingEdited() {
     //save made changes

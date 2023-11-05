@@ -19,8 +19,8 @@ interface ITasksWidgetProps {
 export const Tasks = observer(({ className }: ITasksWidgetProps) => {
   const tasksModel = useTasksStore();
   const tasks = tasksModel.tasks;
-  const taskBeingEdited = tasksModel.taskIdBeingEdited;
-  //scroll to new element
+  const taskBeingEdited = tasksModel.taskBeingEdited;
+  //TODO scroll to new element
   const createdTaskRef = useRef<HTMLDivElement>(null);
 
   const onNewTask = () => {
@@ -38,13 +38,16 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
         <div className={styles.list}>
           {tasks.map((item) => (
             <TaskItem
-              isExpanded={item.isBeingEdited}
+              editData={
+                taskBeingEdited && taskBeingEdited?.id === item.id
+                  ? taskBeingEdited
+                  : null
+              }
               isFocused={item.isFocused}
               isCompleted={item.isCompleted}
               taskData={item}
               key={item.id}
               toggle={<ToggleTask taskId={item.id} />}
-              ref={item.id === taskBeingEdited ? createdTaskRef : undefined}
             />
           ))}
         </div>

@@ -1,3 +1,4 @@
+import { LOGGER } from 'shared/lib';
 import { rootStore } from 'shared/model';
 import type { TasksStore } from 'shared/model';
 
@@ -30,6 +31,17 @@ class TaskModel {
 
   setItemAsBeingEdited(id: string) {
     this.store.setItemAsBeingEdited(id);
+  }
+
+  setEditedItemData(title: string, description: string) {
+    if (!this.store.taskBeingEdited) return;
+    LOGGER.debug('misc', `set data for item ${title} ${description}`);
+    this.store.taskBeingEdited.title = title;
+    this.store.taskBeingEdited.description = description;
+  }
+
+  stopItemBeingEdited() {
+    this.store.stopItemBeingEdited();
   }
 }
 

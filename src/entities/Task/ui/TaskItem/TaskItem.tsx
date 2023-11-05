@@ -4,9 +4,12 @@ import cn from 'classnames';
 import styles from './taskItem.module.scss';
 import {
   ButtonHTMLAttributes,
+  ChangeEvent,
   DetailedHTMLProps,
   ForwardedRef,
   forwardRef,
+  useEffect,
+  useRef,
   useState,
 } from 'react';
 import { Btn, CardMain, Typography } from 'shared/ui';
@@ -14,6 +17,7 @@ import { Checkbox } from 'primereact/checkbox';
 import { taskModel } from 'entities/Task';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
+import { ITaskEdited } from 'shared/model';
 
 export const TaskItem = observer(
   forwardRef(function Task(
@@ -22,7 +26,7 @@ export const TaskItem = observer(
       toggle,
       isFocused,
       isCompleted,
-      isExpanded,
+      editData,
       ...props
     }: TaskItemProps,
     ref: ForwardedRef<HTMLDivElement>
@@ -43,7 +47,7 @@ export const TaskItem = observer(
       <CardMain
         hatch={isFocused ? 'dots' : isCompleted ? 'lines' : undefined}
         className={cn(styles.taskItem, {
-          [styles.expanded]: isExpanded,
+          [styles.expanded]: editData,
           [styles.focused]: isFocused,
           [styles.completed]: isCompleted,
         })}
@@ -73,12 +77,9 @@ export const TaskItem = observer(
               />
             </div>
           </div>
-          {isExpanded ? (
+          {editData ? (
             <div className={styles.infoEdit}>
-              <ItemEditSection
-                initDescr={taskData.description}
-                initTitle={taskData.title}
-              />
+              <ItemEditSection data={editData} />
             </div>
           ) : (
             <button
@@ -134,21 +135,56 @@ const FocusBtn = ({
 };
 
 interface ItemEditSectionProps {
-  initTitle: string;
-  initDescr: string;
-  initPomodoro?: number;
+  data: ITaskEdited;
 }
 
-const ItemEditSection = ({ initDescr, initTitle }: ItemEditSectionProps) => {
-  const [title, setTitle] = useState(initTitle);
-  const [descr, setDescr] = useState(initDescr);
+const ItemEditSection = ({ data }: ItemEditSectionProps) => {
+  const [title, setTitle] = useState(data.title);
+  const [descr, setDescr] = useState(data.description);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value.length > 120) return;
+    setTitle(value);
+  };
+  const handleChangeDescr = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    if (value.length > 300) return;
+    setDescr(value);
+  };
+
+  useEffect(() => {
+    timerRef.current = setTimeout(() => {
+      taskModel.setEditedItemData(title, descr);
+    }, 2000);
+    return () => {
+      timerRef.current && clearTimeout(timerRef.current);
+    };
+  }, [title, descr]);
+
+  useEffect(() => {
+    return () => {
+      taskModel.setEditedItemData(title, descr);
+      timerRef.current && clearTimeout(timerRef.current);
+    };
+  }, []);
+
   return (
     <>
       <div className={styles.titleEdit}>
-        <InputText autoFocus value={title} />
+        <InputText
+          autoFocus
+          value={title}
+          onChange={(e) => handleChangeTitle(e)}
+        />
       </div>
       <div className={styles.descrEdit}>
-        <InputTextarea value={descr} style={{ resize: 'none' }} />
+        <InputTextarea
+          value={descr}
+          style={{ resize: 'none' }}
+          onChange={(e) => handleChangeDescr(e)}
+        />
       </div>
       <div>Pomodoro</div>
     </>
