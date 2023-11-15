@@ -11,15 +11,18 @@ import { CardMain, OutsideClickHandler } from 'shared/ui';
 import { Button } from 'primereact/button';
 import { ScrollPanel } from 'primereact/scrollpanel';
 import { tasksWidgetModel } from '../model/tasksWidgetModel';
+import Image from 'next/image';
 
 interface ITasksWidgetProps {
   className?: string;
 }
 
 export const Tasks = observer(({ className }: ITasksWidgetProps) => {
-  const tasksModel = useTasksStore();
-  const tasks = tasksModel.tasks;
-  const taskBeingEdited = tasksModel.taskBeingEdited;
+  const tasksStore = useTasksStore();
+  const tasks = tasksStore.tasks;
+  const taskBeingEdited = tasksStore.taskBeingEdited;
+  const tasksCount = tasksStore.tasksCount;
+  const tasksDoneCount = tasksStore.tasksDoneCount;
   //TODO scroll to new element
   const editedRef = useRef<HTMLDivElement>(null);
 
@@ -27,19 +30,42 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
     tasksWidgetModel.addNewTask();
   };
 
+  const cleanUpTasks = () => {
+    tasksStore.cleanUpTasksList();
+  };
+
   const onOutsideClick = () => {
-    tasksModel.stopItemBeingEdited();
+    tasksStore.stopItemBeingEdited();
   };
 
   return (
     <div className={styles.content}>
       <div className={styles.header}>
         <span>Sort</span>
-        <span>Progress</span>
-        <span>CleanUp</span>
+        <span className={styles.progress}>
+          {tasksCount === 0
+            ? 'no tasks'
+            : `finished ${tasksDoneCount} of ${tasksCount}`}
+        </span>
+        <span>
+          <Button
+            title="Clean up tasks list"
+            icon="pi pi-trash"
+            text
+            severity="secondary"
+            aria-label="Clen up tasks"
+            size="small"
+            onClick={() => cleanUpTasks()}
+          />
+        </span>
       </div>
       <div className={styles.listWrap}>
         <div className={styles.list}>
+          {tasks.length === 0 && (
+            <div className={styles.emptyWrap}>
+              <img src="/images/todo_bg.png" />
+            </div>
+          )}
           {tasks.map((item) => {
             if (taskBeingEdited && taskBeingEdited?.id === item.id) {
               return (

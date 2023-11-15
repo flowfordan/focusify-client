@@ -8,6 +8,7 @@ interface LayoutModuleProps {
   children?: React.ReactNode;
   onClose: () => void;
   title: string;
+  withExpand?: boolean;
 }
 
 export const LayoutModule = ({
@@ -15,6 +16,7 @@ export const LayoutModule = ({
   children,
   onClose,
   title,
+  withExpand,
 }: LayoutModuleProps) => {
   return (
     <CardMain bgType="default" border className={cn(className, styles.wrapper)}>
@@ -25,11 +27,24 @@ export const LayoutModule = ({
           rounded
           text
           severity="secondary"
-          aria-label="Filter"
+          aria-label="Close module"
           size="small"
           onClick={onClose}
         />
       </div>
+      {withExpand && (
+        <div className={styles.expand}>
+          <Button
+            icon="pi pi-window-maximize"
+            rounded
+            // outlined
+            // severity="secondary"
+            aria-label="Expand"
+            size="small"
+            onClick={() => {}}
+          />
+        </div>
+      )}
       {children}
     </CardMain>
   );

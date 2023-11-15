@@ -57,6 +57,15 @@ export class TasksStore implements ModuleStore {
     return this._isActive;
   }
 
+  get tasksCount() {
+    return this.tasks.length;
+  }
+
+  get tasksDoneCount() {
+    const finishedTasks = this.tasks.filter((t) => t.isCompleted);
+    return finishedTasks.length;
+  }
+
   private getItemById(id: string) {
     return this.tasks.find((t) => t.id === id);
   }
@@ -149,6 +158,11 @@ export class TasksStore implements ModuleStore {
     this.tasks.push(newTask);
     //new task is always in edit mode
     this.setItemAsBeingEdited(newTask.id);
+    this._updateStorage();
+  }
+
+  cleanUpTasksList() {
+    this.tasks = [];
     this._updateStorage();
   }
 

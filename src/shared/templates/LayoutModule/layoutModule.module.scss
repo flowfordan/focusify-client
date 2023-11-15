@@ -14,12 +14,36 @@
       opacity: 1;
     }
   }
+
+  @include d {
+    padding: 20px 30px 20px 20px;
+  }
+
+  @include t {
+    padding: 15px 20px 15px 15px;
+  }
 }
 
 .close {
   position: absolute;
   right: 8px;
   top: 8px;
+
+  @include t {
+    right: 4px;
+    top: 4px;
+  }
+}
+
+.expand {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+
+  @include t {
+    right: 4px;
+    bottom: 4px;
+  }
 }
 
 .title {

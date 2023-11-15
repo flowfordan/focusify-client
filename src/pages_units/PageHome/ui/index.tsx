@@ -1,5 +1,6 @@
 'use client';
 import { Tasks } from 'widgets/Tasks';
+import { TasksCompact } from 'widgets/Tasks';
 import { Sounds } from 'widgets/Sounds';
 import styles from './pageHome.module.scss';
 import { Timer } from 'widgets/Timer';
@@ -34,47 +35,82 @@ export const PageHome = observer(() => {
   };
 
   return (
-    <div
-      className={cn(styles.container, {
-        [styles.timer_tasks]: !isSounds && isTimer && isTasks,
-        [styles.timer_sounds]: isSounds && isTimer && !isTasks,
-        [styles.tasks_sounds]: isSounds && !isTimer && isTasks,
-        [styles.one]: enabledModulesCount === 1,
-        [styles.empty]: !isSounds && !isTasks && !isTimer,
-      })}
-    >
-      <LayoutModule
-        className={cn(styles.soundsWrap, {
-          [styles.hidden]: !isSounds,
-          [styles.one]: !isTimer && !isTasks && isSounds,
-        })}
-        onClose={() => onWidgetClose('sounds')}
-        title={'sounds'}
-      >
-        <Sounds />
-      </LayoutModule>
+    <>
+      {isMobile ? (
+        <div className={styles.container}>
+          <LayoutModule
+            withExpand
+            className={cn(styles.tasksWrap, {
+              [styles.hidden]: !isTasks,
+            })}
+            onClose={() => onWidgetClose('tasks')}
+            title="to-do"
+          >
+            <TasksCompact />
+          </LayoutModule>
+          <LayoutModule
+            className={cn(styles.soundsWrap, {
+              [styles.hidden]: !isSounds,
+            })}
+            onClose={() => onWidgetClose('sounds')}
+            title="sounds"
+          >
+            Sounds
+          </LayoutModule>
+          <LayoutModule
+            className={cn(styles.timerWrap, {
+              [styles.hidden]: !isTimer,
+            })}
+            onClose={() => onWidgetClose('timer')}
+            title="pomodoro"
+          >
+            Timer
+          </LayoutModule>
+        </div>
+      ) : (
+        <div
+          className={cn(styles.container, {
+            [styles.timer_tasks]: !isSounds && isTimer && isTasks,
+            [styles.timer_sounds]: isSounds && isTimer && !isTasks,
+            [styles.tasks_sounds]: isSounds && !isTimer && isTasks,
+            [styles.one]: enabledModulesCount === 1,
+            [styles.empty]: !isSounds && !isTasks && !isTimer,
+          })}
+        >
+          <LayoutModule
+            className={cn(styles.soundsWrap, {
+              [styles.hidden]: !isSounds,
+              [styles.one]: !isTimer && !isTasks && isSounds,
+            })}
+            onClose={() => onWidgetClose('sounds')}
+            title={'sounds'}
+          >
+            <Sounds />
+          </LayoutModule>
 
-      <LayoutModule
-        className={cn(styles.tasksWrap, {
-          [styles.hidden]: !isTasks,
-          [styles.one]: !isSounds && !isTimer && isTasks,
-        })}
-        onClose={() => onWidgetClose('tasks')}
-        title={'to-do'}
-      >
-        <Tasks />
-      </LayoutModule>
+          <LayoutModule
+            className={cn(styles.tasksWrap, {
+              [styles.hidden]: !isTasks,
+              [styles.one]: !isSounds && !isTimer && isTasks,
+            })}
+            onClose={() => onWidgetClose('tasks')}
+            title={'to-do'}
+          >
+            <Tasks />
+          </LayoutModule>
 
-      <LayoutModule
-        className={cn(styles.timerWrap, {
-          [styles.hidden]: !isTimer,
-          [styles.one]: !isSounds && !isTasks && isTimer,
-        })}
-        onClose={() => onWidgetClose('timer')}
-        title={'pomodoro'}
-      >
-        <Timer />
-      </LayoutModule>
-    </div>
+          <LayoutModule
+            className={cn(styles.timerWrap, {
+              [styles.hidden]: !isTimer,
+              [styles.one]: !isSounds && !isTasks && isTimer,
+            })}
+            onClose={() => onWidgetClose('timer')}
+            title={'pomodoro'}
+          >
+            <Timer />
+          </LayoutModule>
+        </div>
+      )}
+    </>
   );
 });
