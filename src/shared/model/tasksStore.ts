@@ -145,7 +145,10 @@ export class TasksStore implements ModuleStore {
   }
 
   addNewItem() {
-    this.tasks.push(getNullTask());
+    const newTask = getNullTask();
+    this.tasks.push(newTask);
+    //new task is always in edit mode
+    this.setItemAsBeingEdited(newTask.id);
     this._updateStorage();
   }
 
