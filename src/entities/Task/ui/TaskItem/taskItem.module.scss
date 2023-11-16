@@ -19,26 +19,14 @@
   &.completed {
     border: 1px solid black;
     border-color: $color-surface-border;
+
+    .main {
+      color: $color-txt-secondary;
+      text-decoration: line-through;
+    }
   }
 
   &:hover {
-    // .removeWrap {
-    //   visibility: visible;
-    //   opacity: 1;
-    //   transition: opacity 0.2s;
-    // }
-
-    // .label {
-    //   visibility: visible;
-    //   opacity: 0.5;
-    // }
-
-    // &.completed {
-    //   .label {
-    //     visibility: hidden;
-    //     opacity: 0;
-    //   }
-    // }
     .focusBtnWrap {
       visibility: visible;
       opacity: 1;
