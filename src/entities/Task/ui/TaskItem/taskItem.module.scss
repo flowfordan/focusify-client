@@ -22,11 +22,11 @@
   }
 
   &:hover {
-    .removeWrap {
-      visibility: visible;
-      opacity: 1;
-      transition: opacity 0.2s;
-    }
+    // .removeWrap {
+    //   visibility: visible;
+    //   opacity: 1;
+    //   transition: opacity 0.2s;
+    // }
 
     // .label {
     //   visibility: visible;
@@ -92,8 +92,6 @@
   border-radius: $border-radius;
 
   &:hover {
-    background-color: rgba($color-primary, 0.5);
-
     &::before {
       visibility: visible;
     }
@@ -163,20 +161,19 @@
   top: 0;
   right: 0;
   padding: 2px;
-  visibility: hidden;
-  opacity: 0;
+  // visibility: hidden;
+  // opacity: 0;
   transition: opacity 0.2s;
 }
 
 .focusBtnWrap {
-  visibility: hidden;
-  opacity: 0;
+  // visibility: hidden;
+  // opacity: 0;
 }
 
 .focusBtn {
   cursor: pointer;
-  // visibility: visible;
-  // opacity: 1;
+  visibility: visible;
   transition: opacity 0.2s;
   //appereance
   border-top-left-radius: $border-radius;
@@ -184,14 +181,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: $color-primary-txt;
-  background-color: $surface_400;
+  color: $color-txt-secondary;
+  opacity: 0.4;
 
   &:hover {
-    background-color: $surface_500;
+    color: $color-primary-txt;
+    background-color: $color-txt-secondary;
   }
 
   &.active {
+    color: $color-primary-txt;
     visibility: visible;
     opacity: 1;
     background-color: $color-primary;
