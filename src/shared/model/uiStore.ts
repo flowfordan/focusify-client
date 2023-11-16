@@ -1,4 +1,5 @@
 import { makeAutoObservable } from 'mobx';
+import { ModuleId } from 'shared/config';
 import { Theme } from 'shared/types';
 
 export class UIStore {
@@ -7,11 +8,17 @@ export class UIStore {
   panel: {
     sideblock: 'full' | 'min';
   };
+  modules: {
+    mobileViewCurrentModule: ModuleId | null;
+  };
   constructor() {
     this.test = 42;
     this.theme = 'light_default';
     this.panel = {
       sideblock: 'full',
+    };
+    this.modules = {
+      mobileViewCurrentModule: null,
     };
     this._initReactions();
     makeAutoObservable(this);
@@ -19,6 +26,10 @@ export class UIStore {
 
   setTheme(theme?: Theme) {
     this.theme = theme || 'light_default';
+  }
+
+  setMobileCurrentModule(moduleId?: ModuleId) {
+    this.modules.mobileViewCurrentModule = moduleId || null;
   }
 
   private _initReactions() {

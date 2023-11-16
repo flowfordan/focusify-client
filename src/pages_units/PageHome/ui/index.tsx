@@ -15,12 +15,15 @@ import {
   useSoundsStore,
   useTasksStore,
   useTimerStore,
+  useUIStore,
 } from 'shared/providers';
 import { LayoutModule } from 'shared';
 import { ModuleId } from 'shared/config';
 
 export const PageHome = observer(() => {
   const rootStore = useRootStore();
+  const uiStore = useUIStore();
+  const currentMobileModule = uiStore.modules.mobileViewCurrentModule;
   const tasksModule = useTasksStore();
   const soundsModule = useSoundsStore();
   const timerModule = useTimerStore();
@@ -34,16 +37,30 @@ export const PageHome = observer(() => {
     rootStore.modules[id].toggleModuleActive();
   };
 
+  const onMobShow = (id?: ModuleId) => {
+    uiStore.setMobileCurrentModule(id);
+  };
+
   return (
     <>
       {isMobile ? (
         <div className={styles.container}>
+          {currentMobileModule && (
+            <div className={styles.mobWrap}>
+              <ModuleMob
+                onHide={() => onMobShow()}
+                module={currentMobileModule}
+              />
+            </div>
+          )}
+
           <LayoutModule
             withExpand
             className={cn(styles.tasksWrap, {
               [styles.hidden]: !isTasks,
             })}
             onClose={() => onWidgetClose('tasks')}
+            onExpand={() => onMobShow('tasks')}
             title="to-do"
           >
             <TasksCompact />
@@ -53,6 +70,7 @@ export const PageHome = observer(() => {
               [styles.hidden]: !isSounds,
             })}
             onClose={() => onWidgetClose('sounds')}
+            onExpand={() => onMobShow('sounds')}
             title="sounds"
           >
             Sounds
@@ -62,6 +80,7 @@ export const PageHome = observer(() => {
               [styles.hidden]: !isTimer,
             })}
             onClose={() => onWidgetClose('timer')}
+            onExpand={() => onMobShow('timer')}
             title="pomodoro"
           >
             Timer
@@ -114,3 +133,28 @@ export const PageHome = observer(() => {
     </>
   );
 });
+
+interface IModuleMobProps {
+  module: ModuleId;
+  onHide: () => void;
+}
+
+const ModuleMob = ({ module, onHide }: IModuleMobProps) => {
+  return (
+    <LayoutModule
+      isMob
+      className={styles.layoutModuleWrap}
+      onClose={() => {}}
+      onHide={() => onHide()}
+      title={'pomodoro'}
+    >
+      {module === 'tasks' ? (
+        <Tasks />
+      ) : module === 'timer' ? (
+        <Timer />
+      ) : (
+        <Sounds />
+      )}
+    </LayoutModule>
+  );
+};

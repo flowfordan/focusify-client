@@ -13,6 +13,7 @@ export const TasksCompact = observer(({ className }: ITasksWidgetProps) => {
   return (
     <div className={cn(className, styles.wrapper)}>
       <div>X done Y to go</div>
+      <div>Focused task</div>
       <div>Show btn</div>
     </div>
   );

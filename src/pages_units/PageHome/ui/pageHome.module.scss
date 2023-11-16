@@ -96,3 +96,18 @@
     min-height: fit-content;
   }
 }
+
+.mobWrap {
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(#000000, 0.3);
+  backdrop-filter: blur(5px);
+}
+
+.layoutModuleWrap {
+  height: 100%;
+}
