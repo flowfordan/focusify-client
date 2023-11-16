@@ -47,7 +47,7 @@
 }
 
 .title {
-  @include regular2;
+  @include title4;
   color: var(--text-color-secondary);
   opacity: 0.5;
   display: flex;

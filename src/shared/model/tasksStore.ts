@@ -66,6 +66,10 @@ export class TasksStore implements ModuleStore {
     return finishedTasks.length;
   }
 
+  get currentFocusedTask() {
+    return this.tasks.find((t) => t.isFocused);
+  }
+
   private getItemById(id: string) {
     return this.tasks.find((t) => t.id === id);
   }
