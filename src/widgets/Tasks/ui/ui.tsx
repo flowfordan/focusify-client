@@ -41,7 +41,28 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
   return (
     <div className={styles.content}>
       <div className={styles.header}>
-        <span>Sort</span>
+        <span className={styles.manage}>
+          <Button
+            title="Options"
+            icon="pi pi-cog"
+            text
+            disabled
+            severity="secondary"
+            aria-label="Options"
+            size="small"
+            onClick={() => {}}
+          />
+          <Button
+            title="Sort"
+            icon="pi pi-sort-amount-up"
+            text
+            disabled
+            severity="secondary"
+            aria-label="Sort"
+            size="small"
+            onClick={() => {}}
+          />
+        </span>
         <span className={styles.progress}>
           {tasksCount === 0
             ? 'no tasks'
@@ -53,7 +74,7 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
             icon="pi pi-trash"
             text
             severity="secondary"
-            aria-label="Clen up tasks"
+            aria-label="Clean up tasks"
             size="small"
             onClick={() => cleanUpTasks()}
           />

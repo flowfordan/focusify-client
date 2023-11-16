@@ -55,6 +55,11 @@
   grid-template-columns: 50px 1fr;
   grid-template-rows: 1fr;
   padding: 15px 40px 15px 0;
+
+  @include t {
+    padding: 10px 20px 10px 0;
+    grid-template-columns: 40px 1fr;
+  }
 }
 
 .checkWrap, .info {
@@ -62,6 +67,11 @@
   grid-template-columns: 1fr;
   grid-template-rows: 40px min-content;
   row-gap: 8px;
+
+  @include t {
+    grid-template-rows: 30px min-content;
+    row-gap: 4px;
+  }
 }
 
 .checkWrap {
@@ -95,6 +105,19 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .title {
+    @include title2;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: start;
+
+    @include t {
+      @include title3;
+    }
   }
 }
 

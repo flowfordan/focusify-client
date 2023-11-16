@@ -86,9 +86,7 @@ export const TaskItem = observer(
               className={styles.info}
               onClick={() => onItemBeingEdited(taskData.id)}
             >
-              <Typography Tag="h3" type="t2">
-                {taskData.title}
-              </Typography>
+              <div className={styles.title}>{taskData.title}</div>
               <div className={styles.description}>{taskData.description}</div>
             </button>
           )}
