@@ -20,6 +20,7 @@ interface ITasksWidgetProps {
 export const Tasks = observer(({ className }: ITasksWidgetProps) => {
   const tasksStore = useTasksStore();
   const tasks = tasksStore.tasks;
+  const tasksConfig = tasksStore.config;
   const taskBeingEdited = tasksStore.taskBeingEdited;
   const tasksCount = tasksStore.tasksCount;
   const tasksDoneCount = tasksStore.tasksDoneCount;
@@ -127,6 +128,7 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
             aria-label="New Task"
             size="small"
             onClick={() => onNewTask()}
+            disabled={tasksCount >= tasksConfig.maxTasks}
           />
         </div>
       </div>

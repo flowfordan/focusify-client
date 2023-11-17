@@ -25,6 +25,12 @@ const getNullTask = (): ITask => {
 //on change: set data to LS (bind upd to some methods)
 export class TasksStore implements ModuleStore {
   private _isActive: boolean;
+  config: {
+    maxTasks: number;
+    isSoundOnComplete: boolean;
+    autoDownCompleted: boolean;
+    autoUpFocused: boolean;
+  };
   isAvailable: boolean;
   root: RootStore;
   tasks: Array<ITask>;
@@ -34,6 +40,12 @@ export class TasksStore implements ModuleStore {
     this._isActive = true;
     this.isAvailable = true;
     this.tasks = [];
+    this.config = {
+      maxTasks: 15,
+      isSoundOnComplete: false,
+      autoDownCompleted: false,
+      autoUpFocused: false,
+    };
 
     makeAutoObservable(this);
   }
@@ -159,6 +171,7 @@ export class TasksStore implements ModuleStore {
   }
 
   addNewItem() {
+    if (this.tasksCount >= this.config.maxTasks) return;
     const newTask = getNullTask();
     this.tasks.push(newTask);
     //new task is always in edit mode
