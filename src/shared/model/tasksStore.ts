@@ -7,9 +7,10 @@ import { _mockTasks } from 'shared/config';
 import { STORAGE } from 'shared/lib';
 
 const getNullTask = (): ITask => {
+  const rand = Math.random();
   return {
     id: new Date().getTime().toString(),
-    title: 'New Task',
+    title: rand > 0.5 ? 'Do this thing' : 'Do that thing',
     description: '',
     isCompleted: false,
     isFocused: false,
@@ -70,7 +71,7 @@ export class TasksStore implements ModuleStore {
     return this.tasks.find((t) => t.isFocused);
   }
 
-  private getItemById(id: string) {
+  getItemById(id: string) {
     return this.tasks.find((t) => t.id === id);
   }
 

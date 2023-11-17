@@ -1,4 +1,3 @@
-import { appModel } from './../../../app/model/index';
 import { makeAutoObservable } from 'mobx';
 import { apiClient } from 'shared';
 import { DefSounds } from '../config/sounds';
