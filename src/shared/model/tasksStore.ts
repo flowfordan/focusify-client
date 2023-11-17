@@ -3,7 +3,7 @@ import { makeAutoObservable, reaction, runInAction } from 'mobx';
 import { ModuleStore } from './_moduleStore';
 import { RootStore } from './rootStore';
 import { ITask, ITaskEdited } from './types/task';
-import { _mockTasks } from 'shared/config';
+import { DEFAULT_TASKS_CONF, TasksConfig, _mockTasks } from 'shared/config';
 import { STORAGE } from 'shared/lib';
 
 const getNullTask = (): ITask => {
@@ -19,18 +19,12 @@ const getNullTask = (): ITask => {
     timeRemain: 0,
   };
 };
-
 //TODO method to work with local storage
 //on init: get data from LS
 //on change: set data to LS (bind upd to some methods)
 export class TasksStore implements ModuleStore {
   private _isActive: boolean;
-  config: {
-    maxTasks: number;
-    isSoundOnComplete: boolean;
-    autoDownCompleted: boolean;
-    autoUpFocused: boolean;
-  };
+  config: TasksConfig;
   isAvailable: boolean;
   root: RootStore;
   tasks: Array<ITask>;
@@ -40,12 +34,7 @@ export class TasksStore implements ModuleStore {
     this._isActive = true;
     this.isAvailable = true;
     this.tasks = [];
-    this.config = {
-      maxTasks: 15,
-      isSoundOnComplete: false,
-      autoDownCompleted: false,
-      autoUpFocused: false,
-    };
+    this.config = DEFAULT_TASKS_CONF;
 
     makeAutoObservable(this);
   }
@@ -57,6 +46,7 @@ export class TasksStore implements ModuleStore {
 
   init() {
     this.loadTasksFromStorage();
+    //load config from LS
     //temp
     // this.tasks = _mockTasks;
   }
@@ -171,7 +161,7 @@ export class TasksStore implements ModuleStore {
   }
 
   addNewItem() {
-    if (this.tasksCount >= this.config.maxTasks) return;
+    if (this.tasksCount >= this.config.maxTasks.value) return;
     const newTask = getNullTask();
     this.tasks.push(newTask);
     //new task is always in edit mode

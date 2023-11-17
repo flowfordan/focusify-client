@@ -117,16 +117,29 @@
 }
 
 .titleEdit {
+  position: relative;
   input {
     width: 100%;
   }
 }
 
 .descrEdit {
+  position: relative;
   textarea {
     width: 100%;
     height: 100%;
   }
+}
+
+.limitLabel {
+  @include descr2;
+  color: $color-txt-secondary;
+  opacity: 0.3;
+  background-color: $color-surface-ground;
+  padding: 4px;
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
 }
 
 .titleEdit {

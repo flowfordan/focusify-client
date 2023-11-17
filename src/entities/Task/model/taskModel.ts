@@ -7,6 +7,10 @@ class TaskModel {
     //
   }
 
+  get tasksConfig() {
+    return this.store.config;
+  }
+
   setItemFocused(id?: string) {
     //if dont have id
     //unfocus any in focus

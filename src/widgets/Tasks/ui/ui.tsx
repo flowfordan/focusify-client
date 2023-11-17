@@ -128,7 +128,7 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
             aria-label="New Task"
             size="small"
             onClick={() => onNewTask()}
-            disabled={tasksCount >= tasksConfig.maxTasks}
+            disabled={tasksCount >= tasksConfig.maxTasks.value}
           />
         </div>
       </div>

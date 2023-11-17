@@ -31,6 +31,8 @@ export const TaskItem = observer(
     }: TaskItemProps,
     ref: ForwardedRef<HTMLDivElement>
   ) {
+    //config
+    const config = taskModel.tasksConfig;
     const onToggleFocused = (id: string) => {
       taskModel.setItemFocused(id);
     };
@@ -79,7 +81,11 @@ export const TaskItem = observer(
           </div>
           {editData ? (
             <div className={styles.infoEdit}>
-              <ItemEditSection data={editData} />
+              <ItemEditSection
+                data={editData}
+                maxTitleLen={config.taskTitleMaxLen.value}
+                maxDescrLen={config.taskDescrMaxLen.value}
+              />
             </div>
           ) : (
             <button
@@ -134,32 +140,31 @@ const FocusBtn = ({
 
 interface ItemEditSectionProps {
   data: ITaskEdited;
+  maxTitleLen: number;
+  maxDescrLen: number;
 }
 
-const ItemEditSection = ({ data }: ItemEditSectionProps) => {
+const ItemEditSection = ({
+  data,
+  maxTitleLen,
+  maxDescrLen,
+}: ItemEditSectionProps) => {
   const [title, setTitle] = useState(data.title);
   const [descr, setDescr] = useState(data.description);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    if (value.length > 120) return;
+    if (value.length > maxTitleLen) return;
     setTitle(value);
   };
   const handleChangeDescr = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
-    if (value.length > 300) return;
+    if (value.length > maxDescrLen) return;
     setDescr(value);
   };
 
   useEffect(() => {
     taskModel.setEditedItemData(title, descr);
-    // timerRef.current = setTimeout(() => {
-    //   taskModel.setEditedItemData(title, descr);
-    // }, 2000);
-    // return () => {
-    //   timerRef.current && clearTimeout(timerRef.current);
-    // };
   }, [title, descr]);
 
   useEffect(() => {
@@ -178,6 +183,9 @@ const ItemEditSection = ({ data }: ItemEditSectionProps) => {
           value={title}
           onChange={(e) => handleChangeTitle(e)}
         />
+        <div
+          className={styles.limitLabel}
+        >{`${title.length}/${maxTitleLen}`}</div>
       </div>
       <div className={styles.descrEdit}>
         <InputTextarea
@@ -185,6 +193,9 @@ const ItemEditSection = ({ data }: ItemEditSectionProps) => {
           style={{ resize: 'none' }}
           onChange={(e) => handleChangeDescr(e)}
         />
+        <div
+          className={styles.limitLabel}
+        >{`${descr.length}/${maxDescrLen}`}</div>
       </div>
       <div>Pomodoro</div>
     </>
