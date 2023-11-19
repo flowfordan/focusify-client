@@ -6,6 +6,7 @@ import { TimerStore } from './timerStore';
 import { UIStore } from './uiStore';
 import { UserStore } from './userStore';
 import { ModuleId } from 'shared/config';
+import { STORAGE } from 'shared/lib';
 
 type Store<T> = T extends 'tasks'
   ? TasksStore
@@ -18,6 +19,8 @@ type Store<T> = T extends 'tasks'
 type Modules = {
   [K in ModuleId]: Store<K>;
 };
+
+const STORAGE_MODULES_KEY = 'focusify_modules';
 
 export class RootStore {
   user: UserStore;
@@ -43,16 +46,22 @@ export class RootStore {
   }
 
   init() {
-    this.countActiveModules();
     //load data from LS
     // this.subscribeToChanges();
     Object.keys(this.modules).forEach((key) => {
       const module = this.modules[key as keyof typeof this.modules];
       module.init();
     });
+    this.loadModuleDataFromStorage();
+    this.countActiveModules();
   }
 
-  countActiveModules() {
+  onModuleToggleActive() {
+    this.countActiveModules();
+    this.saveModuleDataToStorage();
+  }
+
+  private countActiveModules() {
     let count = 0;
     for (const key in this.modules) {
       if (this.modules[key as keyof typeof this.modules].isActive) {
@@ -61,11 +70,23 @@ export class RootStore {
     }
     this.modulesStats.activeCount = count;
   }
-  // subscribeToChanges() {
-  //   reaction(() => {
-  //     return this.modules.sounds.isActive
-  //   }, () => {})
-  // }
+
+  private loadModuleDataFromStorage() {
+    const savedData = STORAGE.get(STORAGE_MODULES_KEY);
+    if (!savedData) return;
+    this.modules.tasks.isActive = savedData['tasks'] || false;
+    this.modules.timer.isActive = savedData['timer'] || false;
+    this.modules.sounds.isActive = savedData['sounds'] || false;
+  }
+
+  private saveModuleDataToStorage() {
+    const activityData: { [K in ModuleId]: boolean } = {
+      tasks: this.modules.tasks.isActive,
+      timer: this.modules.timer.isActive,
+      sounds: this.modules.sounds.isActive,
+    };
+    STORAGE.set(STORAGE_MODULES_KEY, activityData);
+  }
 }
 
 export const rootStore = new RootStore();

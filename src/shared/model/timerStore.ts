@@ -9,6 +9,9 @@ import {
   TimerStage,
   TimerStageId,
 } from 'shared/config';
+import { STORAGE } from 'shared/lib';
+
+const STORAGE_TIMER_KEY = 'focusify_timer';
 
 export class TimerStore implements ModuleStore {
   private _isActive: boolean;
@@ -49,7 +52,7 @@ export class TimerStore implements ModuleStore {
 
   set isActive(value: boolean) {
     this._isActive = value;
-    this.root.countActiveModules();
+    this.root.onModuleToggleActive();
   }
 
   get isActive() {
@@ -98,7 +101,6 @@ export class TimerStore implements ModuleStore {
     //change status
     //start timer
     this.timer.stage.status = 'active';
-    debugger;
     this._timerStageTick();
   }
 
@@ -125,9 +127,17 @@ export class TimerStore implements ModuleStore {
 
   toggleModuleActive() {
     this.isActive = !this.isActive;
+    this._updateStorage();
   }
 
   subscribeToChanges(): void {
     //
+  }
+
+  private _updateStorage() {
+    STORAGE.set(STORAGE_TIMER_KEY, {
+      isActive: this.isActive,
+      timer: null,
+    });
   }
 }

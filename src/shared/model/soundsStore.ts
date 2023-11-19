@@ -20,7 +20,7 @@ export class SoundsStore implements ModuleStore {
 
   set isActive(value: boolean) {
     this._isActive = value;
-    this.root.countActiveModules();
+    this.root.onModuleToggleActive();
   }
 
   get isActive() {

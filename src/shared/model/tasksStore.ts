@@ -22,6 +22,8 @@ const getNullTask = (): ITask => {
 //TODO method to work with local storage
 //on init: get data from LS
 //on change: set data to LS (bind upd to some methods)
+
+const STORAGE_TASKS_KEY = 'focusify_tasks';
 export class TasksStore implements ModuleStore {
   private _isActive: boolean;
   config: TasksConfig;
@@ -53,7 +55,9 @@ export class TasksStore implements ModuleStore {
 
   set isActive(value: boolean) {
     this._isActive = value;
-    this.root.countActiveModules();
+    debugger;
+    this._updateStorage();
+    this.root.onModuleToggleActive();
   }
 
   get isActive() {
@@ -78,12 +82,19 @@ export class TasksStore implements ModuleStore {
   }
 
   private _updateStorage() {
-    STORAGE.set('tasks', this.tasks);
+    STORAGE.set(STORAGE_TASKS_KEY, {
+      isActive: this.isActive,
+      tasks: this.tasks,
+    });
   }
 
   private loadTasksFromStorage() {
-    const savedData = STORAGE.get('tasks');
-    this.tasks = savedData ? savedData : [];
+    const savedData = STORAGE.get(STORAGE_TASKS_KEY);
+    if (savedData && 'tasks' in savedData) {
+      console.log('loadTasksfromStorage', savedData['tasks']);
+      this.isActive = savedData['isActive'] || false;
+      this.tasks = savedData['tasks'] || [];
+    }
   }
 
   toggleModuleActive() {

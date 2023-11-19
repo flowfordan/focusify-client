@@ -19,17 +19,16 @@ class TimerModel {
     const minutes = Math.floor((secondsLeft % 3600) / 60);
     const seconds = Math.floor(secondsLeft % 60);
     //
-    const hoursStr = hours > 0 ? (hours > 10 ? `${hours}` : `0${hours}`) : '';
+    const hoursStr = hours > 0 ? (hours > 9 ? `${hours}` : `0${hours}`) : '';
     const minutesStr =
-      minutes > 0 ? (minutes > 10 ? `${minutes}` : `0${minutes}`) : '00';
+      minutes > 0 ? (minutes > 9 ? `${minutes}` : `0${minutes}`) : '00';
     const secondsStr =
-      seconds > 0 ? (seconds > 10 ? `${seconds}` : `0${seconds}`) : '00';
+      seconds > 0 ? (seconds > 9 ? `${seconds}` : `0${seconds}`) : '00';
 
     return `${hoursStr}${hoursStr ? ':' : ''}${minutesStr}:${secondsStr}`;
   }
 
   togglePlay() {
-    debugger;
     if (!this.isPlaying) this.store.startTimerStage();
     else this.store.pauseTimerStage();
   }

@@ -1,3 +1,5 @@
+@use 'styles/helpers' as *;
+
 .controls {
   display: flex;
   justify-content: space-between;
@@ -7,4 +9,30 @@
 
 .controlItem {
   padding: 0 8px;
+}
+
+.statusBar {
+  display: flex;
+  height: 10px;
+  width: 100%;
+  justify-content: stretch;
+  border-radius: 40px;
+  overflow: hidden;
+}
+
+.item {
+  // border: 1px solid black;
+  background-color: $color-surface-border;
+  min-width: 10px;
+  flex-grow: 2;
+
+  &.sb {
+    background-color: $color-surface-hover;
+    flex-grow: 1;
+  }
+
+  &.lb {
+    background-color: $color-surface-hover;
+    flex-grow: 3;
+  }
 }

@@ -2,10 +2,13 @@ import { observer } from 'mobx-react-lite';
 import { timerModel } from '../model/timerModel';
 import styles from './Timer.module.scss';
 import { Button } from 'primereact/button';
+import cn from 'classnames';
 
 interface TimerProps {
   className?: string;
 }
+
+const scheme = ['a', 'b', 'a', 'b', 'c'];
 
 export const Timer = observer(({}: TimerProps) => {
   const timeLeft = timerModel.timeLeft;
@@ -16,7 +19,22 @@ export const Timer = observer(({}: TimerProps) => {
   return (
     <div>
       <div>{timeLeft}</div>
-      <div className={styles.statusWrap}>Status</div>
+      <div className={styles.statusWrap}>
+        <div className={styles.statusBar}>
+          {scheme.map((i, idx) => {
+            return (
+              <span
+                className={cn(styles.item, {
+                  [styles.sb]: i === 'b',
+                  [styles.lb]: i === 'c',
+                })}
+                key={idx}
+              ></span>
+            );
+          })}
+        </div>
+        <div>Focus Time!</div>
+      </div>
       <div className={styles.controls}>
         <span className={styles.controlItem}>
           <Button
@@ -26,6 +44,7 @@ export const Timer = observer(({}: TimerProps) => {
             onClick={() => {}}
             tooltip="Stop Timer"
             outlined
+            severity="secondary"
           />
         </span>
         <span className={styles.controlItem}>
@@ -56,6 +75,7 @@ export const Timer = observer(({}: TimerProps) => {
             onClick={() => {}}
             tooltip="Next Timer Stage"
             outlined
+            severity="secondary"
           />
         </span>
       </div>
