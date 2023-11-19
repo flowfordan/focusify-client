@@ -6,10 +6,14 @@ export class TimerStore implements ModuleStore {
   private _isActive: boolean;
   isAvailable: boolean;
   root: RootStore;
+  timer: string;
+  config: string;
   constructor(root: RootStore) {
     this.root = root;
     this._isActive = false;
     this.isAvailable = true;
+    this.timer = '';
+    this.config = '';
 
     makeAutoObservable(this);
   }

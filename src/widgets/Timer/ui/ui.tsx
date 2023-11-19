@@ -8,5 +8,12 @@ interface ITimerWidgetProps {
 
 export const Timer = ({ className }: ITimerWidgetProps) => {
   //
-  return <div>Timer Widget</div>;
+  return (
+    <div className={styles.content}>
+      <div className={styles.manage}>
+        <button>Options</button>
+      </div>
+      <div className={styles.main}>Timer</div>
+    </div>
+  );
 };

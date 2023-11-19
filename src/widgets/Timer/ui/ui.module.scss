@@ -1,5 +1,13 @@
 @import 'styles/helpers';
 
-.wrapper {
-  border-radius: 20px;
+.content {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: min-content 1fr;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
