@@ -20,8 +20,12 @@ class TaskModel {
       //if have id, set item focused
       //unfocuse previouse focus
       const focused = this.store.tasks.find((t) => t.isFocused);
+      //unfocuse previously focused item
       if (focused) this.store.setItemFocused(focused.id, false);
-      this.store.setItemFocused(id);
+      //set focused only if focused item is not the same as the one we are trying to focus
+      if (focused?.id !== id) {
+        this.store.setItemFocused(id);
+      }
     }
   }
 
