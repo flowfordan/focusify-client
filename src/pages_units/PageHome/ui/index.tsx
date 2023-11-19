@@ -3,7 +3,7 @@ import { Tasks } from 'widgets/Tasks';
 import { TasksCompact } from 'widgets/Tasks';
 import { Sounds } from 'widgets/Sounds';
 import styles from './pageHome.module.scss';
-import { Timer } from 'widgets/Timer';
+import { TimerWidget } from 'widgets/Timer';
 import cn from 'classnames';
 import { homeModel } from '../model/homeModel';
 import { observer } from 'mobx-react-lite';
@@ -126,7 +126,7 @@ export const PageHome = observer(() => {
             onClose={() => onWidgetClose('timer')}
             title={'pomodoro'}
           >
-            <Timer />
+            <TimerWidget />
           </LayoutModule>
         </div>
       )}
@@ -151,7 +151,7 @@ const ModuleMob = ({ module, onHide }: IModuleMobProps) => {
       {module === 'tasks' ? (
         <Tasks />
       ) : module === 'timer' ? (
-        <Timer />
+        <TimerWidget />
       ) : (
         <Sounds />
       )}

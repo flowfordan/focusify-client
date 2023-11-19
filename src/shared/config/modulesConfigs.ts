@@ -100,3 +100,23 @@ export const DEFAULT_TIMER_CONF: TimerConfig = {
     value: true,
   },
 };
+
+const timerStages = ['pomodoro', 'sBreak', 'lBreak'] as const;
+export type TimerStageId = (typeof timerStages)[number];
+
+export type TimerCycle = {
+  scheme: Array<TimerStageId>;
+  currentIdx: number;
+};
+
+export type TimerStage = {
+  id: TimerStageId;
+  duration: number;
+  timePassed: number;
+  status: 'active' | 'paused' | 'stopped';
+};
+
+export const NULL_TIMER_CYCLE: TimerCycle = {
+  scheme: [],
+  currentIdx: 0,
+};
