@@ -10,6 +10,9 @@ interface TimerProps {
 export const Timer = observer(({}: TimerProps) => {
   const timeLeft = timerModel.timeLeft;
   const isPlaying = timerModel.isPlaying;
+  const onTogglePlay = () => {
+    timerModel.togglePlay();
+  };
   return (
     <div>
       <div>{timeLeft}</div>
@@ -32,7 +35,7 @@ export const Timer = observer(({}: TimerProps) => {
               //pi-pause
               rounded
               aria-label="Pause Timer"
-              onClick={() => {}}
+              onClick={() => onTogglePlay()}
               tooltip="Pause Timer"
             />
           ) : (
@@ -40,7 +43,7 @@ export const Timer = observer(({}: TimerProps) => {
               icon="pi pi-play"
               rounded
               aria-label="Play Timer"
-              onClick={() => {}}
+              onClick={() => onTogglePlay()}
               tooltip="Play Timer"
             />
           )}

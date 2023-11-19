@@ -69,6 +69,7 @@ export const ModulesToggleWidget = observer(
           icon="pi pi-plus"
           rounded
           aria-label="Modules"
+          severity="secondary"
           onClick={() => handleOpen()}
           className={cn(styles.btn, {
             [styles.open]: open,

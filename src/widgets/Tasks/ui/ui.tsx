@@ -124,7 +124,6 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
             icon="pi pi-plus"
             raised
             rounded
-            severity="secondary"
             aria-label="New Task"
             size="small"
             onClick={() => onNewTask()}

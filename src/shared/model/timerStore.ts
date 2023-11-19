@@ -43,6 +43,7 @@ export class TimerStore implements ModuleStore {
     //TODO load config from LS
     //apply config
     this.updCycleFromConfig();
+    this.updTimerStage();
     //check saved timer
   }
 
@@ -97,6 +98,7 @@ export class TimerStore implements ModuleStore {
     //change status
     //start timer
     this.timer.stage.status = 'active';
+    debugger;
     this._timerStageTick();
   }
 
@@ -110,6 +112,7 @@ export class TimerStore implements ModuleStore {
   }
 
   private _timerStageTick() {
+    if (this.timer.stage.status !== 'active') return;
     if (this.timer.stage.timePassed >= this.timer.stage.duration) {
       // this.stopTimerStage();
       // this._timerCycleNext();

@@ -27,6 +27,12 @@ class TimerModel {
 
     return `${hoursStr}${hoursStr ? ':' : ''}${minutesStr}:${secondsStr}`;
   }
+
+  togglePlay() {
+    debugger;
+    if (!this.isPlaying) this.store.startTimerStage();
+    else this.store.pauseTimerStage();
+  }
 }
 
 export const timerModel = new TimerModel(rootStore.modules.timer);
