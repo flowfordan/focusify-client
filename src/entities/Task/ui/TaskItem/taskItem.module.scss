@@ -104,6 +104,10 @@
     @include t {
       @include title3;
     }
+
+    &.completed {
+      font-weight: 500;
+    }
   }
 }
 

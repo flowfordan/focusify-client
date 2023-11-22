@@ -92,7 +92,13 @@ export const TaskItem = observer(
               className={styles.info}
               onClick={() => onItemBeingEdited(taskData.id)}
             >
-              <div className={styles.title}>{taskData.title}</div>
+              <div
+                className={cn(styles.title, {
+                  [styles.completed]: isCompleted,
+                })}
+              >
+                {taskData.title}
+              </div>
               <div className={styles.description}>{taskData.description}</div>
             </button>
           )}
