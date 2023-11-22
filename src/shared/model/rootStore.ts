@@ -52,13 +52,13 @@ export class RootStore {
       const module = this.modules[key as keyof typeof this.modules];
       module.init();
     });
-    this.loadModuleDataFromStorage();
+    // this.loadModuleDataFromStorage();
     this.countActiveModules();
   }
 
   onModuleToggleActive() {
     this.countActiveModules();
-    this.saveModuleDataToStorage();
+    // this.saveModuleDataToStorage();
   }
 
   private countActiveModules() {

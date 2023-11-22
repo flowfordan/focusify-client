@@ -52,7 +52,7 @@ export class TimerStore implements ModuleStore {
 
   set isActive(value: boolean) {
     this._isActive = value;
-    this.root.onModuleToggleActive();
+    //this.root.onModuleToggleActive();
   }
 
   get isActive() {

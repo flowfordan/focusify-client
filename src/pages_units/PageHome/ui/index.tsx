@@ -31,7 +31,14 @@ export const PageHome = observer(() => {
   const isSounds = soundsModule.isActive;
   const isTimer = timerModule.isActive;
   const isTasks = tasksModule.isActive;
-  const enabledModulesCount = rootStore.modulesStats.activeCount;
+  const enabledModulesCount = Object.entries(rootStore.modules).reduce(
+    (acc, cur) => {
+      const [id, module] = cur;
+      if (module.isActive) return acc + 1;
+      else return acc;
+    },
+    0
+  );
 
   const onWidgetClose = (id: ModuleId) => {
     rootStore.modules[id].toggleModuleActive();

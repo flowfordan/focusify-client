@@ -4,7 +4,7 @@ import { ModuleStore } from './_moduleStore';
 import { RootStore } from './rootStore';
 import { ITask, ITaskEdited } from './types/task';
 import { DEFAULT_TASKS_CONF, TasksConfig, _mockTasks } from 'shared/config';
-import { STORAGE } from 'shared/lib';
+import { LOGGER, STORAGE } from 'shared/lib';
 
 const getNullTask = (): ITask => {
   const rand = Math.random();
@@ -24,6 +24,12 @@ const getNullTask = (): ITask => {
 //on change: set data to LS (bind upd to some methods)
 
 const STORAGE_TASKS_KEY = 'focusify_tasks';
+
+type TasksStorageData = {
+  isActive: boolean;
+  tasks: Array<ITask>;
+  config: TasksConfig;
+};
 export class TasksStore implements ModuleStore {
   private _isActive: boolean;
   config: TasksConfig;
@@ -33,7 +39,7 @@ export class TasksStore implements ModuleStore {
   taskBeingEdited: ITaskEdited | null = null;
   constructor(root: RootStore) {
     this.root = root;
-    this._isActive = true;
+    this._isActive = false;
     this.isAvailable = true;
     this.tasks = [];
     this.config = DEFAULT_TASKS_CONF;
@@ -41,23 +47,17 @@ export class TasksStore implements ModuleStore {
     makeAutoObservable(this);
   }
 
-  //write decorator method that calls write to ls method
-  writeToLS() {
-    //
-  }
-
   init() {
-    this.loadTasksFromStorage();
-    //load config from LS
-    //temp
-    // this.tasks = _mockTasks;
+    //load tasks and config from storage
+    //rewrie default if saved smth
+    this._loadDataFromStorage();
   }
 
   set isActive(value: boolean) {
     this._isActive = value;
-    debugger;
+    LOGGER.debug('misc', `tasks length on SET ACTIVE ${this.tasks.length}`);
     this._updateStorage();
-    this.root.onModuleToggleActive();
+    //this.root.onModuleToggleActive();
   }
 
   get isActive() {
@@ -81,24 +81,33 @@ export class TasksStore implements ModuleStore {
     return this.tasks.find((t) => t.id === id);
   }
 
-  private _updateStorage() {
-    STORAGE.set(STORAGE_TASKS_KEY, {
-      isActive: this.isActive,
-      tasks: this.tasks,
-    });
+  private _loadDataFromStorage() {
+    const saved = STORAGE.get(STORAGE_TASKS_KEY);
+    if (saved) {
+      const tasksData = saved as TasksStorageData;
+      this.config = tasksData.config;
+      this.setTasks(tasksData.tasks);
+      this.isActive = tasksData.isActive;
+    } else {
+      //default is active
+      this.isActive = true;
+    }
   }
 
-  private loadTasksFromStorage() {
-    const savedData = STORAGE.get(STORAGE_TASKS_KEY);
-    if (savedData && 'tasks' in savedData) {
-      console.log('loadTasksfromStorage', savedData['tasks']);
-      this.isActive = savedData['isActive'] || false;
-      this.tasks = savedData['tasks'] || [];
-    }
+  private _updateStorage() {
+    LOGGER.debug('misc', `tasks update storage ${this.tasks.length}`);
+    const data: TasksStorageData = {
+      isActive: this.isActive,
+      tasks: this.tasks,
+      config: this.config,
+    };
+    STORAGE.set(STORAGE_TASKS_KEY, data);
   }
 
   toggleModuleActive() {
     this.isActive = !this.isActive;
+    //TODO if deactivated: cleanup all tasks
+    this._updateStorage();
   }
 
   setItemFocused(itemId: string, isFocused?: boolean) {
@@ -141,12 +150,6 @@ export class TasksStore implements ModuleStore {
     };
   }
 
-  // setEditedItemData(title: string, description: string) {
-  //   if (!this.taskBeingEdited) return;
-  //   this.taskBeingEdited.title = title;
-  //   this.taskBeingEdited.description = description;
-  // }
-
   stopItemBeingEdited() {
     //save made changes
     const currentEditedItem = this.taskBeingEdited;
@@ -183,6 +186,10 @@ export class TasksStore implements ModuleStore {
   cleanUpTasksList() {
     this.tasks = [];
     this._updateStorage();
+  }
+
+  setTasks(tasks: Array<ITask>) {
+    this.tasks = tasks;
   }
 
   subscribeToChanges() {
