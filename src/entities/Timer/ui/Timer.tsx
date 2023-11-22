@@ -3,6 +3,7 @@ import { timerModel } from '../model/timerModel';
 import styles from './Timer.module.scss';
 import { Button } from 'primereact/button';
 import cn from 'classnames';
+import { CycleStatus } from './CycleStatus';
 
 interface TimerProps {
   className?: string;
@@ -19,7 +20,8 @@ export const Timer = observer(({}: TimerProps) => {
   return (
     <div>
       <div>{timeLeft}</div>
-      <div className={styles.statusWrap}>
+      <CycleStatus />
+      {/* <div className={styles.statusWrap}>
         <div className={styles.statusBar}>
           {scheme.map((i, idx) => {
             return (
@@ -34,7 +36,7 @@ export const Timer = observer(({}: TimerProps) => {
           })}
         </div>
         <div>Focus Time!</div>
-      </div>
+      </div> */}
       <div className={styles.controls}>
         <span className={styles.controlItem}>
           <Button
