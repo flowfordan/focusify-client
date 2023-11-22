@@ -23,14 +23,13 @@ const getNullTask = (): ITask => {
 //on init: get data from LS
 //on change: set data to LS (bind upd to some methods)
 
-const STORAGE_TASKS_KEY = 'focusify_tasks';
-
 type TasksStorageData = {
   isActive: boolean;
   tasks: Array<ITask>;
   config: TasksConfig;
 };
 export class TasksStore implements ModuleStore {
+  STORAGE_MODULE_KEY: string;
   private _isActive: boolean;
   config: TasksConfig;
   isAvailable: boolean;
@@ -38,6 +37,7 @@ export class TasksStore implements ModuleStore {
   tasks: Array<ITask>;
   taskBeingEdited: ITaskEdited | null = null;
   constructor(root: RootStore) {
+    this.STORAGE_MODULE_KEY = 'focusify_tasks';
     this.root = root;
     this._isActive = false;
     this.isAvailable = true;
@@ -82,7 +82,7 @@ export class TasksStore implements ModuleStore {
   }
 
   private _loadDataFromStorage() {
-    const saved = STORAGE.get(STORAGE_TASKS_KEY);
+    const saved = STORAGE.get(this.STORAGE_MODULE_KEY);
     if (saved) {
       const tasksData = saved as TasksStorageData;
       this.config = tasksData.config;
@@ -101,7 +101,7 @@ export class TasksStore implements ModuleStore {
       tasks: this.tasks,
       config: this.config,
     };
-    STORAGE.set(STORAGE_TASKS_KEY, data);
+    STORAGE.set(this.STORAGE_MODULE_KEY, data);
   }
 
   toggleModuleActive() {

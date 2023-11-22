@@ -11,9 +11,14 @@ import {
 } from 'shared/config';
 import { STORAGE } from 'shared/lib';
 
-const STORAGE_TIMER_KEY = 'focusify_timer';
+type TimerStorageData = {
+  isActive: boolean;
+  timer: null;
+  config: TimerConfig;
+};
 
 export class TimerStore implements ModuleStore {
+  STORAGE_MODULE_KEY: string;
   private _isActive: boolean;
   isAvailable: boolean;
   root: RootStore;
@@ -25,6 +30,7 @@ export class TimerStore implements ModuleStore {
   //stage status
   config: TimerConfig;
   constructor(root: RootStore) {
+    this.STORAGE_MODULE_KEY = 'focusify_timer';
     this.root = root;
     this._isActive = false;
     this.isAvailable = true;
@@ -135,7 +141,7 @@ export class TimerStore implements ModuleStore {
   }
 
   private _updateStorage() {
-    STORAGE.set(STORAGE_TIMER_KEY, {
+    STORAGE.set(this.STORAGE_MODULE_KEY, {
       isActive: this.isActive,
       timer: null,
     });
