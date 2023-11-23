@@ -1,3 +1,4 @@
+'use client';
 import { TimerStageId } from 'shared/config';
 import styles from './CycleStatus.module.scss';
 import cn from 'classnames';
@@ -50,7 +51,7 @@ export const CycleStatus = ({
           })}
         </div>
       </div>
-      <Typography color="secondary" isCentered type="t3">
+      <Typography color="secondary" isCentered type="r1">
         {getTitle(scheme[currentSchemeIdx])}
       </Typography>
       {/* <div className={styles.txt}>{getTitle(scheme[currentSchemeIdx])}</div> */}

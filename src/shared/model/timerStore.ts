@@ -65,6 +65,16 @@ export class TimerStore implements ModuleStore {
     return this._isActive;
   }
 
+  calculateTimeLeftPercent() {
+    const secondsAll = this.timer.stage.duration;
+    const secondsPassed = this.timer.stage.timePassed;
+    const secondsLeft = secondsAll - secondsPassed;
+    const percent = Math.floor((secondsLeft / secondsAll) * 100);
+    if (percent < 0) return 0;
+    if (percent > 100) return 100;
+    return percent;
+  }
+
   updCycleFromConfig() {
     const pomodoroCount = this.config.pomodorosAmount.value;
     //construct scheme 1p then 1sb

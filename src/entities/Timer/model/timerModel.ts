@@ -32,6 +32,16 @@ class TimerModel {
     return this.store.timer.cycle;
   }
 
+  get timerPercentLeft() {
+    const secondsAll = this.store.timer.stage.duration;
+    const secondsPassed = this.store.timer.stage.timePassed;
+    const secondsLeft = secondsAll - secondsPassed;
+    const percent = Math.floor((secondsLeft / secondsAll) * 100);
+    if (percent < 0) return 0;
+    if (percent > 100) return 100;
+    return percent;
+  }
+
   togglePlay() {
     if (!this.isPlaying) this.store.startTimerStage();
     else this.store.pauseTimerStage();

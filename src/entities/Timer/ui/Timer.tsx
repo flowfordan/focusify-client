@@ -4,6 +4,8 @@ import styles from './Timer.module.scss';
 import { Button } from 'primereact/button';
 import cn from 'classnames';
 import { CycleStatus } from './CycleStatus';
+import { Knob } from 'primereact/knob';
+import { useState } from 'react';
 
 interface TimerProps {
   className?: string;
@@ -13,6 +15,7 @@ export const Timer = observer(({}: TimerProps) => {
   const timeLeft = timerModel.timeLeft;
   const isPlaying = timerModel.isPlaying;
   const cycle = timerModel.currentCycle;
+  const timerPercent = timerModel.timerPercentLeft;
   const onTogglePlay = () => {
     timerModel.togglePlay();
   };
@@ -24,7 +27,19 @@ export const Timer = observer(({}: TimerProps) => {
   };
   return (
     <div>
-      <div>{timeLeft}</div>
+      <div>
+        <div className={styles.knobWrap}>
+          <Knob
+            value={timerPercent}
+            readOnly
+            // valueColor="#708090"
+            // rangeColor="#48d1cc"
+            showValue={false}
+            size={200}
+          />
+          <div className={styles.digits}>{timeLeft}</div>
+        </div>
+      </div>
       <CycleStatus scheme={cycle.scheme} currentSchemeIdx={cycle.currentIdx} />
       <div className={styles.controls}>
         <span className={styles.controlItem}>
@@ -34,7 +49,8 @@ export const Timer = observer(({}: TimerProps) => {
             aria-label="Play Timer"
             onClick={() => onStop()}
             tooltip="Stop Timer"
-            outlined
+            text
+            raised
             severity="secondary"
           />
         </span>
@@ -65,7 +81,8 @@ export const Timer = observer(({}: TimerProps) => {
             aria-label="Next Timer Stage"
             onClick={() => onForward()}
             tooltip="Next Timer Stage"
-            outlined
+            text
+            raised
             severity="secondary"
           />
         </span>

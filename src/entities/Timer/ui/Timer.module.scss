@@ -2,11 +2,30 @@
 
 .controls {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-top: 20px;
+  min-width: 200px;
 }
 
 .controlItem {
-  padding: 0 8px;
+  padding: 0 4px;
+}
+
+.knobWrap {
+  position: relative;
+
+  svg {
+    stroke: red !important;
+  }
+}
+
+.digits {
+  @include title2;
+  font-weight: 500;
+  color: $color-txt-secondary;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
