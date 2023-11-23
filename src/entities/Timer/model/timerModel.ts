@@ -28,10 +28,26 @@ class TimerModel {
     return `${hoursStr}${hoursStr ? ':' : ''}${minutesStr}:${secondsStr}`;
   }
 
+  get currentCycle() {
+    return this.store.timer.cycle;
+  }
+
   togglePlay() {
     if (!this.isPlaying) this.store.startTimerStage();
     else this.store.pauseTimerStage();
   }
+
+  forward() {
+    this.store.moveToNextStage();
+  }
+
+  //stop - reset current stage to 0
+  stop() {
+    this.store.stopTimerStage();
+  }
+
+  //back to stage 0
+  refresh() {}
 }
 
 export const timerModel = new TimerModel(rootStore.modules.timer);

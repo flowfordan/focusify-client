@@ -9,41 +9,30 @@ interface TimerProps {
   className?: string;
 }
 
-const scheme = ['a', 'b', 'a', 'b', 'c'];
-
 export const Timer = observer(({}: TimerProps) => {
   const timeLeft = timerModel.timeLeft;
   const isPlaying = timerModel.isPlaying;
+  const cycle = timerModel.currentCycle;
   const onTogglePlay = () => {
     timerModel.togglePlay();
+  };
+  const onForward = () => {
+    timerModel.forward();
+  };
+  const onStop = () => {
+    timerModel.stop();
   };
   return (
     <div>
       <div>{timeLeft}</div>
-      <CycleStatus />
-      {/* <div className={styles.statusWrap}>
-        <div className={styles.statusBar}>
-          {scheme.map((i, idx) => {
-            return (
-              <span
-                className={cn(styles.item, {
-                  [styles.sb]: i === 'b',
-                  [styles.lb]: i === 'c',
-                })}
-                key={idx}
-              ></span>
-            );
-          })}
-        </div>
-        <div>Focus Time!</div>
-      </div> */}
+      <CycleStatus scheme={cycle.scheme} currentSchemeIdx={cycle.currentIdx} />
       <div className={styles.controls}>
         <span className={styles.controlItem}>
           <Button
             icon="pi pi-stop"
             rounded
             aria-label="Play Timer"
-            onClick={() => {}}
+            onClick={() => onStop()}
             tooltip="Stop Timer"
             outlined
             severity="secondary"
@@ -74,7 +63,7 @@ export const Timer = observer(({}: TimerProps) => {
             icon="pi pi-step-forward"
             rounded
             aria-label="Next Timer Stage"
-            onClick={() => {}}
+            onClick={() => onForward()}
             tooltip="Next Timer Stage"
             outlined
             severity="secondary"

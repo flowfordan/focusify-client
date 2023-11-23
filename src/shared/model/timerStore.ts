@@ -125,10 +125,23 @@ export class TimerStore implements ModuleStore {
       // this.stopTimerStage();
       // this._timerCycleNext();
       //set next stage (and start timer if auto start enabled)
+      this.moveToNextStage();
     } else {
       this.timer.stage.timePassed++;
       setTimeout(() => this._timerStageTick(), 1000);
     }
+  }
+
+  moveToNextStage() {
+    const len = this.timer.cycle.scheme.length;
+    //if last stage - reset cycle
+    if (this.timer.cycle.currentIdx === len - 1) {
+      //reset
+      this.timer.cycle.currentIdx = 0;
+    } else {
+      this.timer.cycle.currentIdx++;
+    }
+    this.updTimerStage();
   }
 
   toggleModuleActive() {

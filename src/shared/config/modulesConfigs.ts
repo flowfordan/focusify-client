@@ -60,32 +60,37 @@ export const DEFAULT_TASKS_CONF: TasksConfig = {
   },
 };
 
+//time in minutes
+const DEF_POMODORO_COUNT = 4; //4
+const DEF_POMODORO_DUR = 0.5; //25
+const DEF_SBREAK_DUR = 0.1; //5
+const DEF_LBREAK_DUR = 0.1; //30
 export const DEFAULT_TIMER_CONF: TimerConfig = {
   pomodorosAmount: {
     name: 'pomodorosAmount',
     configurable: true,
-    value: 4,
+    value: DEF_POMODORO_COUNT,
     min: 2,
     max: 8,
   },
   pomodoroDuration: {
     name: 'pomodoroDuration',
     configurable: true,
-    value: 25 * 60,
+    value: DEF_POMODORO_DUR * 60,
     min: 10 * 60,
     max: 50 * 60,
   },
   sBreakDuration: {
     name: 'sBreakDuration',
     configurable: true,
-    value: 5 * 60,
+    value: DEF_SBREAK_DUR * 60,
     min: 1 * 60,
     max: 10 * 60,
   },
   lBreakDuration: {
     name: 'lBreakDuration',
     configurable: true,
-    value: 30 * 60,
+    value: DEF_LBREAK_DUR * 60,
     min: 5 * 60,
     max: 60 * 60,
   },
