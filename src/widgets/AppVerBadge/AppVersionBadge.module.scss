@@ -1,0 +1,13 @@
+@import 'styles/helpers';
+
+.wrapper {
+  pointer-events: none;
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  @include descr1;
+  opacity: 0.5;
+  padding: 4px 12px;
+  background-color: $color-surface-card;
+  border-radius: $border-radius;
+}

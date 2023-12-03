@@ -12,6 +12,7 @@ import { Poppins } from 'next/font/google';
 import { StoreContext, ThemeProvider } from 'shared';
 import { RootStoreProvider } from './config/storeProvider';
 import { UIProvider } from './config/uiProvider';
+import { AppVerBadge } from 'widgets/AppVerBadge';
 
 const poppins = Poppins({
   weight: ['300', '400', '500', '600', '700'],
@@ -55,7 +56,10 @@ export default function RootLayout({
       <body className={poppins.className}>
         <RootStoreProvider>
           <UIProvider>
-            <ThemeProvider>{children}</ThemeProvider>
+            <ThemeProvider>
+              {children}
+              <AppVerBadge />
+            </ThemeProvider>
           </UIProvider>
         </RootStoreProvider>
       </body>
