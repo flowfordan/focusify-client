@@ -1,5 +1,17 @@
+@import 'styles/helpers';
+
 .wrapper {
   display: grid;
   grid-template-columns: 1fr min-content;
+  align-items: center;
   height: 100%;
+  padding: 8px 20px;
+  background-color: $color-surface-card;
+  border-bottom: 1px solid black;
+  border-color: $color-surface-border;
+}
+
+.title {
+  @include title3;
+  color: $color-txt-secondary;
 }

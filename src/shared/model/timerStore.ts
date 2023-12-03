@@ -33,7 +33,7 @@ export class TimerStore implements ModuleStore {
     this.STORAGE_MODULE_KEY = 'focusify_timer';
     this.root = root;
     this._isActive = false;
-    this.isAvailable = true;
+    this.isAvailable = false;
     this.timer = {
       cycle: NULL_TIMER_CYCLE,
       stage: {

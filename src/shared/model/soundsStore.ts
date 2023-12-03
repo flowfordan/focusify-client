@@ -11,7 +11,7 @@ export class SoundsStore implements ModuleStore {
     this.STORAGE_MODULE_KEY = 'focusify_sounds';
     this.root = root;
     this._isActive = false;
-    this.isAvailable = true;
+    this.isAvailable = false;
 
     makeAutoObservable(this);
   }

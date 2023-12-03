@@ -48,7 +48,12 @@ export const ModulesToggleWidget = observer(
               {modulesData.map((m) => {
                 return (
                   <div className={styles.item} key={m.id}>
-                    <label htmlFor={m.id} className="ml-2">
+                    <label
+                      htmlFor={m.id}
+                      className={cn('ml-2', styles.label, {
+                        [styles.disabled]: !isModuleAvailable(m.id),
+                      })}
+                    >
                       {m.name}
                     </label>
                     <Checkbox
@@ -66,6 +71,7 @@ export const ModulesToggleWidget = observer(
           </CardMain>
         </div>
         <Button
+          size="large"
           icon="pi pi-plus"
           rounded
           aria-label="Modules"

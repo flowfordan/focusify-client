@@ -26,7 +26,7 @@ export const Header = observer(({}: HeaderProps) => {
   };
   return (
     <div className={styles.wrapper}>
-      <div>Header widget</div>
+      <div className={styles.title}>Focusify</div>
       <ThemeToggle
         onChange={(v) => onThemeChange(v)}
         value={options.find((o) => o.value === curTheme) || options[0]}
