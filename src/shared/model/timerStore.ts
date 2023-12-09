@@ -10,6 +10,7 @@ import {
   TimerStageId,
 } from 'shared/config';
 import { STORAGE } from 'shared/lib';
+import { Howl, Howler } from 'howler';
 
 type TimerStorageData = {
   isActive: boolean;
@@ -150,8 +151,6 @@ export class TimerStore implements ModuleStore {
   }
 
   startTimerStage() {
-    //change status
-    //start timer
     this.timer.stage.status = 'active';
     this._timerStageTick();
   }
@@ -170,6 +169,8 @@ export class TimerStore implements ModuleStore {
   private _timerStageTick() {
     if (this.timer.stage.status !== 'active') return;
     if (this.timer.stage.timePassed >= this.timer.stage.duration) {
+      //play stage end sound
+      this._playStageEndSound(this.timer.stage.id);
       //set next stage (and start timer if auto start enabled)
       this.moveToNextStage();
     } else {
@@ -200,6 +201,15 @@ export class TimerStore implements ModuleStore {
 
   subscribeToChanges(): void {
     //
+  }
+
+  private _playStageEndSound(stage: TimerStageId) {
+    console.log(stage, 'PLAYED SOUND');
+    const sound = new Howl({
+      src: ['/sounds/timer_lb_end.mp3'],
+    });
+    // Play the sound.
+    sound.play();
   }
 
   private _loadDataFromStorage() {
