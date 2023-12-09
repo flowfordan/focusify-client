@@ -13,7 +13,6 @@ import { STORAGE } from 'shared/lib';
 
 type TimerStorageData = {
   isActive: boolean;
-  timer: null;
   config: TimerConfig;
 };
 
@@ -52,10 +51,28 @@ export class TimerStore implements ModuleStore {
 
   init() {
     //TODO load config from LS
+    this._loadDataFromStorage();
     //apply config
     this.updCycleFromConfig();
     this.updTimerStage();
-    //check saved timer
+    this._initWorker();
+  }
+
+  set isActive(value: boolean) {
+    this._isActive = value;
+    this._updateStorage();
+  }
+
+  get isActive() {
+    return this._isActive;
+  }
+
+  private _addSecond() {
+    this.timer.stage.timePassed++;
+  }
+
+  private _initWorker() {
+    //INIT WORKER
     this.timerExecutor = new Worker(
       new URL('../workers/timerWorker.ts', import.meta.url)
     );
@@ -75,19 +92,6 @@ export class TimerStore implements ModuleStore {
         }
       };
     }
-  }
-
-  set isActive(value: boolean) {
-    this._isActive = value;
-    //this.root.onModuleToggleActive();
-  }
-
-  get isActive() {
-    return this._isActive;
-  }
-
-  private _addSecond() {
-    this.timer.stage.timePassed++;
   }
 
   calculateTimeLeftPercent() {
@@ -191,10 +195,23 @@ export class TimerStore implements ModuleStore {
     //
   }
 
+  private _loadDataFromStorage() {
+    const saved = STORAGE.get(this.STORAGE_MODULE_KEY);
+    if (saved) {
+      const timerData = saved as TimerStorageData;
+      if ('config' in timerData) this.config = timerData.config;
+      if ('isActive' in timerData) this.isActive = timerData.isActive;
+    } else {
+      //default is not-active
+      this.isActive = false;
+    }
+  }
+
   private _updateStorage() {
-    STORAGE.set(this.STORAGE_MODULE_KEY, {
+    const data: TimerStorageData = {
       isActive: this.isActive,
-      timer: null,
-    });
+      config: this.config,
+    };
+    STORAGE.set(this.STORAGE_MODULE_KEY, data);
   }
 }

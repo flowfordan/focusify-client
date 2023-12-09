@@ -81,29 +81,6 @@ export class TasksStore implements ModuleStore {
     return this.tasks.find((t) => t.id === id);
   }
 
-  private _loadDataFromStorage() {
-    const saved = STORAGE.get(this.STORAGE_MODULE_KEY);
-    if (saved) {
-      const tasksData = saved as TasksStorageData;
-      this.config = tasksData.config;
-      this.setTasks(tasksData.tasks);
-      this.isActive = tasksData.isActive;
-    } else {
-      //default is active
-      this.isActive = true;
-    }
-  }
-
-  private _updateStorage() {
-    LOGGER.debug('misc', `tasks update storage ${this.tasks.length}`);
-    const data: TasksStorageData = {
-      isActive: this.isActive,
-      tasks: this.tasks,
-      config: this.config,
-    };
-    STORAGE.set(this.STORAGE_MODULE_KEY, data);
-  }
-
   toggleModuleActive() {
     this.isActive = !this.isActive;
     //TODO if deactivated: cleanup all tasks
@@ -190,6 +167,29 @@ export class TasksStore implements ModuleStore {
 
   setTasks(tasks: Array<ITask>) {
     this.tasks = tasks;
+  }
+
+  private _loadDataFromStorage() {
+    const saved = STORAGE.get(this.STORAGE_MODULE_KEY);
+    if (saved) {
+      const tasksData = saved as TasksStorageData;
+      this.config = tasksData.config;
+      this.setTasks(tasksData.tasks);
+      this.isActive = tasksData.isActive;
+    } else {
+      //default is active
+      this.isActive = true;
+    }
+  }
+
+  private _updateStorage() {
+    LOGGER.debug('misc', `tasks update storage ${this.tasks.length}`);
+    const data: TasksStorageData = {
+      isActive: this.isActive,
+      tasks: this.tasks,
+      config: this.config,
+    };
+    STORAGE.set(this.STORAGE_MODULE_KEY, data);
   }
 
   subscribeToChanges() {
