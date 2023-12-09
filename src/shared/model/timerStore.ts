@@ -72,6 +72,13 @@ export class TimerStore implements ModuleStore {
   }
 
   private _initWorker() {
+    if (typeof Worker === 'undefined') {
+      //can set error state - timer is not supported
+      if (typeof window !== 'undefined') {
+        console.error('Timer is not supported');
+      }
+      return;
+    }
     //INIT WORKER
     this.timerExecutor = new Worker(
       new URL('../workers/timerWorker.ts', import.meta.url)
