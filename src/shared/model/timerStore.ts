@@ -18,6 +18,7 @@ type TimerStorageData = {
 };
 
 export class TimerStore implements ModuleStore {
+  private timerExecutor: Worker | null;
   STORAGE_MODULE_KEY: string;
   private _isActive: boolean;
   isAvailable: boolean;
@@ -30,10 +31,11 @@ export class TimerStore implements ModuleStore {
   //stage status
   config: TimerConfig;
   constructor(root: RootStore) {
+    this.timerExecutor = null;
     this.STORAGE_MODULE_KEY = 'focusify_timer';
     this.root = root;
     this._isActive = false;
-    this.isAvailable = false;
+    this.isAvailable = true;
     this.timer = {
       cycle: NULL_TIMER_CYCLE,
       stage: {
@@ -54,6 +56,25 @@ export class TimerStore implements ModuleStore {
     this.updCycleFromConfig();
     this.updTimerStage();
     //check saved timer
+    this.timerExecutor = new Worker(
+      new URL('../workers/timerWorker.ts', import.meta.url)
+    );
+    //check messages
+    if (this.timerExecutor) {
+      this.timerExecutor.onmessage = (e: MessageEvent<string>) => {
+        const data = e.data;
+        switch (data) {
+          case 'tok':
+            if (this.timer.stage.status !== 'active') return;
+            console.log('tok');
+            this._addSecond();
+            this._timerStageTick();
+            break;
+          default:
+            console.error('Unknown command from timer worker');
+        }
+      };
+    }
   }
 
   set isActive(value: boolean) {
@@ -63,6 +84,10 @@ export class TimerStore implements ModuleStore {
 
   get isActive() {
     return this._isActive;
+  }
+
+  private _addSecond() {
+    this.timer.stage.timePassed++;
   }
 
   calculateTimeLeftPercent() {
@@ -121,10 +146,12 @@ export class TimerStore implements ModuleStore {
   }
 
   pauseTimerStage() {
+    this._abortCurrentTick();
     this.timer.stage.status = 'paused';
   }
 
   stopTimerStage() {
+    this._abortCurrentTick();
     this.timer.stage.status = 'stopped';
     this.timer.stage.timePassed = 0;
   }
@@ -132,14 +159,15 @@ export class TimerStore implements ModuleStore {
   private _timerStageTick() {
     if (this.timer.stage.status !== 'active') return;
     if (this.timer.stage.timePassed >= this.timer.stage.duration) {
-      // this.stopTimerStage();
-      // this._timerCycleNext();
       //set next stage (and start timer if auto start enabled)
       this.moveToNextStage();
     } else {
-      this.timer.stage.timePassed++;
-      setTimeout(() => this._timerStageTick(), 1000);
+      if (this.timerExecutor) this.timerExecutor.postMessage('tick');
     }
+  }
+
+  private _abortCurrentTick() {
+    if (this.timerExecutor) this.timerExecutor.postMessage('abort');
   }
 
   moveToNextStage() {
