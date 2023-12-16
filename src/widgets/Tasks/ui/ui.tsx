@@ -4,7 +4,7 @@ import { ToggleTask } from 'features/Task';
 import { observer } from 'mobx-react-lite';
 import styles from './ui.module.scss';
 import cn from 'classnames';
-import { useTasksStore } from 'shared/providers';
+import { useTasksStore, useUIStore } from 'shared/providers';
 import { useEffect, useRef } from 'react';
 import { Card } from 'primereact/card';
 import { CardMain, OutsideClickHandler } from 'shared/ui';
@@ -12,6 +12,7 @@ import { Button } from 'primereact/button';
 import { ScrollPanel } from 'primereact/scrollpanel';
 import { tasksWidgetModel } from '../model/tasksWidgetModel';
 import Image from 'next/image';
+import { ModalMenu } from 'shared/templates';
 
 interface ITasksWidgetProps {
   className?: string;
@@ -19,11 +20,13 @@ interface ITasksWidgetProps {
 
 export const Tasks = observer(({ className }: ITasksWidgetProps) => {
   const tasksStore = useTasksStore();
+  const uiStore = useUIStore();
   const tasks = tasksStore.tasks;
   const tasksConfig = tasksStore.config;
   const taskBeingEdited = tasksStore.taskBeingEdited;
   const tasksCount = tasksStore.tasksCount;
   const tasksDoneCount = tasksStore.tasksDoneCount;
+  const isConfigMenuOpen = uiStore.isModuleConfigMenuOpen('tasks');
   //TODO scroll to new element
   const editedRef = useRef<HTMLDivElement>(null);
 
@@ -39,6 +42,10 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
     tasksStore.stopItemBeingEdited();
   };
 
+  const onOptionsMenuToggle = (open: boolean) => {
+    uiStore.setModuleConfigMenuOpen('tasks', open);
+  };
+
   return (
     <div className={styles.content}>
       <div className={styles.header}>
@@ -47,11 +54,10 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
             title="Options"
             icon="pi pi-cog"
             text
-            disabled
             severity="secondary"
             aria-label="Options"
             size="small"
-            onClick={() => {}}
+            onClick={() => onOptionsMenuToggle(true)}
           />
           <Button
             title="Sort"
@@ -131,6 +137,12 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
           />
         </div>
       </div>
+      <ModalMenu
+        visible={isConfigMenuOpen}
+        onClose={() => onOptionsMenuToggle(false)}
+      >
+        aboba
+      </ModalMenu>
     </div>
   );
 });

@@ -50,12 +50,12 @@ export const DEFAULT_TASKS_CONF: TasksConfig = {
   },
   taskTitleMaxLen: {
     name: 'taskTitleMaxLen',
-    configurable: true,
+    configurable: false,
     value: 100,
   },
   taskDescrMaxLen: {
     name: 'taskDescrMaxLen',
-    configurable: true,
+    configurable: false,
     value: 300,
   },
 };
