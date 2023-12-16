@@ -1,5 +1,5 @@
 'use client';
-import { TaskItem, TaskItemExt } from 'entities/Task';
+import { TaskItem, TaskItemExt, TasksConfig } from 'entities/Task';
 import { ToggleTask } from 'features/Task';
 import { observer } from 'mobx-react-lite';
 import styles from './ui.module.scss';
@@ -141,7 +141,7 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
         visible={isConfigMenuOpen}
         onClose={() => onOptionsMenuToggle(false)}
       >
-        aboba
+        <TasksConfig />
       </ModalMenu>
     </div>
   );
