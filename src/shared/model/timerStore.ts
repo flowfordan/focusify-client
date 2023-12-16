@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import { ModuleStore } from './_moduleStore';
 import { RootStore } from './rootStore';
 import {
@@ -27,6 +27,9 @@ export class TimerStore implements ModuleStore {
     cycle: TimerCycle;
     stage: TimerStage;
   };
+  soundEffects: {
+    [K in TimerStageId]: Howl | null;
+  };
   //current stage: pomodoro, lBreak or sBreak
   //stage status
   config: TimerConfig;
@@ -45,6 +48,11 @@ export class TimerStore implements ModuleStore {
         status: 'stopped',
       },
     };
+    this.soundEffects = {
+      pomodoro: null,
+      lBreak: null,
+      sBreak: null,
+    };
     this.config = DEFAULT_TIMER_CONF;
 
     makeAutoObservable(this);
@@ -57,6 +65,7 @@ export class TimerStore implements ModuleStore {
     this.updCycleFromConfig();
     this.updTimerStage();
     this._initWorker();
+    this._loadSoundEffects();
   }
 
   set isActive(value: boolean) {
@@ -205,11 +214,23 @@ export class TimerStore implements ModuleStore {
 
   private _playStageEndSound(stage: TimerStageId) {
     console.log(stage, 'PLAYED SOUND');
-    const sound = new Howl({
-      src: ['/sounds/timer_lb_end.mp3'],
-    });
+    const sound = this.soundEffects[stage];
     // Play the sound.
-    sound.play();
+    if (sound) sound.play();
+  }
+
+  private _loadSoundEffects() {
+    runInAction(() => {
+      this.soundEffects.pomodoro = new Howl({
+        src: ['/sounds/timer_pd_end.mp3'],
+      });
+      this.soundEffects.sBreak = new Howl({
+        src: ['/sounds/timer_sb_end.mp3'],
+      });
+      this.soundEffects.lBreak = new Howl({
+        src: ['/sounds/timer_lb_end.mp3'],
+      });
+    });
   }
 
   private _loadDataFromStorage() {
