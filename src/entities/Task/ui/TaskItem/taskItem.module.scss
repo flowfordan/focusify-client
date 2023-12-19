@@ -166,9 +166,24 @@
   top: 0;
   right: 0;
   padding: 2px;
-  // visibility: hidden;
-  // opacity: 0;
   transition: opacity 0.2s;
+}
+
+.pomodoroStatWrap {
+  @include descr2;
+  user-select: none;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 2px;
+
+  .pomodoroStatContainer {
+    opacity: 0.7;
+    padding: 4px 8px;
+    color: $color-primary-txt;
+    background-color: $color-primary;
+    border-radius: $border-radius;
+  }
 }
 
 .focusBtnWrap {

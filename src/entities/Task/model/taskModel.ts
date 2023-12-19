@@ -11,6 +11,10 @@ class TaskModel {
     return this.store.config;
   }
 
+  get isTimerActive() {
+    return this.store.root.modules.timer.isActive;
+  }
+
   setItemFocused(id?: string) {
     //if dont have id
     //unfocus any in focus

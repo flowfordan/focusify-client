@@ -37,6 +37,7 @@ export const TaskItem = observer(
   ) {
     //config
     const config = taskModel.tasksConfig;
+    const isTimerActive = taskModel.isTimerActive;
     const onToggleFocused = (id: string) => {
       taskModel.setItemFocused(id);
     };
@@ -114,6 +115,13 @@ export const TaskItem = observer(
             onClick={() => onItemRemove(taskData.id)}
           />
         </div>
+        {isFocused && !editData && isTimerActive && (
+          <div className={styles.pomodoroStatWrap}>
+            <div
+              className={styles.pomodoroStatContainer}
+            >{`${taskData.timeSpent} | ${taskData.timeAll}`}</div>
+          </div>
+        )}
       </CardMain>
     );
   })
