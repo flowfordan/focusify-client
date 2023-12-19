@@ -65,8 +65,7 @@ class TaskModel {
     //check if total is more or equal passed
     if (totalChecked < spendChecked) spendChecked = totalChecked;
     //upd task
-    this.store.taskBeingEdited.timeAll = totalChecked;
-    this.store.taskBeingEdited.timeSpent = spendChecked;
+    this.store.setEditedItemPomodoros(totalChecked, spendChecked);
   }
 
   stopItemBeingEdited() {

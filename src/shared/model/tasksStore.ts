@@ -98,10 +98,14 @@ export class TasksStore implements ModuleStore {
     this._updateStorage();
   }
 
-  toggleItemCompleted(itemId: string) {
+  toggleItemCompleted(itemId: string, status?: boolean) {
     const item = this.getItemById(itemId);
     if (!item) return;
-    item.isCompleted = !item.isCompleted;
+    if (typeof status !== 'undefined') {
+      item.isCompleted = status;
+    } else {
+      item.isCompleted = !item.isCompleted;
+    }
     if (item.isCompleted) {
       runInAction(() => {
         item.isFocused = false;
@@ -125,6 +129,16 @@ export class TasksStore implements ModuleStore {
       timeSpent: item.timeSpent,
       timeRemain: item.timeRemain,
     };
+  }
+
+  setEditedItemPomodoros(total: number, passed: number) {
+    if (!this.taskBeingEdited) return;
+    this.taskBeingEdited.timeAll = total;
+    this.taskBeingEdited.timeSpent = passed;
+    this.taskBeingEdited.timeRemain = total - passed;
+    //check if total = passed - then task is done
+    if (total > 0 && total === passed)
+      this.toggleItemCompleted(this.taskBeingEdited.id, true);
   }
 
   stopItemBeingEdited() {

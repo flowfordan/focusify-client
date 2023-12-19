@@ -115,7 +115,7 @@ export const TaskItem = observer(
             onClick={() => onItemRemove(taskData.id)}
           />
         </div>
-        {isFocused && !editData && isTimerActive && (
+        {isFocused && !editData && isTimerActive && taskData.timeAll > 0 && (
           <div className={styles.pomodoroStatWrap}>
             <div
               className={styles.pomodoroStatContainer}
@@ -191,7 +191,7 @@ const ItemEditSection = observer(
       type: 'total' | 'spent'
     ) => {
       const value = e.value;
-      if (!value) return;
+      if (typeof value !== 'number') return;
       if (type === 'spent') setPomodorosSpent(value);
       if (type === 'total') setPomodorosTotal(value);
     };
