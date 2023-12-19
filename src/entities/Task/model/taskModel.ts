@@ -48,6 +48,23 @@ class TaskModel {
     this.store.taskBeingEdited.description = description;
   }
 
+  setEditedItemPomodoros(total: number, passed: number) {
+    if (!this.store.taskBeingEdited) return;
+    LOGGER.debug('misc', `set pomodoro data for item ${total} ${passed}`);
+    let totalChecked = total;
+    let spendChecked = passed;
+    //check limits
+    if (totalChecked > this.tasksConfig.taskMaxPomodoros.value)
+      totalChecked = this.tasksConfig.taskMaxPomodoros.value;
+    if (spendChecked > this.tasksConfig.taskMaxPomodoros.value)
+      spendChecked = this.tasksConfig.taskMaxPomodoros.value;
+    //check if total is more or equal passed
+    if (totalChecked < spendChecked) spendChecked = totalChecked;
+    //upd task
+    this.store.taskBeingEdited.timeAll = totalChecked;
+    this.store.taskBeingEdited.timeSpent = spendChecked;
+  }
+
   stopItemBeingEdited() {
     this.store.stopItemBeingEdited();
   }

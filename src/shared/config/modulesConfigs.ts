@@ -13,6 +13,7 @@ export type TasksConfig = {
   autoUpFocused: IConfigOption<boolean>;
   taskTitleMaxLen: IConfigOption<number>;
   taskDescrMaxLen: IConfigOption<number>;
+  taskMaxPomodoros: IConfigOption<number>;
 };
 
 /**
@@ -57,6 +58,11 @@ export const DEFAULT_TASKS_CONF: TasksConfig = {
     name: 'taskDescrMaxLen',
     configurable: false,
     value: 300,
+  },
+  taskMaxPomodoros: {
+    name: 'taskMaxPomodoros',
+    configurable: false,
+    value: 10,
   },
 };
 

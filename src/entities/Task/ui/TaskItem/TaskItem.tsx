@@ -89,6 +89,7 @@ export const TaskItem = observer(
                 data={editData}
                 maxTitleLen={config.taskTitleMaxLen.value}
                 maxDescrLen={config.taskDescrMaxLen.value}
+                maxTaskPomodoros={config.taskMaxPomodoros.value}
               />
             </div>
           ) : (
@@ -152,91 +153,111 @@ interface ItemEditSectionProps {
   data: ITaskEdited;
   maxTitleLen: number;
   maxDescrLen: number;
+  maxTaskPomodoros: number;
 }
 
-const ItemEditSection = ({
-  data,
-  maxTitleLen,
-  maxDescrLen,
-}: ItemEditSectionProps) => {
-  const [title, setTitle] = useState(data.title);
-  const [descr, setDescr] = useState(data.description);
+const ItemEditSection = observer(
+  ({
+    data,
+    maxTitleLen,
+    maxDescrLen,
+    maxTaskPomodoros,
+  }: ItemEditSectionProps) => {
+    const [title, setTitle] = useState(data.title);
+    const [descr, setDescr] = useState(data.description);
+    const [pomodorosSpent, setPomodorosSpent] = useState(data.timeSpent);
+    const [pomodorosTotal, setPomodorosTotal] = useState(data.timeAll);
 
-  const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (value.length > maxTitleLen) return;
-    setTitle(value);
-  };
-  const handleChangeDescr = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    const value = e.target.value;
-    if (value.length > maxDescrLen) return;
-    setDescr(value);
-  };
-
-  useEffect(() => {
-    taskModel.setEditedItemData(title, descr);
-  }, [title, descr]);
-
-  useEffect(() => {
-    return () => {
-      console.log('unmount item edit');
-      taskModel.setEditedItemData(title, descr);
-      // timerRef.current && clearTimeout(timerRef.current);
+    const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      if (value.length > maxTitleLen) return;
+      setTitle(value);
     };
-  }, []);
+    const handleChangeDescr = (e: ChangeEvent<HTMLTextAreaElement>) => {
+      const value = e.target.value;
+      if (value.length > maxDescrLen) return;
+      setDescr(value);
+    };
+    const handlePomodorosChange = (
+      e: InputNumberValueChangeEvent,
+      type: 'total' | 'spent'
+    ) => {
+      const value = e.value;
+      if (!value) return;
+      if (type === 'spent') setPomodorosSpent(value);
+      if (type === 'total') setPomodorosTotal(value);
+    };
 
-  return (
-    <>
-      <div className={styles.titleEdit}>
-        <InputText
-          autoFocus
-          value={title}
-          onChange={(e) => handleChangeTitle(e)}
-        />
-        <div
-          className={styles.limitLabel}
-        >{`${title.length}/${maxTitleLen}`}</div>
-      </div>
-      <div className={styles.descrEdit}>
-        <InputTextarea
-          value={descr}
-          style={{ resize: 'none' }}
-          onChange={(e) => handleChangeDescr(e)}
-        />
-        <div
-          className={styles.limitLabel}
-        >{`${descr.length}/${maxDescrLen}`}</div>
-      </div>
-      <div className={styles.editPomodoro}>
-        <span className={styles.editInputs}>
-          <span className={styles.item}>
-            <span>{'pomodoros passed:'}&nbsp;</span>
-            <InputNumber
-              value={1}
-              onValueChange={() => {}}
-              showButtons
-              step={1}
-              min={0}
-              max={10}
-              decrementButtonClassName="p-button-secondary"
-              incrementButtonClassName="p-button-secondary"
-            />
+    useEffect(() => {
+      taskModel.setEditedItemData(title, descr);
+    }, [title, descr]);
+
+    useEffect(() => {
+      taskModel.setEditedItemPomodoros(pomodorosTotal, pomodorosSpent);
+    }, [pomodorosTotal, pomodorosSpent]);
+
+    useEffect(() => {
+      return () => {
+        taskModel.setEditedItemData(title, descr);
+        // taskModel.setEditedItemPomodoros(pomodorosTotal, pomodorosSpent);
+      };
+    }, []);
+
+    return (
+      <>
+        <div className={styles.titleEdit}>
+          <InputText
+            autoFocus
+            value={title}
+            onChange={(e) => handleChangeTitle(e)}
+          />
+          <div
+            className={styles.limitLabel}
+          >{`${title.length}/${maxTitleLen}`}</div>
+        </div>
+        <div className={styles.descrEdit}>
+          <InputTextarea
+            value={descr}
+            style={{ resize: 'none' }}
+            onChange={(e) => handleChangeDescr(e)}
+          />
+          <div
+            className={styles.limitLabel}
+          >{`${descr.length}/${maxDescrLen}`}</div>
+        </div>
+        <div className={styles.editPomodoro}>
+          <span className={styles.editInputs}>
+            <span className={styles.item}>
+              <span>{'pomodoros passed:'}&nbsp;</span>
+              <InputNumber
+                value={pomodorosSpent}
+                onValueChange={(e) => handlePomodorosChange(e, 'spent')}
+                showButtons
+                step={1}
+                min={0}
+                max={pomodorosTotal}
+                decrementButtonClassName="p-button-secondary"
+                incrementButtonClassName="p-button-secondary"
+                title={'pomodoros passed'}
+              />
+            </span>
+            <span className={styles.item}>
+              <span>{'of total:'}&nbsp;</span>
+              <InputNumber
+                value={pomodorosTotal}
+                onValueChange={(e) => handlePomodorosChange(e, 'total')}
+                showButtons
+                step={1}
+                min={0}
+                max={maxTaskPomodoros}
+                decrementButtonClassName="p-button-secondary"
+                incrementButtonClassName="p-button-secondary"
+                title={'pomodoros total'}
+              />
+            </span>
           </span>
-          <span className={styles.item}>
-            <span>{'of total:'}&nbsp;</span>
-            <InputNumber
-              value={1}
-              onValueChange={() => {}}
-              showButtons
-              step={1}
-              min={0}
-              max={10}
-              decrementButtonClassName="p-button-secondary"
-              incrementButtonClassName="p-button-secondary"
-            />
-          </span>
-        </span>
-      </div>
-    </>
-  );
-};
+        </div>
+      </>
+    );
+  }
+);
