@@ -61,6 +61,10 @@ export class RootStore {
     // this.saveModuleDataToStorage();
   }
 
+  onTimerPomodororStageEnd() {
+    this.modules.tasks.addPomodoroPassedToFocused();
+  }
+
   private countActiveModules() {
     let count = 0;
     for (const key in this.modules) {
@@ -69,23 +73,6 @@ export class RootStore {
       }
     }
     this.modulesStats.activeCount = count;
-  }
-
-  private loadModuleDataFromStorage() {
-    const savedData = STORAGE.get(STORAGE_MODULES_KEY);
-    if (!savedData) return;
-    this.modules.tasks.isActive = savedData['tasks'] || false;
-    this.modules.timer.isActive = savedData['timer'] || false;
-    this.modules.sounds.isActive = savedData['sounds'] || false;
-  }
-
-  private saveModuleDataToStorage() {
-    const activityData: { [K in ModuleId]: boolean } = {
-      tasks: this.modules.tasks.isActive,
-      timer: this.modules.timer.isActive,
-      sounds: this.modules.sounds.isActive,
-    };
-    STORAGE.set(STORAGE_MODULES_KEY, activityData);
   }
 }
 

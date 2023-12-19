@@ -183,6 +183,14 @@ export class TasksStore implements ModuleStore {
     this.tasks = tasks;
   }
 
+  addPomodoroPassedToFocused() {
+    const focused = this.currentFocusedTask;
+    if (!focused) return;
+    focused.timeSpent++;
+    focused.timeRemain--;
+    this._updateStorage();
+  }
+
   private _loadDataFromStorage() {
     const saved = STORAGE.get(this.STORAGE_MODULE_KEY);
     if (saved) {

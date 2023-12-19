@@ -178,6 +178,7 @@ export class TimerStore implements ModuleStore {
   private _timerStageTick() {
     if (this.timer.stage.status !== 'active') return;
     if (this.timer.stage.timePassed >= this.timer.stage.duration) {
+      if (this.timer.stage.id === 'pomodoro') this._onPomodoroStageEnd();
       //play stage end sound
       this._playStageEndSound(this.timer.stage.id);
       //set next stage (and start timer if auto start enabled)
@@ -210,6 +211,13 @@ export class TimerStore implements ModuleStore {
 
   subscribeToChanges(): void {
     //
+  }
+
+  /**
+   * update focused task with +1 passed pomodoro
+   */
+  private _onPomodoroStageEnd() {
+    this.root.onTimerPomodororStageEnd();
   }
 
   private _playStageEndSound(stage: TimerStageId) {
