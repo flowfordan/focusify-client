@@ -18,6 +18,10 @@ import { taskModel } from 'entities/Task';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { ITaskEdited } from 'shared/model';
+import {
+  InputNumber,
+  InputNumberValueChangeEvent,
+} from 'primereact/inputnumber';
 
 export const TaskItem = observer(
   forwardRef(function Task(
@@ -203,7 +207,36 @@ const ItemEditSection = ({
           className={styles.limitLabel}
         >{`${descr.length}/${maxDescrLen}`}</div>
       </div>
-      <div>Pomodoro</div>
+      <div className={styles.editPomodoro}>
+        <span className={styles.editInputs}>
+          <span className={styles.item}>
+            <span>{'pomodoros passed:'}&nbsp;</span>
+            <InputNumber
+              value={1}
+              onValueChange={() => {}}
+              showButtons
+              step={1}
+              min={0}
+              max={10}
+              decrementButtonClassName="p-button-secondary"
+              incrementButtonClassName="p-button-secondary"
+            />
+          </span>
+          <span className={styles.item}>
+            <span>{'of total:'}&nbsp;</span>
+            <InputNumber
+              value={1}
+              onValueChange={() => {}}
+              showButtons
+              step={1}
+              min={0}
+              max={10}
+              decrementButtonClassName="p-button-secondary"
+              incrementButtonClassName="p-button-secondary"
+            />
+          </span>
+        </span>
+      </div>
     </>
   );
 };
