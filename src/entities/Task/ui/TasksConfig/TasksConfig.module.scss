@@ -1,5 +1,49 @@
+@use 'styles/helpers' as *;
+
 .wrapper {
   display: grid;
   grid-template-columns: 1fr;
-  row-gap: 16px;
+  grid-template-rows: min-content 1fr;
+  height: 100%;
+}
+
+.header {
+  @include title3;
+  padding-bottom: 12px;
+  border-bottom: 1px solid black;
+  border-color: $color-surface-border;
+  color: $color-txt-secondary;
+}
+
+.content {
+  height: 100%;
+  position: relative;
+}
+
+.list {
+  @include custom-scroll;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+}
+
+.item {
+  padding: 20px 8px;
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  align-items: center;
+}
+
+.footer {
+  border-top: 1px solid black;
+  border-color: $color-surface-border;
+  padding-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  &.visible {}
 }

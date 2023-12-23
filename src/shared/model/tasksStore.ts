@@ -3,7 +3,12 @@ import { makeAutoObservable, reaction, runInAction } from 'mobx';
 import { ModuleStore } from './_moduleStore';
 import { RootStore } from './rootStore';
 import { ITask, ITaskEdited } from './types/task';
-import { DEFAULT_TASKS_CONF, TasksConfig, _mockTasks } from 'shared/config';
+import {
+  DEFAULT_TASKS_CONF,
+  TaskConfigKey,
+  TasksConfig,
+  _mockTasks,
+} from 'shared/config';
 import { LOGGER, STORAGE } from 'shared/lib';
 
 const getNullTask = (): ITask => {
@@ -157,6 +162,10 @@ export class TasksStore implements ModuleStore {
     this._updateStorage();
   }
 
+  setConfigOption(key: TaskConfigKey, value: number | boolean) {
+    this.config[key].value = value;
+  }
+
   removeItem(itemId: string) {
     const index = this.tasks.findIndex((t) => t.id === itemId);
     if (index > -1) {
@@ -191,6 +200,10 @@ export class TasksStore implements ModuleStore {
     this._updateStorage();
   }
 
+  savePersistantData() {
+    this._updateStorage();
+  }
+
   private _loadDataFromStorage() {
     const saved = STORAGE.get(this.STORAGE_MODULE_KEY);
     if (saved) {
@@ -205,7 +218,6 @@ export class TasksStore implements ModuleStore {
   }
 
   private _updateStorage() {
-    LOGGER.debug('misc', `tasks update storage ${this.tasks.length}`);
     const data: TasksStorageData = {
       isActive: this.isActive,
       tasks: this.tasks,

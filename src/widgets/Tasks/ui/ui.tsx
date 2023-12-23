@@ -141,7 +141,7 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
         visible={isConfigMenuOpen}
         onClose={() => onOptionsMenuToggle(false)}
       >
-        <TasksConfig />
+        <TasksConfig onClose={() => onOptionsMenuToggle(false)} />
       </ModalMenu>
     </div>
   );

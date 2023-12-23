@@ -1,3 +1,4 @@
+import { TaskConfigKey } from 'shared/config';
 import { LOGGER } from 'shared/lib';
 import { rootStore } from 'shared/model';
 import type { TasksStore } from 'shared/model';
@@ -13,6 +14,14 @@ class TaskModel {
 
   get isTimerActive() {
     return this.store.root.modules.timer.isActive;
+  }
+
+  updateConfigOption(key: TaskConfigKey, value: number | boolean) {
+    this.store.setConfigOption(key, value);
+  }
+
+  save() {
+    this.store.savePersistantData();
   }
 
   setItemFocused(id?: string) {

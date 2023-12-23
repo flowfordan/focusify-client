@@ -1,5 +1,6 @@
 interface IConfigOption<T> {
   name: string;
+  displayName?: string;
   configurable: boolean;
   value: T;
   min?: number;
@@ -15,6 +16,8 @@ export type TasksConfig = {
   taskDescrMaxLen: IConfigOption<number>;
   taskMaxPomodoros: IConfigOption<number>;
 };
+
+export type TaskConfigKey = keyof TasksConfig;
 
 /**
  * @description all values are in seconds
@@ -36,16 +39,19 @@ export const DEFAULT_TASKS_CONF: TasksConfig = {
   },
   isSoundOnComplete: {
     name: 'isSoundOnComplete',
+    displayName: 'Play sound on task complete',
     configurable: true,
     value: true,
   },
   autoDownCompleted: {
     name: 'autoDownCompleted',
+    displayName: 'Move completed tasks to the bottom',
     configurable: true,
     value: true,
   },
   autoUpFocused: {
     name: 'autoUpFocused',
+    displayName: 'Move focused tasks to the top',
     configurable: true,
     value: true,
   },
