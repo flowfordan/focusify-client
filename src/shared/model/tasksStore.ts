@@ -33,6 +33,9 @@ type TasksStorageData = {
   tasks: Array<ITask>;
   config: TasksConfig;
 };
+
+const sounds = ['done', 'focused'] as const;
+type SoundStage = (typeof sounds)[number];
 export class TasksStore implements ModuleStore {
   STORAGE_MODULE_KEY: string;
   private _isActive: boolean;
@@ -41,6 +44,9 @@ export class TasksStore implements ModuleStore {
   root: RootStore;
   tasks: Array<ITask>;
   taskBeingEdited: ITaskEdited | null = null;
+  soundEffects: {
+    [K in SoundStage]: Howl | null;
+  };
   constructor(root: RootStore) {
     this.STORAGE_MODULE_KEY = 'focusify_tasks';
     this.root = root;
@@ -48,6 +54,10 @@ export class TasksStore implements ModuleStore {
     this.isAvailable = true;
     this.tasks = [];
     this.config = DEFAULT_TASKS_CONF;
+    this.soundEffects = {
+      done: null,
+      focused: null,
+    };
 
     makeAutoObservable(this);
   }
@@ -56,6 +66,7 @@ export class TasksStore implements ModuleStore {
     //load tasks and config from storage
     //rewrie default if saved smth
     this._loadDataFromStorage();
+    this._loadSoundEffects();
   }
 
   set isActive(value: boolean) {
@@ -111,10 +122,12 @@ export class TasksStore implements ModuleStore {
     } else {
       item.isCompleted = !item.isCompleted;
     }
+    //complition
     if (item.isCompleted) {
       runInAction(() => {
         item.isFocused = false;
       });
+      this._playSoundEffect('done');
     }
     this._updateStorage();
   }
@@ -204,6 +217,15 @@ export class TasksStore implements ModuleStore {
     this._updateStorage();
   }
 
+  private _playSoundEffect(stage: SoundStage) {
+    //check config
+    if (!this.config.isSoundOnComplete.value) return;
+    //check if sound is loaded
+    const sound = this.soundEffects[stage];
+    if (!sound) return;
+    sound.play();
+  }
+
   private _loadDataFromStorage() {
     const saved = STORAGE.get(this.STORAGE_MODULE_KEY);
     if (saved) {
@@ -224,6 +246,17 @@ export class TasksStore implements ModuleStore {
       config: this.config,
     };
     STORAGE.set(this.STORAGE_MODULE_KEY, data);
+  }
+
+  private _loadSoundEffects() {
+    runInAction(() => {
+      this.soundEffects.focused = new Howl({
+        src: ['/sounds/timer_lb_end.mp3'],
+      });
+      this.soundEffects.done = new Howl({
+        src: ['/sounds/timer_lb_end.mp3'],
+      });
+    });
   }
 
   subscribeToChanges() {
