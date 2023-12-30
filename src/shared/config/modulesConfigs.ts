@@ -27,9 +27,9 @@ export type TimerConfig = {
   pomodoroDuration: IConfigOption<number>;
   sBreakDuration: IConfigOption<number>;
   lBreakDuration: IConfigOption<number>;
-  isSoundOnComplete: IConfigOption<boolean>;
   isAutoStageStart: IConfigOption<boolean>;
 };
+export type TimerConfigKey = keyof TimerConfig;
 
 export const DEFAULT_TASKS_CONF: TasksConfig = {
   maxTasks: {
@@ -72,7 +72,7 @@ export const DEFAULT_TASKS_CONF: TasksConfig = {
   },
 };
 
-//time in minutes
+//time in minutes:
 const DEF_POMODORO_COUNT = 4; //4
 const DEF_POMODORO_DUR = 0.5; //25
 const DEF_SBREAK_DUR = 0.1; //5
@@ -84,6 +84,7 @@ export const DEFAULT_TIMER_CONF: TimerConfig = {
     value: DEF_POMODORO_COUNT,
     min: 2,
     max: 8,
+    displayName: 'Pomodoros amount',
   },
   pomodoroDuration: {
     name: 'pomodoroDuration',
@@ -91,6 +92,7 @@ export const DEFAULT_TIMER_CONF: TimerConfig = {
     value: DEF_POMODORO_DUR * 60,
     min: 10 * 60,
     max: 50 * 60,
+    displayName: 'Pomodoro duration, sec',
   },
   sBreakDuration: {
     name: 'sBreakDuration',
@@ -98,6 +100,7 @@ export const DEFAULT_TIMER_CONF: TimerConfig = {
     value: DEF_SBREAK_DUR * 60,
     min: 1 * 60,
     max: 10 * 60,
+    displayName: 'Short Break duration, sec',
   },
   lBreakDuration: {
     name: 'lBreakDuration',
@@ -105,16 +108,13 @@ export const DEFAULT_TIMER_CONF: TimerConfig = {
     value: DEF_LBREAK_DUR * 60,
     min: 5 * 60,
     max: 60 * 60,
-  },
-  isSoundOnComplete: {
-    name: 'isSoundOnComplete',
-    configurable: true,
-    value: true,
+    displayName: 'Long Break duration, sec',
   },
   isAutoStageStart: {
     name: 'isAutoStageStart',
     configurable: true,
     value: true,
+    displayName: 'Autostart next stage',
   },
 };
 

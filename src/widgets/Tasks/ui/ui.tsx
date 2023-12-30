@@ -51,11 +51,11 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
       <div className={styles.header}>
         <span className={styles.manage}>
           <Button
-            title="Options"
+            title="ToDo Options"
             icon="pi pi-cog"
             text
             severity="secondary"
-            aria-label="Options"
+            aria-label="ToDo Options"
             size="small"
             onClick={() => onOptionsMenuToggle(true)}
           />

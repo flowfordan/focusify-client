@@ -1,3 +1,4 @@
+import { TimerConfigKey } from 'shared/config';
 import { LOGGER } from 'shared/lib';
 import { rootStore } from 'shared/model';
 import type { TimerStore } from 'shared/model';
@@ -40,6 +41,18 @@ class TimerModel {
     if (percent < 0) return 0;
     if (percent > 100) return 100;
     return percent;
+  }
+
+  get config() {
+    return this.store.config;
+  }
+
+  updateConfigOption(key: TimerConfigKey, value: number | boolean) {
+    this.store.setConfigOption(key, value);
+  }
+
+  save() {
+    this.store.savePersistantData();
   }
 
   togglePlay() {

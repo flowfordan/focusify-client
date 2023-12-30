@@ -5,6 +5,7 @@ import {
   DEFAULT_TIMER_CONF,
   NULL_TIMER_CYCLE,
   TimerConfig,
+  TimerConfigKey,
   TimerCycle,
   TimerStage,
   TimerStageId,
@@ -173,6 +174,14 @@ export class TimerStore implements ModuleStore {
     this._abortCurrentTick();
     this.timer.stage.status = 'stopped';
     this.timer.stage.timePassed = 0;
+  }
+
+  setConfigOption(key: TimerConfigKey, value: number | boolean) {
+    this.config[key].value = value;
+  }
+
+  savePersistantData() {
+    this._updateStorage();
   }
 
   private _timerStageTick() {

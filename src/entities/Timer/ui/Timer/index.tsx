@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { timerModel } from '../model/timerModel';
+import { timerModel } from '../../model/timerModel';
 import styles from './Timer.module.scss';
 import { Button } from 'primereact/button';
 import cn from 'classnames';
@@ -11,7 +11,7 @@ interface TimerProps {
   className?: string;
 }
 
-export const Timer = observer(({}: TimerProps) => {
+export const Timer = observer(({ className }: TimerProps) => {
   const timeLeft = timerModel.timeLeft;
   const isPlaying = timerModel.isPlaying;
   const cycle = timerModel.currentCycle;
