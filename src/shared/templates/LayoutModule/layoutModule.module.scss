@@ -9,12 +9,6 @@
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr;
 
-  &:hover {
-    .title {
-      opacity: 1;
-    }
-  }
-
   @include d {
     padding: 20px;
   }
