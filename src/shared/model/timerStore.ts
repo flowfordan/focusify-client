@@ -182,6 +182,7 @@ export class TimerStore implements ModuleStore {
 
   savePersistantData() {
     this._updateStorage();
+    this.init();
   }
 
   private _timerStageTick() {
