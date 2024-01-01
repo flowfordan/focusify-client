@@ -11,11 +11,30 @@ import {
 } from 'shared/config';
 import { LOGGER, STORAGE } from 'shared/lib';
 
-const getNullTask = (): ITask => {
+const getNullTitle = () => {
   const rand = Math.random();
+  let word = 'that';
+  switch (true) {
+    case rand < 0.2:
+      word = 'this';
+      break;
+    case rand < 0.5:
+      word = 'the';
+      break;
+    case rand < 0.8:
+      word = 'one';
+      break;
+    default:
+      word = 'that';
+  }
+
+  return `Do ${word} thing`;
+};
+
+const getNullTask = (): ITask => {
   return {
     id: new Date().getTime().toString(),
-    title: rand > 0.5 ? 'Do this thing' : 'Do that thing',
+    title: getNullTitle(),
     description: '',
     isCompleted: false,
     isFocused: false,
@@ -106,11 +125,10 @@ export class TasksStore implements ModuleStore {
   setItemFocused(itemId: string, isFocused?: boolean) {
     const item = this.getItemById(itemId);
     if (!item) return;
-    if (isFocused !== undefined) {
-      item.isFocused = isFocused;
-    } else {
-      item.isFocused = !item.isFocused;
-    }
+    if (isFocused !== undefined) item.isFocused = isFocused;
+    else item.isFocused = !item.isFocused;
+
+    if (item.isFocused) this._moveFocusedToTop();
     this._updateStorage();
   }
 
@@ -127,6 +145,7 @@ export class TasksStore implements ModuleStore {
       runInAction(() => {
         item.isFocused = false;
       });
+      this._moveCompletedToBottom();
       this._playSoundEffect('done');
     }
     this._updateStorage();
@@ -215,6 +234,21 @@ export class TasksStore implements ModuleStore {
 
   savePersistantData() {
     this._updateStorage();
+  }
+
+  private _moveCompletedToBottom() {
+    if (!this.config.autoDownCompleted.value) return;
+    const completed = this.tasks.filter((t) => t.isCompleted);
+    const notCompleted = this.tasks.filter((t) => !t.isCompleted);
+    this.tasks = [...notCompleted, ...completed];
+  }
+
+  private _moveFocusedToTop() {
+    if (!this.config.autoUpFocused.value) return;
+    const focused = this.tasks.find((t) => t.isFocused);
+    if (!focused) return;
+    const notFocused = this.tasks.filter((t) => !t.isFocused);
+    this.tasks = [focused, ...notFocused];
   }
 
   private _playSoundEffect(stage: SoundStage) {

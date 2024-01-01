@@ -28,6 +28,7 @@ export type TimerConfig = {
   sBreakDuration: IConfigOption<number>;
   lBreakDuration: IConfigOption<number>;
   isAutoStageStart: IConfigOption<boolean>;
+  playSounds: IConfigOption<boolean>;
 };
 export type TimerConfigKey = keyof TimerConfig;
 
@@ -112,9 +113,15 @@ export const DEFAULT_TIMER_CONF: TimerConfig = {
   },
   isAutoStageStart: {
     name: 'isAutoStageStart',
-    configurable: true,
+    configurable: false,
     value: true,
     displayName: 'Autostart next stage',
+  },
+  playSounds: {
+    name: 'playSounds',
+    configurable: true,
+    value: true,
+    displayName: 'Play sounds',
   },
 };
 

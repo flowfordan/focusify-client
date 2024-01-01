@@ -231,6 +231,7 @@ export class TimerStore implements ModuleStore {
   }
 
   private _playStageEndSound(stage: TimerStageId) {
+    if (!this.config.playSounds.value) return;
     const sound = this.soundEffects[stage];
     // Play the sound.
     if (sound) sound.play();
