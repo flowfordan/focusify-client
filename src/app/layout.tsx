@@ -10,7 +10,7 @@ import 'primeicons/primeicons.css';
 //
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
-import { StoreContext, ThemeProvider } from 'shared';
+import { HeadProvider, StoreContext, ThemeProvider } from 'shared';
 import { RootStoreProvider } from './config/storeProvider';
 import { UIProvider } from './config/uiProvider';
 import { AppVerBadge } from 'widgets/AppVerBadge';
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   applicationName: 'FOCUSIFY',
   authors: {
     name: 'Daniil Rychkov (flowfordan)',
-    url: 'flowfordan.kitezh.xyz',
+    url: 'https://flowfordan.kitezh.xyz',
   },
   keywords: [
     'focus',
@@ -51,6 +51,19 @@ export const metadata: Metadata = {
     'to-do list app free online',
     'to-do list app free online',
     'to-do list app free online',
+    'todo',
+    'todo list',
+    'todo list app',
+    'todo list online',
+    'todo list app',
+    'todo list app online',
+    'todo list app free',
+    'todo list app free online',
+    'todo list app free online',
+    'todo list app free online',
+    'flowfordan',
+    'daniil rychkov',
+    'flowfordan kitezh',
   ],
   referrer: 'origin',
 };
@@ -103,6 +116,7 @@ export default function RootLayout({
       </head>
       <body className={poppins.className}>
         <RootStoreProvider>
+          <HeadProvider />
           <UIProvider>
             <ThemeProvider>
               {children}

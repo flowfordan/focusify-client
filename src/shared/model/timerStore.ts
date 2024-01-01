@@ -79,6 +79,23 @@ export class TimerStore implements ModuleStore {
     return this._isActive;
   }
 
+  get timeLeftFormatted() {
+    const secondsAll = this.timer.stage.duration;
+    const secondsPassed = this.timer.stage.timePassed;
+    const secondsLeft = secondsAll - secondsPassed;
+    const hours = Math.floor(secondsLeft / 3600);
+    const minutes = Math.floor((secondsLeft % 3600) / 60);
+    const seconds = Math.floor(secondsLeft % 60);
+    //
+    const hoursStr = hours > 0 ? (hours > 9 ? `${hours}` : `0${hours}`) : '';
+    const minutesStr =
+      minutes > 0 ? (minutes > 9 ? `${minutes}` : `0${minutes}`) : '00';
+    const secondsStr =
+      seconds > 0 ? (seconds > 9 ? `${seconds}` : `0${seconds}`) : '00';
+
+    return `${hoursStr}${hoursStr ? ':' : ''}${minutesStr}:${secondsStr}`;
+  }
+
   private _addSecond() {
     this.timer.stage.timePassed++;
   }
@@ -102,7 +119,6 @@ export class TimerStore implements ModuleStore {
         switch (data) {
           case 'tok':
             if (this.timer.stage.status !== 'active') return;
-            console.log('tok');
             this._addSecond();
             this._timerStageTick();
             break;

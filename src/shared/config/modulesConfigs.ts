@@ -135,7 +135,9 @@ export type TimerCycle = {
 
 export type TimerStage = {
   id: TimerStageId;
+  /** seconds */
   duration: number;
+  /** time passed, seconds */
   timePassed: number;
   status: 'active' | 'paused' | 'stopped';
 };
