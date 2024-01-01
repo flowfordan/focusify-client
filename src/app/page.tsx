@@ -5,6 +5,7 @@ import { PageHome } from 'pages_units';
 import { LayoutMain } from 'shared';
 import { Header } from 'widgets/Header';
 import { ModulesToggleWidget } from 'widgets/ModulesToggle';
+import { version } from '../../package.json';
 
 export default function Home() {
   //layout

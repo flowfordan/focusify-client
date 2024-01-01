@@ -51,6 +51,7 @@ type TasksStorageData = {
   isActive: boolean;
   tasks: Array<ITask>;
   config: TasksConfig;
+  appVer: string;
 };
 
 const sounds = ['done', 'focused'] as const;
@@ -262,12 +263,16 @@ export class TasksStore implements ModuleStore {
 
   private _loadDataFromStorage() {
     const saved = STORAGE.get(this.STORAGE_MODULE_KEY);
-    if (saved) {
+    const savedAppVer = saved?.['appVer'];
+    //validate app version
+    if (saved && savedAppVer === this.root.appVer) {
       const tasksData = saved as TasksStorageData;
       this.config = tasksData.config;
       this.setTasks(tasksData.tasks);
       this.isActive = tasksData.isActive;
     } else {
+      //delete key that may contain deprecated data
+      STORAGE.remove(this.STORAGE_MODULE_KEY);
       //default is active
       this.isActive = true;
     }
@@ -278,6 +283,7 @@ export class TasksStore implements ModuleStore {
       isActive: this.isActive,
       tasks: this.tasks,
       config: this.config,
+      appVer: this.root.appVer,
     };
     STORAGE.set(this.STORAGE_MODULE_KEY, data);
   }

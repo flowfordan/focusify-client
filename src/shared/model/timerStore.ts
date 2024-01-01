@@ -16,6 +16,7 @@ import { Howl, Howler } from 'howler';
 type TimerStorageData = {
   isActive: boolean;
   config: TimerConfig;
+  appVer: string;
 };
 
 export class TimerStore implements ModuleStore {
@@ -253,11 +254,13 @@ export class TimerStore implements ModuleStore {
 
   private _loadDataFromStorage() {
     const saved = STORAGE.get(this.STORAGE_MODULE_KEY);
-    if (saved) {
+    const savedAppVer = saved?.['appVer'];
+    if (saved && savedAppVer === this.root.appVer) {
       const timerData = saved as TimerStorageData;
       if ('config' in timerData) this.config = timerData.config;
       if ('isActive' in timerData) this.isActive = timerData.isActive;
     } else {
+      STORAGE.remove(this.STORAGE_MODULE_KEY);
       //default is not-active
       this.isActive = false;
     }
@@ -267,6 +270,7 @@ export class TimerStore implements ModuleStore {
     const data: TimerStorageData = {
       isActive: this.isActive,
       config: this.config,
+      appVer: this.root.appVer,
     };
     STORAGE.set(this.STORAGE_MODULE_KEY, data);
   }

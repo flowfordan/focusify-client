@@ -42,13 +42,13 @@ export const DEFAULT_TASKS_CONF: TasksConfig = {
     name: 'isSoundOnComplete',
     displayName: 'Play sound on task complete',
     configurable: true,
-    value: true,
+    value: false,
   },
   autoDownCompleted: {
     name: 'autoDownCompleted',
     displayName: 'Move completed tasks to the bottom',
     configurable: true,
-    value: true,
+    value: false,
   },
   autoUpFocused: {
     name: 'autoUpFocused',

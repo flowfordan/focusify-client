@@ -7,6 +7,7 @@ import { UIStore } from './uiStore';
 import { UserStore } from './userStore';
 import { ModuleId } from 'shared/config';
 import { STORAGE } from 'shared/lib';
+import appData from '../../../package.json';
 
 type Store<T> = T extends 'tasks'
   ? TasksStore
@@ -30,6 +31,7 @@ export class RootStore {
   modulesStats: {
     activeCount: number;
   };
+  appVer: string;
   constructor() {
     this.user = new UserStore();
     this.ui = new UIStore();
@@ -42,6 +44,7 @@ export class RootStore {
     this.modulesStats = {
       activeCount: 0,
     };
+    this.appVer = appData.version;
     this.init();
   }
 
