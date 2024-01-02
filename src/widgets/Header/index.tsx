@@ -5,6 +5,8 @@ import { Theme } from 'shared/types';
 import { useUIStore } from 'shared/providers';
 import { SelectButton } from 'primereact/selectbutton';
 import { observer } from 'mobx-react-lite';
+import Link from 'next/link';
+import { Button } from 'primereact/button';
 
 interface HeaderProps {
   className?: string;
@@ -27,11 +29,26 @@ export const Header = observer(({}: HeaderProps) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.title}>Focusify</div>
-      <ThemeToggle
-        onChange={(v) => onThemeChange(v)}
-        value={options.find((o) => o.value === curTheme) || options[0]}
-        options={options}
-      />
+      <div className={styles.add}>
+        <span className={styles.link}>
+          <Link href={'/about'}>
+            <Button
+              icon="pi pi-question-circle"
+              aria-label="About"
+              // onClick={() => onStop()}
+              text
+              severity="secondary"
+              size="small"
+            />
+          </Link>
+        </span>
+
+        <ThemeToggle
+          onChange={(v) => onThemeChange(v)}
+          value={options.find((o) => o.value === curTheme) || options[0]}
+          options={options}
+        />
+      </div>
     </div>
   );
 });

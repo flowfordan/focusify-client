@@ -16,3 +16,17 @@
   color: $color-txt-secondary;
   text-transform: uppercase;
 }
+
+.add {
+  display: flex;
+  align-items: center;
+
+  .link {
+    @include descr1;
+    margin-right: 4px;
+
+    button {
+      padding: 4px;
+    }
+  }
+}

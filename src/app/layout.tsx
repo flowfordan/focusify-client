@@ -118,10 +118,7 @@ export default function RootLayout({
         <RootStoreProvider>
           <HeadProvider />
           <UIProvider>
-            <ThemeProvider>
-              {children}
-              <AppVerBadge />
-            </ThemeProvider>
+            <ThemeProvider>{children}</ThemeProvider>
           </UIProvider>
         </RootStoreProvider>
       </body>

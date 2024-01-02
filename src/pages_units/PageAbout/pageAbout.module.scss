@@ -1,0 +1,47 @@
+@import 'styles/helpers';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - $HEADER_HEIGHT);
+  padding: 20px 20px;
+  text-align: center;
+}
+
+.card {
+  max-width: 500px;
+  padding: 20px;
+  height: 100%;
+}
+
+.cardContent {
+  @include custom-scroll;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.section {
+  padding: 20px 0;
+  &:not(:last-child) {
+    border-bottom: 1px solid black;
+    border-color: $color-surface-border;
+  }
+}
+
+.title {
+  @include title3;
+  color: $color-txt-secondary; 
+}
+
+.subtitle {
+  @include title4;
+  text-align: start;
+  padding-bottom: 12px;
+}
+
+.txt {
+  @include regular2;
+  text-align: start;
+}

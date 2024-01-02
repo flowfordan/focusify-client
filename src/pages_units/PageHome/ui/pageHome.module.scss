@@ -4,7 +4,7 @@
   position: relative;
   padding: 10px;
   min-height: 500px;
-  height: calc(100vh - 80px);
+  height: calc(100vh - $HEADER_HEIGHT);
 
   display: grid;
   grid-template-columns: 2fr 1fr;
