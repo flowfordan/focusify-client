@@ -1,5 +1,6 @@
 import { CardMain } from 'shared/ui';
 import styles from './pageAbout.module.scss';
+import Link from 'next/link';
 
 interface PageAboutProps {
   className?: string;
@@ -11,7 +12,15 @@ export const PageAbout = ({ className }: PageAboutProps) => {
       <CardMain className={styles.card} bgType="default" border>
         <div className={styles.cardContent}>
           <div className={styles.section}>
-            <div>FOcusify logo</div>
+            <div className={styles.logoWrap}>
+              <Link href={'/'}>
+                <div className={styles.logo}>
+                  <svg>
+                    <use href={'/icons/logo_full.svg#logo'} />
+                  </svg>
+                </div>
+              </Link>
+            </div>
             <div
               className={styles.title}
             >{`An online Pomodoro Timer and Task Manager to help you focus and boost your productivity`}</div>

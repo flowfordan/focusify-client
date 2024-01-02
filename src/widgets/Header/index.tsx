@@ -28,7 +28,15 @@ export const Header = observer(({}: HeaderProps) => {
   };
   return (
     <div className={styles.wrapper}>
-      <div className={styles.title}>Focusify</div>
+      <div className={styles.title}>
+        <Link href={'/'}>
+          <div className={styles.logo}>
+            <svg>
+              <use href={'/icons/logo_full.svg#logo'} />
+            </svg>
+          </div>
+        </Link>
+      </div>
       <div className={styles.add}>
         <span className={styles.link}>
           <Link href={'/about'}>

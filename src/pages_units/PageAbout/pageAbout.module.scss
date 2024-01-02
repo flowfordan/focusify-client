@@ -11,8 +11,9 @@
 }
 
 .card {
-  max-width: 500px;
+  max-width: 700px;
   padding: 20px;
+  padding-right: 0px;
   height: 100%;
 }
 
@@ -20,6 +21,7 @@
   @include custom-scroll;
   height: 100%;
   overflow-y: auto;
+  padding-right: 20px;
 }
 
 .section {
@@ -31,7 +33,7 @@
 }
 
 .title {
-  @include title3;
+  @include title4;
   color: $color-txt-secondary; 
 }
 
@@ -44,4 +46,22 @@
 .txt {
   @include regular2;
   text-align: start;
+}
+
+.logoWrap {
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  display: flex;
+  justify-content: flex-start;
+  justify-items: flex-start;
+  width: fit-content;
+
+  svg {
+    fill: $color-primary;
+    height: 40px;
+    width: 150px;
+  }
 }
