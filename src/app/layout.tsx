@@ -22,7 +22,8 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: 'FOCUSIFY | Focus on what matters',
-  description: 'To-do list and pomodoro timer app to help you concentrate',
+  description:
+    'An online Pomodoro Timer and Task Manager to help you focus and boost your productivity',
   applicationName: 'FOCUSIFY',
   authors: {
     name: 'Daniil Rychkov (flowfordan)',
@@ -86,14 +87,14 @@ export default function RootLayout({
         <meta property="og:url" content="https://focusify.kitezh.xyz" />
         <meta
           property="og:description"
-          content="To-do list and pomodoro timer app to help you concentrate"
+          content="An online Pomodoro Timer and Task Manager to help you focus and boost your productivity"
         />
         <meta
           property="og:image"
           content="https://focusify.kitezh.xyz/meta/main_og.png"
         />
-        <meta property="og:image:width" content="400" />
-        <meta property="og:image:height" content="400" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link
           rel="apple-touch-icon"
