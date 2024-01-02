@@ -1,0 +1,35 @@
+@import 'styles/helpers';
+
+.wrapper {
+  padding: 30px 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 20px;
+}
+
+.clock {
+  @include title1;
+  color: $color-txt-secondary;
+  text-align: center;
+
+  &.active {
+    animation: blink 1s infinite;
+  }
+}
+
+
+.subtitle {
+  text-align: center;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}

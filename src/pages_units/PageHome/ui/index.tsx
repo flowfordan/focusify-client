@@ -3,7 +3,7 @@ import { Tasks } from 'widgets/Tasks';
 import { TasksCompact } from 'widgets/Tasks';
 import { Sounds } from 'widgets/Sounds';
 import styles from './pageHome.module.scss';
-import { TimerWidget } from 'widgets/Timer';
+import { TimerCompact, TimerWidget } from 'widgets/Timer';
 import cn from 'classnames';
 import { homeModel } from '../model/homeModel';
 import { observer } from 'mobx-react-lite';
@@ -83,6 +83,7 @@ export const PageHome = observer(() => {
             Sounds
           </LayoutModule>
           <LayoutModule
+            withExpand
             className={cn(styles.timerWrap, {
               [styles.hidden]: !isTimer,
             })}
@@ -90,7 +91,7 @@ export const PageHome = observer(() => {
             onExpand={() => onMobShow('timer')}
             title="pomodoro"
           >
-            Timer
+            <TimerCompact />
           </LayoutModule>
         </div>
       ) : (
