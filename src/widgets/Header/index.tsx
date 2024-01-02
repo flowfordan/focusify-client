@@ -32,6 +32,7 @@ export const Header = observer(({}: HeaderProps) => {
         <Link href={'/'}>
           <div className={styles.logo}>
             <svg>
+              <title>FOCUSIFY logo</title>
               <use href={'/icons/logo_full.svg#logo'} />
             </svg>
           </div>

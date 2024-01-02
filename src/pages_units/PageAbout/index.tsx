@@ -16,6 +16,7 @@ export const PageAbout = ({ className }: PageAboutProps) => {
               <Link href={'/'}>
                 <div className={styles.logo}>
                   <svg>
+                    <title>FOCUSIFY logo</title>
                     <use href={'/icons/logo_full.svg#logo'} />
                   </svg>
                 </div>
@@ -29,8 +30,10 @@ export const PageAbout = ({ className }: PageAboutProps) => {
             <div className={styles.subtitle}>{`What is FOCUSIFY?`}</div>
             <div className={styles.txt}>
               <p>{`Supercharge your workday with our seamlessly integrated task manager and customizable Pomodoro timer. FOCUSIFY empowers you to stay focused, boost productivity, and achieve your goals like never before.`}</p>
+              <br />
               <p>{`📋 Task Manager:
           Effortlessly organize your tasks, set priorities, and track progress in one intuitive interface. Link tasks to the Pomodoro timer for a dynamic workflow that keeps you in the zone.`}</p>
+              <br />
               <p>{`⏲️ Customizable Pomodoro Timer:
           Take control of your work sessions with a Pomodoro timer that suits your unique preferences. Customize timer durations, break intervals, and more to match your optimal productivity rhythm.`}</p>
             </div>
