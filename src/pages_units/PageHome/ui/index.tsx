@@ -154,7 +154,13 @@ const ModuleMob = ({ module, onHide }: IModuleMobProps) => {
       className={styles.layoutModuleWrap}
       onClose={() => {}}
       onHide={() => onHide()}
-      title={'pomodoro'}
+      title={
+        module === 'timer'
+          ? 'pomodoro'
+          : module === 'tasks'
+          ? 'to-do'
+          : 'sounds'
+      }
     >
       {module === 'tasks' ? (
         <Tasks />

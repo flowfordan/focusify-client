@@ -72,6 +72,8 @@ export class TimerStore implements ModuleStore {
 
   set isActive(value: boolean) {
     this._isActive = value;
+    //reset timer
+    this.stopTimerStage();
     this._updateStorage();
   }
 
@@ -290,4 +292,6 @@ export class TimerStore implements ModuleStore {
     };
     STORAGE.set(this.STORAGE_MODULE_KEY, data);
   }
+
+  private _resetTimer() {}
 }
