@@ -4,8 +4,8 @@ import 'styles/index.scss';
 import 'primereact/resources/primereact.min.css';
 import 'primeflex/primeflex.css';
 //theme
-import 'primereact/resources/themes/viva-light/theme.css';
-import 'primereact/resources/themes/viva-dark/theme.css';
+// import 'primereact/resources/themes/viva-light/theme.css';
+// import 'primereact/resources/themes/viva-dark/theme.css';
 import 'primeicons/primeicons.css';
 //
 import type { Metadata } from 'next';
@@ -81,7 +81,7 @@ export default function RootLayout({
         <link
           rel="stylesheet"
           id="theme-link"
-          href={`/themes/light_default.css`}
+          // href={`/themes/light_default.css`}
         />
         <meta property="og:title" content="FOCUSIFY | Focus on what matters" />
         <meta property="og:url" content="https://focusify.kitezh.xyz" />
