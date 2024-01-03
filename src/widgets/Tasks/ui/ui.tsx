@@ -59,16 +59,6 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
             size="small"
             onClick={() => onOptionsMenuToggle(true)}
           />
-          <Button
-            title="Sort"
-            icon="pi pi-sort-amount-up"
-            text
-            disabled
-            severity="secondary"
-            aria-label="Sort"
-            size="small"
-            onClick={() => {}}
-          />
         </span>
         <span className={styles.progress}>
           {tasksCount === 0
@@ -91,7 +81,10 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
         <div className={styles.list}>
           {tasks.length === 0 && (
             <div className={styles.emptyWrap}>
-              <img src="/images/todo_bg.png" />
+              <svg>
+                <use href={'/images/todo_bg.svg#bg'} />
+              </svg>
+              {'Add new tasks to get started ↓'}
             </div>
           )}
           {tasks.map((item) => {

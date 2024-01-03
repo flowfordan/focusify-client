@@ -93,6 +93,14 @@ export const PageHome = observer(() => {
           >
             <TimerCompact />
           </LayoutModule>
+          {enabledModulesCount === 0 && (
+            <div className={styles.emptyWrap}>
+              <svg>
+                <use href={'/images/main_bg.svg#bg'} />
+              </svg>
+              {'↙ Turn on at least one widget to get started'}
+            </div>
+          )}
         </div>
       ) : (
         <div
@@ -136,6 +144,14 @@ export const PageHome = observer(() => {
           >
             <TimerWidget />
           </LayoutModule>
+          {enabledModulesCount === 0 && (
+            <div className={styles.emptyWrap}>
+              <svg>
+                <use href={'/images/main_bg.svg#bg'} />
+              </svg>
+              {'↙ Turn on at least one widget to get started'}
+            </div>
+          )}
         </div>
       )}
     </>

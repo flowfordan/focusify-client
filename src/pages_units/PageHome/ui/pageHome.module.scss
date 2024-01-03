@@ -110,3 +110,22 @@
 .layoutModuleWrap {
   height: 100%;
 }
+
+.emptyWrap {
+  @include descr2;
+  width: 100%;
+  height: 100%;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: $color-txt-secondary;
+
+  svg {
+    fill: $color-txt-secondary;
+    width: 100%;
+    height: 300px;
+    opacity: 0.5;
+  }
+}
