@@ -11,7 +11,6 @@ interface ISoundsWidgetProps {
 
 export const SoundsCompact = ({ className }: ISoundsWidgetProps) => {
   // const items = soundsModel.sounds;
-  // console.log('ITEMS:', toJS(items));
   return (
     <div className={cn(className, styles.wrapper)}>
       Sounds Compact

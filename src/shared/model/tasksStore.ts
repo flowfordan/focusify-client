@@ -300,16 +300,6 @@ export class TasksStore implements ModuleStore {
   }
 
   subscribeToChanges() {
-    reaction(
-      () => {
-        return this.tasks.length;
-      },
-      () => {
-        console.log('CHANGES IN TASKS');
-      },
-      {
-        fireImmediately: false,
-      }
-    );
+    //
   }
 }
