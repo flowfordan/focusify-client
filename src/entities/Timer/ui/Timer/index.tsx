@@ -48,7 +48,7 @@ export const Timer = observer(({ className }: TimerProps) => {
             rounded
             aria-label="Play Timer"
             onClick={() => onStop()}
-            tooltip="Stop Timer"
+            title="Stop Timer"
             text
             raised
             severity="secondary"
@@ -62,7 +62,7 @@ export const Timer = observer(({ className }: TimerProps) => {
               rounded
               aria-label="Pause Timer"
               onClick={() => onTogglePlay()}
-              tooltip="Pause Timer"
+              title="Pause Timer"
             />
           ) : (
             <Button
@@ -70,7 +70,7 @@ export const Timer = observer(({ className }: TimerProps) => {
               rounded
               aria-label="Play Timer"
               onClick={() => onTogglePlay()}
-              tooltip="Play Timer"
+              title="Play Timer"
             />
           )}
         </span>

@@ -75,9 +75,9 @@ export const DEFAULT_TASKS_CONF: TasksConfig = {
 
 //time in minutes:
 const DEF_POMODORO_COUNT = 4; //4
-const DEF_POMODORO_DUR = 0.5; //25
-const DEF_SBREAK_DUR = 0.1; //5
-const DEF_LBREAK_DUR = 0.1; //30
+const DEF_POMODORO_DUR = 25; //25
+const DEF_SBREAK_DUR = 5; //5
+const DEF_LBREAK_DUR = 30; //30
 export const DEFAULT_TIMER_CONF: TimerConfig = {
   pomodorosAmount: {
     name: 'pomodorosAmount',
