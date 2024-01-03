@@ -22,6 +22,7 @@ import {
   InputNumber,
   InputNumberValueChangeEvent,
 } from 'primereact/inputnumber';
+import { Button } from 'primereact/button';
 
 export const TaskItem = observer(
   forwardRef(function Task(
@@ -49,6 +50,9 @@ export const TaskItem = observer(
     };
     const onItemBeingEdited = (id: string) => {
       taskModel.setItemAsBeingEdited(id);
+    };
+    const onEditEnd = () => {
+      taskModel.stopItemBeingEdited();
     };
     return (
       <CardMain
@@ -85,14 +89,14 @@ export const TaskItem = observer(
             </div>
           </div>
           {editData ? (
-            <div className={styles.infoEdit}>
+            <form className={styles.infoEdit} onSubmit={() => onEditEnd()}>
               <ItemEditSection
                 data={editData}
                 maxTitleLen={config.taskTitleMaxLen.value}
                 maxDescrLen={config.taskDescrMaxLen.value}
                 maxTaskPomodoros={config.taskMaxPomodoros.value}
               />
-            </div>
+            </form>
           ) : (
             <button
               className={styles.info}
@@ -229,41 +233,54 @@ const ItemEditSection = observer(
             style={{ resize: 'none' }}
             onChange={(e) => handleChangeDescr(e)}
           />
+          <input type="submit" className={styles.submitDummy} />
           <div
             className={styles.limitLabel}
           >{`${descr.length}/${maxDescrLen}`}</div>
         </div>
-        <div className={styles.editPomodoro}>
-          <span className={styles.editInputs}>
-            <span className={styles.item}>
-              <span>{'pomodoros passed:'}&nbsp;</span>
-              <InputNumber
-                value={pomodorosSpent}
-                onValueChange={(e) => handlePomodorosChange(e, 'spent')}
-                showButtons
-                step={1}
-                min={0}
-                max={pomodorosTotal}
-                decrementButtonClassName="p-button-secondary"
-                incrementButtonClassName="p-button-secondary"
-                title={'pomodoros passed'}
-              />
+        <div className={styles.bottom}>
+          <div className={styles.editPomodoro}>
+            <span className={styles.editInputs}>
+              <span className={styles.item}>
+                <span>{'pomodoros passed: '}</span>
+                <InputNumber
+                  value={pomodorosSpent}
+                  onValueChange={(e) => handlePomodorosChange(e, 'spent')}
+                  showButtons
+                  step={1}
+                  min={0}
+                  max={pomodorosTotal}
+                  decrementButtonClassName="p-button-secondary"
+                  incrementButtonClassName="p-button-secondary"
+                  title={'pomodoros passed'}
+                />
+              </span>
+              <span className={styles.item}>
+                <span>{'of total: '}</span>
+                <InputNumber
+                  value={pomodorosTotal}
+                  onValueChange={(e) => handlePomodorosChange(e, 'total')}
+                  showButtons
+                  step={1}
+                  min={0}
+                  max={maxTaskPomodoros}
+                  decrementButtonClassName="p-button-secondary"
+                  incrementButtonClassName="p-button-secondary"
+                  title={'pomodoros total'}
+                />
+              </span>
             </span>
-            <span className={styles.item}>
-              <span>{'of total:'}&nbsp;</span>
-              <InputNumber
-                value={pomodorosTotal}
-                onValueChange={(e) => handlePomodorosChange(e, 'total')}
-                showButtons
-                step={1}
-                min={0}
-                max={maxTaskPomodoros}
-                decrementButtonClassName="p-button-secondary"
-                incrementButtonClassName="p-button-secondary"
-                title={'pomodoros total'}
-              />
-            </span>
-          </span>
+          </div>
+          <Button
+            label="OK"
+            rounded
+            aria-label="Confirm Task"
+            onClick={() => {}}
+            title="Confirm Task"
+            text
+            severity="secondary"
+            type="submit"
+          />
         </div>
       </>
     );

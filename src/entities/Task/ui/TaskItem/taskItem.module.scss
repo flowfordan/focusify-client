@@ -282,12 +282,42 @@
     max-width: 45px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+    margin-left: 4px;
   }
 
   .item {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: end;
   }
+
+  @include m {
+    @include descr3;
+    // display: grid;
+    // grid-template-rows: auto auto;
+    // grid-template-columns: 1fr;
+  }
+}
+
+.bottom {
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  column-gap: 12px;
+
+  @include t {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr min-content;
+    row-gap: 8px;
+    justify-content: flex-end;
+    justify-items: flex-end;
+  }
+}
+
+.submitDummy {
+  width: 0px;
+  height: 0px;
+  visibility: hidden;
+  opacity: 0;
 }
 
