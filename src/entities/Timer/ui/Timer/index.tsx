@@ -80,7 +80,6 @@ export const Timer = observer(({ className }: TimerProps) => {
             rounded
             aria-label="Next Timer Stage"
             onClick={() => onForward()}
-            tooltip="Next Timer Stage"
             text
             raised
             severity="secondary"
