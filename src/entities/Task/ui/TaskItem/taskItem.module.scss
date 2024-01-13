@@ -196,8 +196,8 @@
   visibility: visible;
   transition: opacity 0.2s;
   //appereance
-  border-top-left-radius: $border-radius;
-  border-bottom-left-radius: $border-radius;
+  border-top-left-radius: calc($border-radius - 2px);
+  border-bottom-left-radius: calc($border-radius - 2px);
   display: flex;
   justify-content: center;
   align-items: center;
