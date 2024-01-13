@@ -93,6 +93,11 @@ export default function RootLayout({
           property="og:image"
           content="https://focusify.kitezh.xyz/meta/main_og.png"
         />
+        <meta name="twitter:card" content="summary_large_image"></meta>
+        <meta
+          name="twitter:image"
+          content="https://focusify.kitezh.xyz/meta/main_og.png"
+        ></meta>
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
