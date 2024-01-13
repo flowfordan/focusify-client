@@ -1,6 +1,8 @@
 import { CardMain } from 'shared/ui';
 import styles from './pageAbout.module.scss';
 import Link from 'next/link';
+import { AppVerBadge } from 'widgets/AppVerBadge';
+import cn from 'classnames';
 
 interface PageAboutProps {
   className?: string;
@@ -46,16 +48,31 @@ export const PageAbout = ({ className }: PageAboutProps) => {
           on the left side of a task, than you can set up 'pomodoros' count needed for this Task to be completed`}
             </div>
           </div>
-          <div className={styles.section}>
+          <div className={cn(styles.section, styles.footer)}>
             <div>
               {`Source code can be found on `}
-              <a href={'https://github.com/flowfordan/focusify-client'}>
+              <a
+                href={'https://github.com/flowfordan/focusify-client'}
+                rel="external noreferrer"
+                target="_blank"
+                referrerPolicy="no-referrer"
+              >
                 github
               </a>
             </div>
             <div>
-              Made by <a href={'https://github.com/flowfordan'}>flowfordan</a>
+              Made by{' '}
+              <a
+                href={'https://github.com/flowfordan'}
+                rel="external noreferrer"
+                target="_blank"
+                referrerPolicy="no-referrer"
+              >
+                flowfordan
+              </a>
             </div>
+
+            <AppVerBadge />
           </div>
         </div>
       </CardMain>

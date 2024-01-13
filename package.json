@@ -1,6 +1,6 @@
 {
   "name": "focusify-client",
-  "version": "0.1.0",
+  "version": "0.2.0-hoian",
   "description": "Frontend of focusify app",
   "main": "index.tsx",
   "scripts": {
