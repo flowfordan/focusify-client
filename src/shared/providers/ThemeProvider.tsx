@@ -39,15 +39,21 @@ export const ThemeProvider = observer(
       if (!initThemeDef) return;
       const loadedTheme = getCurrentLoadedTheme('theme-link', curTheme);
       LOGGER.debug('misc', `, change to: ${curTheme}, prev: ${loadedTheme}`);
-      primeContext.changeTheme &&
-        primeContext?.changeTheme?.(
-          `${loadedTheme}`,
-          `${curTheme}`,
-          'theme-link',
-          () => {
-            setThemeLocally(curTheme);
-          }
-        );
+      const themeLink = document.getElementById('theme-link');
+      if (themeLink && 'href' in themeLink) {
+        themeLink.href = `/themes/${curTheme}.css`;
+        //href="/themes/light_default.css"
+        setThemeLocally(curTheme);
+      }
+      // primeContext.changeTheme &&
+      //   primeContext?.changeTheme?.(
+      //     `${loadedTheme}`,
+      //     `${curTheme}`,
+      //     'theme-link',
+      //     () => {
+      //       setThemeLocally(curTheme);
+      //     }
+      //   );
     }, [curTheme, initThemeDef]);
     return <>{children}</>;
   }

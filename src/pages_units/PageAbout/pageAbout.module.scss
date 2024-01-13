@@ -1,0 +1,75 @@
+@import 'styles/helpers';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - $HEADER_HEIGHT);
+  padding: 20px 20px;
+  text-align: center;
+}
+
+.card {
+  max-width: 700px;
+  padding: 20px;
+  padding-right: 0px;
+  height: 100%;
+}
+
+.cardContent {
+  @include custom-scroll;
+  height: 100%;
+  overflow-y: auto;
+  padding-right: 20px;
+}
+
+.section {
+  padding: 20px 0;
+  &:not(:last-child) {
+    border-bottom: 1px solid black;
+    border-color: $color-surface-border;
+  }
+
+  &.footer {
+    @include descr1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.title {
+  @include title4;
+  color: $color-txt-secondary; 
+}
+
+.subtitle {
+  @include title4;
+  text-align: start;
+  padding-bottom: 12px;
+}
+
+.txt {
+  @include regular2;
+  text-align: start;
+}
+
+.logoWrap {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 12px;
+}
+
+.logo {
+  display: flex;
+  justify-content: flex-start;
+  justify-items: flex-start;
+  width: fit-content;
+
+  svg {
+    fill: $color-primary;
+    height: 40px;
+    width: 150px;
+  }
+}

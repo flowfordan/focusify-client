@@ -1,3 +1,4 @@
+import { TimerConfigKey } from 'shared/config';
 import { LOGGER } from 'shared/lib';
 import { rootStore } from 'shared/model';
 import type { TimerStore } from 'shared/model';
@@ -12,20 +13,7 @@ class TimerModel {
   }
 
   get timeLeft() {
-    const secondsAll = this.store.timer.stage.duration;
-    const secondsPassed = this.store.timer.stage.timePassed;
-    const secondsLeft = secondsAll - secondsPassed;
-    const hours = Math.floor(secondsLeft / 3600);
-    const minutes = Math.floor((secondsLeft % 3600) / 60);
-    const seconds = Math.floor(secondsLeft % 60);
-    //
-    const hoursStr = hours > 0 ? (hours > 9 ? `${hours}` : `0${hours}`) : '';
-    const minutesStr =
-      minutes > 0 ? (minutes > 9 ? `${minutes}` : `0${minutes}`) : '00';
-    const secondsStr =
-      seconds > 0 ? (seconds > 9 ? `${seconds}` : `0${seconds}`) : '00';
-
-    return `${hoursStr}${hoursStr ? ':' : ''}${minutesStr}:${secondsStr}`;
+    return this.store.timeLeftFormatted;
   }
 
   get currentCycle() {
@@ -40,6 +28,18 @@ class TimerModel {
     if (percent < 0) return 0;
     if (percent > 100) return 100;
     return percent;
+  }
+
+  get config() {
+    return this.store.config;
+  }
+
+  updateConfigOption(key: TimerConfigKey, value: number | boolean) {
+    this.store.setConfigOption(key, value);
+  }
+
+  save() {
+    this.store.savePersistantData();
   }
 
   togglePlay() {

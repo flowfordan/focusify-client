@@ -1,10 +1,10 @@
 'use client';
-import { TaskItem, TaskItemExt } from 'entities/Task';
+import { TaskItem, TaskItemExt, TasksConfig } from 'entities/Task';
 import { ToggleTask } from 'features/Task';
 import { observer } from 'mobx-react-lite';
 import styles from './ui.module.scss';
 import cn from 'classnames';
-import { useTasksStore } from 'shared/providers';
+import { useTasksStore, useUIStore } from 'shared/providers';
 import { useEffect, useRef } from 'react';
 import { Card } from 'primereact/card';
 import { CardMain, OutsideClickHandler } from 'shared/ui';
@@ -12,6 +12,7 @@ import { Button } from 'primereact/button';
 import { ScrollPanel } from 'primereact/scrollpanel';
 import { tasksWidgetModel } from '../model/tasksWidgetModel';
 import Image from 'next/image';
+import { ModalMenu } from 'shared/templates';
 
 interface ITasksWidgetProps {
   className?: string;
@@ -19,11 +20,13 @@ interface ITasksWidgetProps {
 
 export const Tasks = observer(({ className }: ITasksWidgetProps) => {
   const tasksStore = useTasksStore();
+  const uiStore = useUIStore();
   const tasks = tasksStore.tasks;
   const tasksConfig = tasksStore.config;
   const taskBeingEdited = tasksStore.taskBeingEdited;
   const tasksCount = tasksStore.tasksCount;
   const tasksDoneCount = tasksStore.tasksDoneCount;
+  const isConfigMenuOpen = uiStore.isModuleConfigMenuOpen('tasks');
   //TODO scroll to new element
   const editedRef = useRef<HTMLDivElement>(null);
 
@@ -39,29 +42,22 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
     tasksStore.stopItemBeingEdited();
   };
 
+  const onOptionsMenuToggle = (open: boolean) => {
+    uiStore.setModuleConfigMenuOpen('tasks', open);
+  };
+
   return (
     <div className={styles.content}>
       <div className={styles.header}>
         <span className={styles.manage}>
           <Button
-            title="Options"
+            title="ToDo Options"
             icon="pi pi-cog"
             text
-            disabled
             severity="secondary"
-            aria-label="Options"
+            aria-label="ToDo Options"
             size="small"
-            onClick={() => {}}
-          />
-          <Button
-            title="Sort"
-            icon="pi pi-sort-amount-up"
-            text
-            disabled
-            severity="secondary"
-            aria-label="Sort"
-            size="small"
-            onClick={() => {}}
+            onClick={() => onOptionsMenuToggle(true)}
           />
         </span>
         <span className={styles.progress}>
@@ -85,7 +81,10 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
         <div className={styles.list}>
           {tasks.length === 0 && (
             <div className={styles.emptyWrap}>
-              <img src="/images/todo_bg.png" />
+              <svg>
+                <use href={'/images/todo_bg.svg#bg'} />
+              </svg>
+              {'Add new tasks to get started ↓'}
             </div>
           )}
           {tasks.map((item) => {
@@ -131,6 +130,12 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
           />
         </div>
       </div>
+      <ModalMenu
+        visible={isConfigMenuOpen}
+        onClose={() => onOptionsMenuToggle(false)}
+      >
+        <TasksConfig onClose={() => onOptionsMenuToggle(false)} />
+      </ModalMenu>
     </div>
   );
 });

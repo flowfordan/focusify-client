@@ -3,14 +3,38 @@ import { makeAutoObservable, reaction, runInAction } from 'mobx';
 import { ModuleStore } from './_moduleStore';
 import { RootStore } from './rootStore';
 import { ITask, ITaskEdited } from './types/task';
-import { DEFAULT_TASKS_CONF, TasksConfig, _mockTasks } from 'shared/config';
+import {
+  DEFAULT_TASKS_CONF,
+  TaskConfigKey,
+  TasksConfig,
+  _mockTasks,
+} from 'shared/config';
 import { LOGGER, STORAGE } from 'shared/lib';
 
-const getNullTask = (): ITask => {
+const getNullTitle = () => {
   const rand = Math.random();
+  let word = 'that';
+  switch (true) {
+    case rand < 0.2:
+      word = 'this';
+      break;
+    case rand < 0.5:
+      word = 'the';
+      break;
+    case rand < 0.8:
+      word = 'one';
+      break;
+    default:
+      word = 'that';
+  }
+
+  return `Do ${word} thing`;
+};
+
+const getNullTask = (): ITask => {
   return {
     id: new Date().getTime().toString(),
-    title: rand > 0.5 ? 'Do this thing' : 'Do that thing',
+    title: getNullTitle(),
     description: '',
     isCompleted: false,
     isFocused: false,
@@ -27,7 +51,11 @@ type TasksStorageData = {
   isActive: boolean;
   tasks: Array<ITask>;
   config: TasksConfig;
+  appVer: string;
 };
+
+const sounds = ['done', 'focused'] as const;
+type SoundStage = (typeof sounds)[number];
 export class TasksStore implements ModuleStore {
   STORAGE_MODULE_KEY: string;
   private _isActive: boolean;
@@ -36,6 +64,9 @@ export class TasksStore implements ModuleStore {
   root: RootStore;
   tasks: Array<ITask>;
   taskBeingEdited: ITaskEdited | null = null;
+  soundEffects: {
+    [K in SoundStage]: Howl | null;
+  };
   constructor(root: RootStore) {
     this.STORAGE_MODULE_KEY = 'focusify_tasks';
     this.root = root;
@@ -43,6 +74,10 @@ export class TasksStore implements ModuleStore {
     this.isAvailable = true;
     this.tasks = [];
     this.config = DEFAULT_TASKS_CONF;
+    this.soundEffects = {
+      done: null,
+      focused: null,
+    };
 
     makeAutoObservable(this);
   }
@@ -51,6 +86,7 @@ export class TasksStore implements ModuleStore {
     //load tasks and config from storage
     //rewrie default if saved smth
     this._loadDataFromStorage();
+    this._loadSoundEffects();
   }
 
   set isActive(value: boolean) {
@@ -81,29 +117,6 @@ export class TasksStore implements ModuleStore {
     return this.tasks.find((t) => t.id === id);
   }
 
-  private _loadDataFromStorage() {
-    const saved = STORAGE.get(this.STORAGE_MODULE_KEY);
-    if (saved) {
-      const tasksData = saved as TasksStorageData;
-      this.config = tasksData.config;
-      this.setTasks(tasksData.tasks);
-      this.isActive = tasksData.isActive;
-    } else {
-      //default is active
-      this.isActive = true;
-    }
-  }
-
-  private _updateStorage() {
-    LOGGER.debug('misc', `tasks update storage ${this.tasks.length}`);
-    const data: TasksStorageData = {
-      isActive: this.isActive,
-      tasks: this.tasks,
-      config: this.config,
-    };
-    STORAGE.set(this.STORAGE_MODULE_KEY, data);
-  }
-
   toggleModuleActive() {
     this.isActive = !this.isActive;
     //TODO if deactivated: cleanup all tasks
@@ -113,22 +126,28 @@ export class TasksStore implements ModuleStore {
   setItemFocused(itemId: string, isFocused?: boolean) {
     const item = this.getItemById(itemId);
     if (!item) return;
-    if (isFocused !== undefined) {
-      item.isFocused = isFocused;
-    } else {
-      item.isFocused = !item.isFocused;
-    }
+    if (isFocused !== undefined) item.isFocused = isFocused;
+    else item.isFocused = !item.isFocused;
+
+    if (item.isFocused) this._moveFocusedToTop();
     this._updateStorage();
   }
 
-  toggleItemCompleted(itemId: string) {
+  toggleItemCompleted(itemId: string, status?: boolean) {
     const item = this.getItemById(itemId);
     if (!item) return;
-    item.isCompleted = !item.isCompleted;
+    if (typeof status !== 'undefined') {
+      item.isCompleted = status;
+    } else {
+      item.isCompleted = !item.isCompleted;
+    }
+    //complition
     if (item.isCompleted) {
       runInAction(() => {
         item.isFocused = false;
       });
+      this._moveCompletedToBottom();
+      this._playSoundEffect('done');
     }
     this._updateStorage();
   }
@@ -150,6 +169,16 @@ export class TasksStore implements ModuleStore {
     };
   }
 
+  setEditedItemPomodoros(total: number, passed: number) {
+    if (!this.taskBeingEdited) return;
+    this.taskBeingEdited.timeAll = total;
+    this.taskBeingEdited.timeSpent = passed;
+    this.taskBeingEdited.timeRemain = total - passed;
+    //check if total = passed - then task is done
+    if (total > 0 && total === passed)
+      this.toggleItemCompleted(this.taskBeingEdited.id, true);
+  }
+
   stopItemBeingEdited() {
     //save made changes
     const currentEditedItem = this.taskBeingEdited;
@@ -164,6 +193,10 @@ export class TasksStore implements ModuleStore {
     item.timeRemain = currentEditedItem.timeRemain;
     this.taskBeingEdited = null;
     this._updateStorage();
+  }
+
+  setConfigOption(key: TaskConfigKey, value: number | boolean) {
+    this.config[key].value = value;
   }
 
   removeItem(itemId: string) {
@@ -192,17 +225,81 @@ export class TasksStore implements ModuleStore {
     this.tasks = tasks;
   }
 
+  addPomodoroPassedToFocused() {
+    const focused = this.currentFocusedTask;
+    if (!focused) return;
+    focused.timeSpent++;
+    focused.timeRemain--;
+    this._updateStorage();
+  }
+
+  savePersistantData() {
+    this._updateStorage();
+  }
+
+  private _moveCompletedToBottom() {
+    if (!this.config.autoDownCompleted.value) return;
+    const completed = this.tasks.filter((t) => t.isCompleted);
+    const notCompleted = this.tasks.filter((t) => !t.isCompleted);
+    this.tasks = [...notCompleted, ...completed];
+  }
+
+  private _moveFocusedToTop() {
+    if (!this.config.autoUpFocused.value) return;
+    const focused = this.tasks.find((t) => t.isFocused);
+    if (!focused) return;
+    const notFocused = this.tasks.filter((t) => !t.isFocused);
+    this.tasks = [focused, ...notFocused];
+  }
+
+  private _playSoundEffect(stage: SoundStage) {
+    //check config
+    if (!this.config.isSoundOnComplete.value) return;
+    //check if sound is loaded
+    const sound = this.soundEffects[stage];
+    if (!sound) return;
+    sound.play();
+  }
+
+  private _loadDataFromStorage() {
+    const saved = STORAGE.get(this.STORAGE_MODULE_KEY);
+    const savedAppVer = saved?.['appVer'];
+    //validate app version
+    if (saved && savedAppVer === this.root.appVer) {
+      const tasksData = saved as TasksStorageData;
+      this.config = tasksData.config;
+      this.setTasks(tasksData.tasks);
+      this.isActive = tasksData.isActive;
+    } else {
+      //delete key that may contain deprecated data
+      STORAGE.remove(this.STORAGE_MODULE_KEY);
+      //default is active
+      this.isActive = true;
+    }
+  }
+
+  private _updateStorage() {
+    const data: TasksStorageData = {
+      isActive: this.isActive,
+      tasks: this.tasks,
+      config: this.config,
+      appVer: this.root.appVer,
+    };
+    STORAGE.set(this.STORAGE_MODULE_KEY, data);
+  }
+
+  private _loadSoundEffects() {
+    runInAction(() => {
+      this.soundEffects.focused = new Howl({
+        src: ['/sounds/timer_lb_end.mp3'],
+      });
+      this.soundEffects.done = new Howl({
+        src: ['/sounds/timer_lb_end.mp3'],
+      });
+    });
+  }
+
   subscribeToChanges() {
-    reaction(
-      () => {
-        return this.tasks.length;
-      },
-      () => {
-        console.log('CHANGES IN TASKS');
-      },
-      {
-        fireImmediately: false,
-      }
-    );
+    //
   }
 }

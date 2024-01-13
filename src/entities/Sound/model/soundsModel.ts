@@ -28,7 +28,6 @@ export class SoundsModel implements ISoundsModel {
 
     //if not - download
     if (!sound.audio) {
-      console.log('no audio:', soundId);
       const url = '';
       sound.audio = new Audio(
         `https://cdn.noises.online/NoisesOnline/Audio/${soundId}.ogg`

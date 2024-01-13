@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { timerModel } from '../model/timerModel';
+import { timerModel } from '../../model/timerModel';
 import styles from './Timer.module.scss';
 import { Button } from 'primereact/button';
 import cn from 'classnames';
@@ -11,7 +11,7 @@ interface TimerProps {
   className?: string;
 }
 
-export const Timer = observer(({}: TimerProps) => {
+export const Timer = observer(({ className }: TimerProps) => {
   const timeLeft = timerModel.timeLeft;
   const isPlaying = timerModel.isPlaying;
   const cycle = timerModel.currentCycle;
@@ -48,7 +48,7 @@ export const Timer = observer(({}: TimerProps) => {
             rounded
             aria-label="Play Timer"
             onClick={() => onStop()}
-            tooltip="Stop Timer"
+            title="Stop Timer"
             text
             raised
             severity="secondary"
@@ -62,7 +62,7 @@ export const Timer = observer(({}: TimerProps) => {
               rounded
               aria-label="Pause Timer"
               onClick={() => onTogglePlay()}
-              tooltip="Pause Timer"
+              title="Pause Timer"
             />
           ) : (
             <Button
@@ -70,7 +70,7 @@ export const Timer = observer(({}: TimerProps) => {
               rounded
               aria-label="Play Timer"
               onClick={() => onTogglePlay()}
-              tooltip="Play Timer"
+              title="Play Timer"
             />
           )}
         </span>
@@ -80,7 +80,6 @@ export const Timer = observer(({}: TimerProps) => {
             rounded
             aria-label="Next Timer Stage"
             onClick={() => onForward()}
-            tooltip="Next Timer Stage"
             text
             raised
             severity="secondary"

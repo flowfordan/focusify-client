@@ -3,7 +3,7 @@ import { Tasks } from 'widgets/Tasks';
 import { TasksCompact } from 'widgets/Tasks';
 import { Sounds } from 'widgets/Sounds';
 import styles from './pageHome.module.scss';
-import { TimerWidget } from 'widgets/Timer';
+import { TimerCompact, TimerWidget } from 'widgets/Timer';
 import cn from 'classnames';
 import { homeModel } from '../model/homeModel';
 import { observer } from 'mobx-react-lite';
@@ -83,6 +83,7 @@ export const PageHome = observer(() => {
             Sounds
           </LayoutModule>
           <LayoutModule
+            withExpand
             className={cn(styles.timerWrap, {
               [styles.hidden]: !isTimer,
             })}
@@ -90,8 +91,16 @@ export const PageHome = observer(() => {
             onExpand={() => onMobShow('timer')}
             title="pomodoro"
           >
-            Timer
+            <TimerCompact />
           </LayoutModule>
+          {enabledModulesCount === 0 && (
+            <div className={styles.emptyWrap}>
+              <svg>
+                <use href={'/images/main_bg.svg#bg'} />
+              </svg>
+              {'↙ Turn on at least one widget to get started'}
+            </div>
+          )}
         </div>
       ) : (
         <div
@@ -135,6 +144,14 @@ export const PageHome = observer(() => {
           >
             <TimerWidget />
           </LayoutModule>
+          {enabledModulesCount === 0 && (
+            <div className={styles.emptyWrap}>
+              <svg>
+                <use href={'/images/main_bg.svg#bg'} />
+              </svg>
+              {'↙ Turn on at least one widget to get started'}
+            </div>
+          )}
         </div>
       )}
     </>
@@ -153,7 +170,13 @@ const ModuleMob = ({ module, onHide }: IModuleMobProps) => {
       className={styles.layoutModuleWrap}
       onClose={() => {}}
       onHide={() => onHide()}
-      title={'pomodoro'}
+      title={
+        module === 'timer'
+          ? 'pomodoro'
+          : module === 'tasks'
+          ? 'to-do'
+          : 'sounds'
+      }
     >
       {module === 'tasks' ? (
         <Tasks />

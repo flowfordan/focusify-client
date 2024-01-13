@@ -11,8 +11,35 @@
   border-color: $color-surface-border;
 }
 
+.logo {
+  display: flex;
+  justify-content: flex-start;
+  justify-items: flex-start;
+  width: fit-content;
+
+  svg {
+    fill: $color-primary;
+    height: 40px;
+    width: 120px;
+  }
+}
+
 .title {
   @include title3;
   color: $color-txt-secondary;
   text-transform: uppercase;
+}
+
+.add {
+  display: flex;
+  align-items: center;
+
+  .link {
+    @include descr1;
+    margin-right: 4px;
+
+    button {
+      padding: 4px;
+    }
+  }
 }

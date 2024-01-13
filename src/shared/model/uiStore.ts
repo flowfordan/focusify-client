@@ -2,26 +2,40 @@ import { makeAutoObservable } from 'mobx';
 import { ModuleId } from 'shared/config';
 import { Theme } from 'shared/types';
 
+interface IModuleUIOptions {
+  configMenuOpen: boolean;
+}
+
 export class UIStore {
-  test: number;
   theme: Theme;
-  panel: {
-    sideblock: 'full' | 'min';
-  };
   modules: {
     mobileViewCurrentModule: ModuleId | null;
+    options: {
+      [K in ModuleId]: IModuleUIOptions;
+    };
   };
   constructor() {
-    this.test = 42;
     this.theme = 'light_default';
-    this.panel = {
-      sideblock: 'full',
-    };
     this.modules = {
       mobileViewCurrentModule: null,
+      options: {
+        tasks: {
+          configMenuOpen: false,
+        },
+        timer: {
+          configMenuOpen: false,
+        },
+        sounds: {
+          configMenuOpen: false,
+        },
+      },
     };
     this._initReactions();
     makeAutoObservable(this);
+  }
+
+  isModuleConfigMenuOpen(module: ModuleId) {
+    return this.modules.options[module].configMenuOpen;
   }
 
   setTheme(theme?: Theme) {
@@ -30,6 +44,10 @@ export class UIStore {
 
   setMobileCurrentModule(moduleId?: ModuleId) {
     this.modules.mobileViewCurrentModule = moduleId || null;
+  }
+
+  setModuleConfigMenuOpen(moduleId: ModuleId, isOpen?: boolean) {
+    this.modules.options[moduleId].configMenuOpen = isOpen || false;
   }
 
   private _initReactions() {

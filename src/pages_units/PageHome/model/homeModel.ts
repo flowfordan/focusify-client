@@ -22,7 +22,6 @@ class HomeModel {
   }
 
   toggleWidgetEnabled = (moduleName: ModuleName) => {
-    console.log('toggle module', moduleName);
     this.modules[moduleName].isEnabled = !this.modules[moduleName].isEnabled;
   };
 

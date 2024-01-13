@@ -1,3 +1,4 @@
+import { TaskConfigKey } from 'shared/config';
 import { LOGGER } from 'shared/lib';
 import { rootStore } from 'shared/model';
 import type { TasksStore } from 'shared/model';
@@ -9,6 +10,18 @@ class TaskModel {
 
   get tasksConfig() {
     return this.store.config;
+  }
+
+  get isTimerActive() {
+    return this.store.root.modules.timer.isActive;
+  }
+
+  updateConfigOption(key: TaskConfigKey, value: number | boolean) {
+    this.store.setConfigOption(key, value);
+  }
+
+  save() {
+    this.store.savePersistantData();
   }
 
   setItemFocused(id?: string) {
@@ -46,6 +59,22 @@ class TaskModel {
     LOGGER.debug('misc', `set data for item ${title} ${description}`);
     this.store.taskBeingEdited.title = title;
     this.store.taskBeingEdited.description = description;
+  }
+
+  setEditedItemPomodoros(total: number, passed: number) {
+    if (!this.store.taskBeingEdited) return;
+    LOGGER.debug('misc', `set pomodoro data for item ${total} ${passed}`);
+    let totalChecked = total;
+    let spendChecked = passed;
+    //check limits
+    if (totalChecked > this.tasksConfig.taskMaxPomodoros.value)
+      totalChecked = this.tasksConfig.taskMaxPomodoros.value;
+    if (spendChecked > this.tasksConfig.taskMaxPomodoros.value)
+      spendChecked = this.tasksConfig.taskMaxPomodoros.value;
+    //check if total is more or equal passed
+    if (totalChecked < spendChecked) spendChecked = totalChecked;
+    //upd task
+    this.store.setEditedItemPomodoros(totalChecked, spendChecked);
   }
 
   stopItemBeingEdited() {

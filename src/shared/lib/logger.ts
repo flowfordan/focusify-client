@@ -59,4 +59,5 @@ class Logger {
   }
 }
 
-export const LOGGER = new Logger(false);
+const isProd = process.env.NEXT_PUBLIC_CUSTOM_ENV === 'prod';
+export const LOGGER = new Logger(isProd);

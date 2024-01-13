@@ -16,13 +16,11 @@ export const OutsideClickHandler = ({
 
   const handleClickOutside = (event: MouseEvent) => {
     if (ref && ref.current && !ref.current.contains(event.target as Node)) {
-      console.log('OUTSIDE inside');
       onOutsideClick();
     }
   };
 
   useEffect(() => {
-    console.log('useOutsideClick', ref);
     document.addEventListener('click', handleClickOutside, true);
     return () => {
       document.removeEventListener('click', handleClickOutside, true);

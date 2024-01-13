@@ -1,3 +1,4 @@
+'use client';
 import { SelectButton } from 'primereact/selectbutton';
 import { Dropdown } from 'primereact/dropdown';
 

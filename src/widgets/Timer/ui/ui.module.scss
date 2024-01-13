@@ -1,6 +1,7 @@
 @import 'styles/helpers';
 
 .content {
+  padding: 20px 0;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: min-content 1fr;

@@ -7,6 +7,7 @@ import { UIStore } from './uiStore';
 import { UserStore } from './userStore';
 import { ModuleId } from 'shared/config';
 import { STORAGE } from 'shared/lib';
+import appData from '../../../package.json';
 
 type Store<T> = T extends 'tasks'
   ? TasksStore
@@ -30,6 +31,7 @@ export class RootStore {
   modulesStats: {
     activeCount: number;
   };
+  appVer: string;
   constructor() {
     this.user = new UserStore();
     this.ui = new UIStore();
@@ -42,6 +44,7 @@ export class RootStore {
     this.modulesStats = {
       activeCount: 0,
     };
+    this.appVer = appData.version;
     this.init();
   }
 
@@ -61,6 +64,10 @@ export class RootStore {
     // this.saveModuleDataToStorage();
   }
 
+  onTimerPomodororStageEnd() {
+    this.modules.tasks.addPomodoroPassedToFocused();
+  }
+
   private countActiveModules() {
     let count = 0;
     for (const key in this.modules) {
@@ -69,23 +76,6 @@ export class RootStore {
       }
     }
     this.modulesStats.activeCount = count;
-  }
-
-  private loadModuleDataFromStorage() {
-    const savedData = STORAGE.get(STORAGE_MODULES_KEY);
-    if (!savedData) return;
-    this.modules.tasks.isActive = savedData['tasks'] || false;
-    this.modules.timer.isActive = savedData['timer'] || false;
-    this.modules.sounds.isActive = savedData['sounds'] || false;
-  }
-
-  private saveModuleDataToStorage() {
-    const activityData: { [K in ModuleId]: boolean } = {
-      tasks: this.modules.tasks.isActive,
-      timer: this.modules.timer.isActive,
-      sounds: this.modules.sounds.isActive,
-    };
-    STORAGE.set(STORAGE_MODULES_KEY, activityData);
   }
 }
 

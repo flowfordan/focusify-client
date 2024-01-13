@@ -1,0 +1,75 @@
+@use 'styles/helpers' as *;
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: min-content 1fr;
+  height: 100%;
+}
+
+.header {
+  @include title3;
+  padding-bottom: 12px;
+  border-bottom: 1px solid black;
+  border-color: $color-surface-border;
+  color: $color-txt-secondary;
+}
+
+.content {
+  height: 100%;
+  position: relative;
+}
+
+.list {
+  @include custom-scroll;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+}
+
+.item {
+  padding: 20px 8px;
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  align-items: center;
+  column-gap: 20px;
+
+  .action {
+    padding: 0 8px;
+    min-width: 50px;
+
+    button {
+      padding: 0 4px !important;
+      width: fit-content !important;
+      border-radius: 0;
+  
+      &:first-child {
+        border-top-right-radius: $border-radius;
+      }
+  
+      &:last-child {
+        border-bottom-right-radius: $border-radius;
+      }
+    }
+  
+    input {
+      max-width: 60px;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+}
+
+.footer {
+  border-top: 1px solid black;
+  border-color: $color-surface-border;
+  padding-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  &.visible {}
+}

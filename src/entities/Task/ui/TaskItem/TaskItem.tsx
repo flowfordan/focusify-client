@@ -18,6 +18,11 @@ import { taskModel } from 'entities/Task';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { ITaskEdited } from 'shared/model';
+import {
+  InputNumber,
+  InputNumberValueChangeEvent,
+} from 'primereact/inputnumber';
+import { Button } from 'primereact/button';
 
 export const TaskItem = observer(
   forwardRef(function Task(
@@ -33,6 +38,7 @@ export const TaskItem = observer(
   ) {
     //config
     const config = taskModel.tasksConfig;
+    const isTimerActive = taskModel.isTimerActive;
     const onToggleFocused = (id: string) => {
       taskModel.setItemFocused(id);
     };
@@ -44,6 +50,9 @@ export const TaskItem = observer(
     };
     const onItemBeingEdited = (id: string) => {
       taskModel.setItemAsBeingEdited(id);
+    };
+    const onEditEnd = () => {
+      taskModel.stopItemBeingEdited();
     };
     return (
       <CardMain
@@ -80,13 +89,14 @@ export const TaskItem = observer(
             </div>
           </div>
           {editData ? (
-            <div className={styles.infoEdit}>
+            <form className={styles.infoEdit} onSubmit={() => onEditEnd()}>
               <ItemEditSection
                 data={editData}
                 maxTitleLen={config.taskTitleMaxLen.value}
                 maxDescrLen={config.taskDescrMaxLen.value}
+                maxTaskPomodoros={config.taskMaxPomodoros.value}
               />
-            </div>
+            </form>
           ) : (
             <button
               className={styles.info}
@@ -109,6 +119,13 @@ export const TaskItem = observer(
             onClick={() => onItemRemove(taskData.id)}
           />
         </div>
+        {isFocused && !editData && isTimerActive && taskData.timeAll > 0 && (
+          <div className={styles.pomodoroStatWrap}>
+            <div
+              className={styles.pomodoroStatContainer}
+            >{`${taskData.timeSpent} | ${taskData.timeAll}`}</div>
+          </div>
+        )}
       </CardMain>
     );
   })
@@ -148,62 +165,124 @@ interface ItemEditSectionProps {
   data: ITaskEdited;
   maxTitleLen: number;
   maxDescrLen: number;
+  maxTaskPomodoros: number;
 }
 
-const ItemEditSection = ({
-  data,
-  maxTitleLen,
-  maxDescrLen,
-}: ItemEditSectionProps) => {
-  const [title, setTitle] = useState(data.title);
-  const [descr, setDescr] = useState(data.description);
+const ItemEditSection = observer(
+  ({
+    data,
+    maxTitleLen,
+    maxDescrLen,
+    maxTaskPomodoros,
+  }: ItemEditSectionProps) => {
+    const [title, setTitle] = useState(data.title);
+    const [descr, setDescr] = useState(data.description);
+    const [pomodorosSpent, setPomodorosSpent] = useState(data.timeSpent);
+    const [pomodorosTotal, setPomodorosTotal] = useState(data.timeAll);
 
-  const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (value.length > maxTitleLen) return;
-    setTitle(value);
-  };
-  const handleChangeDescr = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    const value = e.target.value;
-    if (value.length > maxDescrLen) return;
-    setDescr(value);
-  };
-
-  useEffect(() => {
-    taskModel.setEditedItemData(title, descr);
-  }, [title, descr]);
-
-  useEffect(() => {
-    return () => {
-      console.log('unmount item edit');
-      taskModel.setEditedItemData(title, descr);
-      // timerRef.current && clearTimeout(timerRef.current);
+    const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      if (value.length > maxTitleLen) return;
+      setTitle(value);
     };
-  }, []);
+    const handleChangeDescr = (e: ChangeEvent<HTMLTextAreaElement>) => {
+      const value = e.target.value;
+      if (value.length > maxDescrLen) return;
+      setDescr(value);
+    };
+    const handlePomodorosChange = (
+      e: InputNumberValueChangeEvent,
+      type: 'total' | 'spent'
+    ) => {
+      const value = e.value;
+      if (typeof value !== 'number') return;
+      if (type === 'spent') setPomodorosSpent(value);
+      if (type === 'total') setPomodorosTotal(value);
+    };
 
-  return (
-    <>
-      <div className={styles.titleEdit}>
-        <InputText
-          autoFocus
-          value={title}
-          onChange={(e) => handleChangeTitle(e)}
-        />
-        <div
-          className={styles.limitLabel}
-        >{`${title.length}/${maxTitleLen}`}</div>
-      </div>
-      <div className={styles.descrEdit}>
-        <InputTextarea
-          value={descr}
-          style={{ resize: 'none' }}
-          onChange={(e) => handleChangeDescr(e)}
-        />
-        <div
-          className={styles.limitLabel}
-        >{`${descr.length}/${maxDescrLen}`}</div>
-      </div>
-      <div>Pomodoro</div>
-    </>
-  );
-};
+    useEffect(() => {
+      taskModel.setEditedItemData(title, descr);
+    }, [title, descr]);
+
+    useEffect(() => {
+      taskModel.setEditedItemPomodoros(pomodorosTotal, pomodorosSpent);
+    }, [pomodorosTotal, pomodorosSpent]);
+
+    useEffect(() => {
+      return () => {
+        taskModel.setEditedItemData(title, descr);
+        // taskModel.setEditedItemPomodoros(pomodorosTotal, pomodorosSpent);
+      };
+    }, []);
+
+    return (
+      <>
+        <div className={styles.titleEdit}>
+          <InputText
+            autoFocus
+            value={title}
+            onChange={(e) => handleChangeTitle(e)}
+          />
+          <div
+            className={styles.limitLabel}
+          >{`${title.length}/${maxTitleLen}`}</div>
+        </div>
+        <div className={styles.descrEdit}>
+          <InputTextarea
+            value={descr}
+            style={{ resize: 'none' }}
+            onChange={(e) => handleChangeDescr(e)}
+          />
+          <input type="submit" className={styles.submitDummy} />
+          <div
+            className={styles.limitLabel}
+          >{`${descr.length}/${maxDescrLen}`}</div>
+        </div>
+        <div className={styles.bottom}>
+          <div className={styles.editPomodoro}>
+            <span className={styles.editInputs}>
+              <span className={styles.item}>
+                <span>{'pomodoros passed: '}</span>
+                <InputNumber
+                  value={pomodorosSpent}
+                  onValueChange={(e) => handlePomodorosChange(e, 'spent')}
+                  showButtons
+                  step={1}
+                  min={0}
+                  max={pomodorosTotal}
+                  decrementButtonClassName="p-button-secondary"
+                  incrementButtonClassName="p-button-secondary"
+                  title={'pomodoros passed'}
+                />
+              </span>
+              <span className={styles.item}>
+                <span>{'of total: '}</span>
+                <InputNumber
+                  value={pomodorosTotal}
+                  onValueChange={(e) => handlePomodorosChange(e, 'total')}
+                  showButtons
+                  step={1}
+                  min={0}
+                  max={maxTaskPomodoros}
+                  decrementButtonClassName="p-button-secondary"
+                  incrementButtonClassName="p-button-secondary"
+                  title={'pomodoros total'}
+                />
+              </span>
+            </span>
+          </div>
+          <Button
+            label="OK"
+            rounded
+            aria-label="Confirm Task"
+            onClick={() => {}}
+            title="Confirm Task"
+            text
+            severity="secondary"
+            type="submit"
+          />
+        </div>
+      </>
+    );
+  }
+);
