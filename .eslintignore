@@ -6,3 +6,4 @@ build/
 gen
 webpack.config.js
 *.html
+*.config.ts
