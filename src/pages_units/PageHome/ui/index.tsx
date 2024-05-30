@@ -1,14 +1,7 @@
 'use client';
-import { Tasks } from 'widgets/Tasks';
-import { TasksCompact } from 'widgets/Tasks';
-import { Sounds } from 'widgets/Sounds';
 import styles from './pageHome.module.scss';
-import { TimerCompact, TimerWidget } from 'widgets/Timer';
 import cn from 'classnames';
-import { homeModel } from '../model/homeModel';
 import { observer } from 'mobx-react-lite';
-import { ModuleName } from '../config';
-import { useCallback, useEffect, useState } from 'react';
 import { useIsMobile } from 'shared/lib';
 import {
   useRootStore,
@@ -17,8 +10,31 @@ import {
   useTimerStore,
   useUIStore,
 } from 'shared/providers';
-import { LayoutModule } from 'shared';
+// import { LayoutModule } from 'shared';
 import { ModuleId } from 'shared/config';
+import dynamic from 'next/dynamic';
+
+const LayoutModule = dynamic(() =>
+  import('shared').then((mod) => mod.LayoutModule)
+);
+
+const Sounds = dynamic(() =>
+  import('widgets/Sounds').then((mod) => mod.Sounds)
+);
+
+const Tasks = dynamic(() => import('widgets/Tasks').then((mod) => mod.Tasks));
+
+const TasksCompact = dynamic(() =>
+  import('widgets/Tasks').then((mod) => mod.TasksCompact)
+);
+
+const TimerCompact = dynamic(() =>
+  import('widgets/Timer').then((mod) => mod.TimerCompact)
+);
+
+const TimerWidget = dynamic(() =>
+  import('widgets/Timer').then((mod) => mod.TimerWidget)
+);
 
 export const PageHome = observer(() => {
   const rootStore = useRootStore();

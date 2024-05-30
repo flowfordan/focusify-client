@@ -1,8 +1,10 @@
 node_modules/
 dist/
 build/
+cypress/
 .vscode
 .idea
 gen
 webpack.config.js
 *.html
+*.config.ts

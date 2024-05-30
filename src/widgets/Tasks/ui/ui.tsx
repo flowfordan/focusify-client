@@ -127,6 +127,7 @@ export const Tasks = observer(({ className }: ITasksWidgetProps) => {
             size="small"
             onClick={() => onNewTask()}
             disabled={tasksCount >= tasksConfig.maxTasks.value}
+            id={'task_new'}
           />
         </div>
       </div>
